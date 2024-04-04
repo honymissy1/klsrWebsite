@@ -1,0 +1,11 @@
+#features-container {
+    background: #3a0915;
+}
+
+#features-img {
+    background-image: url('../images/feature_img.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    /* border: 1px solid */
+}
