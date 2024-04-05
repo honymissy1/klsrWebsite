@@ -1,5 +1,9 @@
 #features-container {
     background: #3a0915;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
 }
 
 #features-img {
@@ -7,5 +11,4 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
-    /* border: 1px solid */
 }
