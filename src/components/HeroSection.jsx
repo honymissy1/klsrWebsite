@@ -43,10 +43,8 @@ const HeroSection = () =>{
   }
 
 
-
-
   return(
-    <div className="hero-section h-[60vh] lg:h-[80vh] p-5 lg:p-[50px]">
+    <div className="hero-section h-[70vh] lg:h-[80vh] p-5 lg:p-[50px]">
       <div style={{display: 'none'}}>
         <audio id="english" controls>
           <source src="https://s3.voscast.com:9425/stream" type="audio/mpeg" />
