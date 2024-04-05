@@ -31,8 +31,7 @@ const Features = () =>{
                         </div>
                 </div>
                 
-                    <div id="features-img" className="hide lg:block pb-0" style={{flex: 1, maxHeight: "500px"}}>
-                        {/* <img src="./features_img.png" alt="" style={{height: '100%', margin: '0px auto'}} /> */}
+                    <div id="features-img" className="hidden lg:block pb-0" style={{flex: 1, maxHeight: "500px"}}>
                     </div>        
 
             </div>
