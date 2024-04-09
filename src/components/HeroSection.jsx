@@ -63,10 +63,9 @@ const HeroSection = () =>{
       <div id="content" className='w-[100%] md:w-[40%] text-center md:text-left m-auto md:m-0'>
         <h1>Kingdom Lifestyle Radio</h1>
         <p>Harmony in Yoruba and English: Uniting Faiths, Sharing Grace</p>
-       <div className='!mx-auto min-w-max lg:!mx-0 flex-wrap'>
-        <button className='w-[45%]' onClick={playEnglish} style={{outline: english ? '2px solid white': ''}}>English Channel &nbsp;<i className="fa-solid fa-circle-play"></i></button>
-        <button className='w-[45%]' onClick={playYoruba} style={{outline: !english ? '2px solid white': ''}}>Yoruba Channel &nbsp;<i className="fa-solid fa-circle-play"></i> 
-        </button>
+       <div className='!mx-auto flex lg:!mx-0 flex-wrap'>
+          <button className='w-max !p-3 flex-1 min-w-[150px]' onClick={playEnglish} style={{outline: english ? '2px solid white': ''}}>English Channel &nbsp;<i className="fa-solid fa-circle-play"></i></button>
+          <button className='w-max !p-3 flex-1 min-w-[150px]' onClick={playYoruba} style={{outline: !english ? '2px solid white': ''}}>Yoruba Channel &nbsp;<i className="fa-solid fa-circle-play"></i></button>
        </div>
       </div>
     </div>

@@ -5,18 +5,21 @@ import Nav from './components/Nav';
 import Features from './components/Features';
 import Tools from './components/Tools';
 import Content from './components/Content';
-
+import Footer from './components/Footer';
+ 
 
 const App = () => {
   return (
-          <>
+          <div className='overflow-x-hidden'>
             <Nav /> 
 
             <HeroSection />
             <Content />
             <Features />
-            <Tools />
-          </>
+            {/* <Tools /> */}
+
+            <Footer />
+           </div>
   )
 }
 
