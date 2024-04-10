@@ -6,6 +6,7 @@ import Features from './components/Features';
 import Tools from './components/Tools';
 import Content from './components/Content';
 import Footer from './components/Footer';
+import ArticleComponent from './components/ArticlesComponent';
  
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
 
             <HeroSection />
             <Content />
+            <ArticleComponent />
             <Features />
             {/* <Tools /> */}
 

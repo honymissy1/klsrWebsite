@@ -34,8 +34,8 @@ const Footer = () => {
                 <h1 className="text-xl font-extrabold text-white">Contact</h1><br />
 
                 <div>
-                  <i class="fa-solid fa-phone text-sm">+134 748 16604</i>
-                  <i class="fa-solid fa-phone text-sm my-3">+134 720 84052</i>
+                  <i class="fa-solid fa-phone text-sm mx-3">+134 748 16604</i>
+                  <i class="fa-solid fa-phone text-sm my-3 mx-3">+134 720 84052</i>
 
                   <div className="flex p-2 bg-[#FFD700] justify-evenly rounded">
                    <i class="fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i>
