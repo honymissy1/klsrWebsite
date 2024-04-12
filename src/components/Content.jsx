@@ -1,7 +1,6 @@
 const Content = () =>{
     return (
         <div className="p-2 bg-[#050601] w-[100vw] py-[70px] min-h-[80vh]">
-            <h1>Content</h1>
             <div style={{border: '1px solid', width: '90%', margin: '0px auto'}} className="rounded-xl overflow-hidden flex bg-[#091F2A] text-[#ddd] flex-wrap justify-evenly ">
                 <div style={{border: '1px solid'}} className="p-8 min-w-[250px] flex-1">
                     <i class="fa-solid fa-radio text-4xl"></i> 
