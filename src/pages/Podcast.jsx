@@ -8,7 +8,7 @@ const Podcast = () =>{
 
             <div className="min-h-[60vh]">
 
-              <div className="relative h-[60vh] w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/podcast.jpg')", backgroundPosition:'center right', backgroundSize: 'cover' }}>
+              <div className="relative h-[60vh] mb-10 w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/podcast.jpg')", backgroundPosition:'center right', backgroundSize: 'cover' }}>
                 {/* <img src="" className="!object-cover object-bottom ob" alt="" /> */}
                 <div className="absolute flex items-end z-10 text-white w-full h-full bg-[#0b0f14bf]">
                    <div className="p-10">
@@ -23,6 +23,7 @@ const Podcast = () =>{
                  <div className="" id="player">
                  <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
                    <div className="p-5">
+                    <i class="fa-solid w-max !mx-auto fa-image text-center text-4xl"></i>
                     <h1 className="font-extrabold text-2xl">We love the Evangelitic</h1>
 
                    </div>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const Content = () =>{
     return (
         <div className="p-2 bg-[#050601] w-[100vw] py-[70px] min-h-[80vh]">
@@ -16,7 +18,7 @@ const Content = () =>{
 
                     <p>Radio rich in the word of God for you daily consumption both in English and Yoruba</p>
 
-                    <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
+                    <Link to={"/podcast"}> <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i></Link>
                  </div>
 
                  <div style={{border: '1px solid'}} className="p-8 min-w-[250px] flex-1">
