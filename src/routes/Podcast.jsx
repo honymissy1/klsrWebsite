@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
+// import xml2js from 'xml2js';
 
 const Podcast = () =>{
     return (
@@ -10,7 +12,7 @@ const Podcast = () =>{
 
               <div className="relative h-[60vh] mb-10 w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/podcast.jpg')", backgroundPosition:'center right', backgroundSize: 'cover' }}>
                 {/* <img src="" className="!object-cover object-bottom ob" alt="" /> */}
-                <div className="absolute flex items-end z-10 text-white w-full h-full bg-[#0b0f14bf]">
+                <div className="absolute flex items-end  text-white w-full h-full bg-[#0b0f14bf]">
                    <div className="p-10">
                         <h1 className="md:text-8xl text-4xl font-extrabold">KLSR PODCAST</h1>
                    </div>
@@ -18,13 +20,13 @@ const Podcast = () =>{
                 </div>
               </div>
 
-              <div className="min-h-[300px] md:p-10 flex-wrap gap-10 flex">
+              <div className="min-h-[300px] p-5 md:p-10 flex-wrap gap-10 flex">
                <div className="flex-1 min-w-[300px]">
                  <div className="" id="player">
                  <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
-                   <div className="p-5">
-                    <i class="fa-solid w-max !mx-auto fa-image text-center text-4xl"></i>
-                    <h1 className="font-extrabold text-2xl">We love the Evangelitic</h1>
+                   <div className="p-5 text-center">
+                   <i class="fa-solid fa-compact-disc w-max !mx-auto text-8xl"></i>
+                    <h1 className="font-extrabold text-2xl"></h1>
 
                    </div>
                    
@@ -42,7 +44,7 @@ const Podcast = () =>{
                    </div>
                    
                  </div>
-                 <div id="comments">
+                 {/* <div id="comments">
                  <div className="shadow !mx-auto mb-3 shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
                    <div className="p-5">
                     <h1 className="font-extrabold text-2xl pb-5">Comments</h1>
@@ -68,7 +70,7 @@ const Podcast = () =>{
                    </div>
                    
                  </div>
-                 </div>
+                 </div> */}
                </div>
 
                <div className="flex-1 max-[80%] min-w-[300px] shadow shadow-black" id="other-podcasts">
