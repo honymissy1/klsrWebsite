@@ -26,7 +26,10 @@ const Podcast = () =>{
                  <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
                    <div className="p-5 text-center">
                    <i class="fa-solid fa-compact-disc w-max !mx-auto text-8xl"></i>
-                    <h1 className="font-extrabold text-2xl"></h1>
+                   <div className="py-5">
+                    <input type="range" min={0} max="100" value="50" className="range range-primary h-2" />                    <h1 className="font-extrabold text-2xl"></h1>
+
+                   </div>
 
                    </div>
                    
@@ -73,7 +76,7 @@ const Podcast = () =>{
                  </div> */}
                </div>
 
-               <div className="flex-1 max-[80%] min-w-[300px] shadow shadow-black" id="other-podcasts">
+               <div className="flex-1 rounded max-[80%] min-w-[300px] shadow shadow-black" id="other-podcasts">
                     <div className="p-5 bg-[#880808] text-white"><h1>Other Podcast</h1></div>
              
                     <div className="p-5">
