@@ -26,9 +26,10 @@ const Podcast = () =>{
                  <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
                    <div className="p-5 text-center">
                    <i class="fa-solid fa-compact-disc w-max !mx-auto text-8xl"></i>
-                   <div className="py-5">
-                    <input type="range" min={0} max="100" value="50" className="range range-primary h-2" />                    <h1 className="font-extrabold text-2xl"></h1>
-
+                   <div className="py-5 flex items-center font-bold gap-2">
+                    <h1>00:00</h1>
+                    <input type="range" min={0} max="100" value="50" className="range range-primary h-2 " />                    <h1 className="font-extrabold text-2xl"></h1>
+                    <h1>04:10</h1>
                    </div>
 
                    </div>
