@@ -22,6 +22,7 @@ const Content = () =>{
                  </div>
 
                  <div style={{border: '1px solid'}} className="p-8 min-w-[250px] flex-1">
+                <Link to={`/articles`}>
                  <i class="fa-solid fa-book-open-reader text-4xl"></i>
                     <h1 className="my-3 text-xl font-extrabold  text-[#FFD700]">Devotion</h1>
 
@@ -29,15 +30,18 @@ const Content = () =>{
 
                     <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
                     
+                </Link>
                  </div>
 
                  <div style={{border: '1px solid'}} className="p-8 min-w-[250px]  flex-1">
-                 <i class="fa-solid fa-book-open text-4xl"></i> 
-                    <h1 className="my-3 text-xl font-extrabold text-[#FFD700]">Book Review</h1>
+                    <Link to={`/articles`}>
+                        <i class="fa-solid fa-book-open text-4xl"></i> 
+                            <h1 className="my-3 text-xl font-extrabold text-[#FFD700]">Book Review</h1>
 
-                    <p>In-depth Reviews to Illuminate Your Reading Path. Click and Explore with Us.</p>
+                            <p>In-depth Reviews to Illuminate Your Reading Path. Click and Explore with Us.</p>
 
-                    <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
+                            <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
+                    </Link>
                  </div>
 
             </div>

@@ -27,7 +27,7 @@ const Nav = () =>{
             </div>
             <li><Link to="/">Home</Link></li>
             <li><Link to={`/about`}>About Us</Link></li>
-            <li>Articles</li>
+            <li><Link to={`/articles`}>Articles</Link></li>
             <li>Contact</li>
           </ul>
         </nav>

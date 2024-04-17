@@ -6,6 +6,7 @@ import {  createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from './routes/About.jsx';
 import Podcast from './routes/Podcast.jsx';
 import Articles from './routes/Articles.jsx';
+import Article from './routes/Article.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,8 +25,19 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "articles",
-    element: <Articles />
+    path: "articles/:id",
+    element: <Article />
+  },
+
+  {
+    path: "articles/",
+    element: <Articles />,
+    children: [
+      {
+        path: ":ow",
+        element: <Article />
+      }
+    ]
   }
 ])
 
