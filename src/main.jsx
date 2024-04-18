@@ -11,12 +11,12 @@ import Article from './routes/Article.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />
+    element: <App />,
   },
 
   {
     path: "about",
-    element: <About />
+    element:  <About />
   },
 
   {

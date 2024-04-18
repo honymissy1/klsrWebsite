@@ -1,6 +1,6 @@
 const Footer = () => {
     return(
-        <div className="flex min-h-[300px] gap-5 flex-wrap p-5 text-white bg-black">
+        <div className="flex min-h-[300px] pb-[50px] gap-5 flex-wrap p-5 text-white bg-black">
             <div className="w-[100px]">
                 <img src="/images/logo.png" style={{width: '100%'}} alt="" />
             </div>
