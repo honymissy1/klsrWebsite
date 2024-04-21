@@ -23,6 +23,7 @@ const Article = () =>{
    let {id} = useParams();
    const [article, setArticle] = useState();
    const [comments, setComments] = useState();
+   const currentUrl = window.location.href; 
 
    useEffect(() =>{
     const singleArticle = async () =>{
@@ -71,17 +72,33 @@ const Article = () =>{
 
                             <div id="share" className="my-10">
                                 <div>
-                                    <h1>Share Review on</h1>
+                                    <h1>Share <span className='text-green-500'>{ele.type}</span> on</h1>
                                     <div className="flex gap-3">
                                         <div className="w-7 h-7">
-                                            <FacebookShareButton url={`https://klsr-test.vercel.app/${location.pathname}`}>
-                                            <i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i>
-
+                                            <FacebookShareButton url={currentUrl} hashtag="klsr" quote="Welcome to KLSR">
+                                              <i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i>
                                             </FacebookShareButton>
                                         </div>
-                                        <div className="w-7 h-7 bg-black"></div>
-                                        <div className="w-7 h-7 bg-black"></div>
-                                        <div className="w-7 h-7 bg-black"></div>
+                                        <div className="w-7 h-7 ">
+                                            <WhatsappShareButton url={currentUrl}>
+                                            <i className="fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i>
+
+                                            </WhatsappShareButton>
+                                        </div>
+                                        <div className="w-7 h-7">
+                                           <TwitterShareButton url={currentUrl}>
+                                            <i className="fa-brands text-[#050601] text-2xl fa-x-twitter mx-1"></i>
+                                            </TwitterShareButton>
+                                        </div>
+                                        <div className="w-7 h-7">
+                                          <TelegramShareButton url={currentUrl}>
+                                            <i className="fa-brands text-[#050601] text-2xl fa-telegram mx-1"></i>
+                                            </TelegramShareButton>
+                                        </div>
+
+                                        <LinkedinShareButton url={currentUrl}>
+                                            <i className="fa-brands text-[#050601] text-2xl fa-linkedin mx-1"></i>
+                                            </LinkedinShareButton>
                                     </div>
                                 </div>
                             </div>
