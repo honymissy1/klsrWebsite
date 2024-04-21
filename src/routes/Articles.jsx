@@ -1,5 +1,17 @@
 import Nav from '../components/Nav';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import supabase from '../supabaseClient';
+import { Link } from "react-router-dom";
+
+
+
+import moment from 'moment';
+
+
+// Supabase
+// import { createClient } from '@supabase/supabase-js';
+
+
 
 // Import Swiper styles
 import 'swiper/css';
@@ -9,9 +21,25 @@ import '../App.css'
 // import required modules
 import { Pagination } from 'swiper/modules';
 import { Navigation } from 'swiper/modules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+// const supabase = createClient('https://caltnspokiidtzfykyqf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhbHRuc3Bva2lpZHR6ZnlreXFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTM1NjE1NTUsImV4cCI6MjAyOTEzNzU1NX0.N3fu378hR-YBFS7M0RJRz4uEaIGrd09DLCLV5MpD3dU')
 const Articles = () => {
-    const [articleState, setArticleState] = useState()
+
+    const [articleState, setArticleState] = useState();
+    const [articles, setArticles] = useState();
+  
+    useEffect(() =>{
+        console.log(supabase);
+        const datas = async () =>{
+            let { data, error } = await supabase.from('articles').select('*');
+            console.log(data);
+            setArticles(data)
+        }
+        datas()
+    }, [])
+    
+        
     return (
         <div>
             <Nav />
@@ -24,7 +52,6 @@ const Articles = () => {
                     modules={[Pagination]}
                     className="mySwiper"
                 >
-
                     <SwiperSlide className='text-black relative border border-solid border-black'>
                         <div className='p-3 right-0 absolute z-20'>
                             <h1 className='p-1 text-sm text-white bg-[#d4af37] rounded'>Book Review</h1>
@@ -79,61 +106,35 @@ const Articles = () => {
                     </h1>
                 </div>
                 <div className='flex-1 h-[1000px]'>
-                    <div className='text-center flex'>
+                    {/* <div className='text-center flex'>
                         <p onClick={() => setArticleState('')}className={`px-3 flex-1  py-1 w-max ${articleState == '' ? 'font-extrabold border-2 shadow shadow-black':''} text-black`}>All</p>
                         <p onClick={() => setArticleState('review')} className={`px-3 flex-1  py-1 bg-green-600 w-max ${articleState == 'review' ? 'font-extrabold border-2 shadow shadow-black':''} text-white`}>Reviews</p>
                         <p onClick={() => setArticleState('devotion')} className={`flex-1 px-3 ${articleState == 'devotion' ? 'font-extrabold border-2 shadow shadow-black':''} py-1 bg-purple-600 w-max  text-white`}>Devotions</p>
 
-                    </div>
+                    </div> */}
 
-
-                    <div className='p-4 lg:p-10'>
-                        <div>
-                            <div className='flex justify-between flex-wrap-reverse'>
-                                <h1 className='font-extrabold text-2xl'>The Best in Town <sup className='p-1 text-xs rounded font-normal bg-orange-300'>Lawrence Oyor</sup></h1>
-                                <h1 className='text-green-600 font-bold text-xs'>Book Review</h1>
+                    {
+                      articles && articles.map((ele, index) =>(
+                        <Link to={`/articles/${ele.id}`}>
+                            <div key={ele.id} className='p-4 lg:p-10'>
+                                <div>
+                                    <div className='flex justify-between flex-wrap-reverse'>
+                                        <h1 className='font-extrabold text-lg'>{ele.title} {ele.type == 'Book Review' ? (<sup className='p-1 text-xs rounded font-normal bg-orange-300'>{ele.author}</sup>) :('')} </h1>
+                                        <h1 className={`${ele.type == 'Devotion' ? "text-green-600" : ele.type == 'Book Review' ? "text-purple-600": "text-green-600"} font-bold text-xs`}>{ele.type}</h1>
+                                    </div>
+                                    <p className='text-sm text-[#838080] py-3'>{ele.content.substring(0, 200)}</p>
+                                </div>
+                                <div className='flex text-sm justify-between py-2'>
+                                    <p className='font-bold'>By {ele.creator}</p>
+                                    <p>{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
+                                </div>
+                                <hr />
                             </div>
-                            <p className='text-sm text-[#838080]'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium animi facilis iure sed consequatur quo incidunt ad illo, temporibus doloribus adipisci iusto.</p>
-                        </div>
-                        <div className='flex text-sm justify-between'>
-                            <p>By Admin</p>
-                            <p>2 Minutes ago</p>
-                        </div>
-                    </div>
+                        </Link>
 
-                    <hr />
+                      ))   
+                    }
 
-                    <div className='p-4 lg:p-10'>
-                        <div>
-                            <div className='flex justify-between flex-wrap-reverse'>
-                                <h1 className='font-extrabold text-2xl'>Out of the abundane of the heart</h1>
-                                <h1 className='text-purple-600 font-bold text-xs'>Devotion</h1>
-                            </div>
-                            <p className='text-sm text-[#838080]'>Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, tempora soluta. ipsum dolor sit amet consectetur, adipisicing elit. Accusantium animi facilis iure sed consequatur quo incidunt ad illo, temporibus doloribus adipisci iusto.</p>
-                        </div>
-                        <div className='flex text-sm justify-between'>
-                            <p>By Admin</p>
-                            <p>2 Minutes ago</p>
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div className='p-4 lg:p-10'>
-                        <div>
-                            <div className='flex justify-between flex-wrap-reverse'>
-                                <h1 className='font-extrabold text-2xl'>Living an abnormal life <sup className='p-1 text-xs rounded font-normal bg-orange-300'>Justice Eze</sup></h1>
-                                <h1 className='text-green-600 font-bold text-xs'>Book Review</h1>
-                            </div>
-                            <p className='text-sm text-[#838080]'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium animi facilis iure sed consequatur quo incidunt ad illo, temporibus doloribus adipisci iusto.</p>
-                        </div>
-                        <div className='flex text-sm justify-between'>
-                            <p>By Admin</p>
-                            <p>2 Minutes ago</p>
-                        </div>
-                    </div>
-
-                    <hr />
                 </div>
             </div>
 

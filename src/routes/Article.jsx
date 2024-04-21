@@ -1,80 +1,119 @@
+import { useEffect, useState } from 'react';
 import Nav from '../components/Nav';
+import supabase from '../supabaseClient';
+import { useParams, useLocation } from 'react-router-dom';
+import moment from 'moment';
+
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    LinkedinShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+} from "react-share";
+
+
 
 const Article = () =>{
+   const location = useLocation();
+
+   let {id} = useParams();
+   const [article, setArticle] = useState();
+   const [comments, setComments] = useState();
+
+   useEffect(() =>{
+    const singleArticle = async () =>{
+        let { data, error } = await supabase.from('articles').select('*')
+        .eq('id', id)
+        setArticle(data)
+        console.log(data);
+    }
+
+    const comment = async () =>{
+        let { data, error } = await supabase.from('comment').select('*').eq('article_id', id)
+        console.log(data);
+        setComments(data)
+    }
+
+    singleArticle();
+
+    comment()
+   }, [])
+
    return(
     <div> 
         <Nav />
-        <div>
-            <div className="bg-[gold] p-2 flex-wrap flex justify-between">
-                <h1 className="ml-5 font-bold">Devotion</h1>
-                <h1 className="font-extrabold text-white">By Akinsola Kingsley</h1>
-            </div>
-
-            <div id="container" className="lg:p-10 p-5 flex min-h-[400px] flex-col md:flex-row">
-                <div className="flex-1 p-2 lg:p-10">
-                    <div className={`object-cover w-full pb-10 ${1 == 1 ? 'm-auto md:m-0 w-1/3' : ''}`}>
-                        <img className="w-full" src="/images/hero.png" alt="" />
+            {
+                article?.map(ele =>(
+                <div key={ele.id}>
+                    <div className="bg-[gold] p-2 flex-wrap flex justify-between">
+                        <h1 className="ml-5 font-bold">{ele.type}</h1>
+                        <h1 className="font-extrabold text-white">By {ele.creator}</h1>
                     </div>
 
-                    <div>
-                        <h1 className="font-extrabold text-xl">The Power of God</h1>
-                        <p>Author: <span className="font-bold text-green-500">Lawrence Oyor</span></p>
-                    </div>
-                    <h1 className="mt-5">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae similique itaque unde, debitis nesciunt exercitationem laborum temporibus officia dolorem facere ut error voluptate vel atque nobis eaque fugiat illo labore necessitatibus! Molestias assumenda ullam, nihil
-                         nulla id atque officiis sed cum. Numquam, nulla modi!
-                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae similique itaque unde, debitis nesciunt exercitationem laborum temporibus officia dolorem facere ut error voluptate vel atque nobis eaque fugiat illo labore necessitatibus! Molestias assumenda ullam, nihil
-                         nulla id atque officiis sed cum. Numquam, nulla modi!
-                         <br /><br />
-
-                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae similique itaque unde, debitis nesciunt exercitationem laborum temporibus officia dolorem facere ut error voluptate vel atque nobis eaque fugiat illo labore necessitatibus! Molestias assumenda ullam, nihil
-                         nulla id atque officiis sed cum. Numquam, nulla modi!
-                    </h1>
-                    <p className="mt-5 text-right">20 days ago</p>
-
-                    <div id="share" className="my-10">
-                        <div>
-                            <h1>Share Review on</h1>
-                            <div className="flex gap-3">
-                                <div className="w-7 h-7 bg-black"></div>
-                                <div className="w-7 h-7 bg-black"></div>
-                                <div className="w-7 h-7 bg-black"></div>
-                                <div className="w-7 h-7 bg-black"></div>
+                    <div id="container" className="lg:p-10 p-5 flex min-h-[400px] flex-col md:flex-row">
+                        <div className="flex-1 p-2 lg:p-10">
+                            <div className={`object-cover w-full pb-10 ${ele.type == "Book Review" ? 'm-auto md:m-0 w-1/3' : ''}`}>
+                                <img className="w-full" src="/images/hero.png" alt="" />
                             </div>
+
+                            <div>
+                                <h1 className="font-extrabold text-xl">{ele.title}</h1>
+                               {ele.type == "Book Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')} 
+                            </div>
+                            <h1 className="mt-5">
+                               {ele.content}
+                            </h1>
+                            <p className="mt-5 text-right">{moment(ele.created_at, "YYYYMMDD").fromNow()}</p>
+
+                            <div id="share" className="my-10">
+                                <div>
+                                    <h1>Share Review on</h1>
+                                    <div className="flex gap-3">
+                                        <div className="w-7 h-7">
+                                            <FacebookShareButton url={`https://klsr-test.vercel.app/${location.pathname}`}>
+                                            <i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i>
+
+                                            </FacebookShareButton>
+                                        </div>
+                                        <div className="w-7 h-7 bg-black"></div>
+                                        <div className="w-7 h-7 bg-black"></div>
+                                        <div className="w-7 h-7 bg-black"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="comment" className="md:max-w-[300px] border flex-1 ">
+                            <h1 className="bg-teal-900 text-white p-2">Comments</h1>
+
+                            <div className="border rounded w-full p-2">
+                                <textarea className="outline p-2 rounded w-full" placeholder="Leave a comment" name="Area" id="" cols="10" rows="5"></textarea>
+                                <button className="p-2 border bg-green-600 rounded w-full">Send</button>
+                            </div>
+
+                            {
+                               comments && comments.map(ele =>(
+                                <div className="p-2 flex">
+                                    <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
+                                    <div className="flex-1 ml-3">
+                                        <div className="flex flex-wrap justify-between mb-2">
+                                            <h1 className="font-bold">{ele.name}</h1>
+                                            <p className="text-sm text-orange-700">{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
+                                        </div>
+                                        <p className="text-sm">{ele.content}</p>
+                                    </div>
+                                </div>
+
+                               ))
+                            }
                         </div>
                     </div>
                 </div>
-                <div id="comment" className="md:max-w-[300px] border flex-1 ">
-                    <h1 className="bg-teal-900 text-white p-2">Comments</h1>
-
-                    <div className="border rounded w-full p-2">
-                        <textarea className="outline p-2 rounded w-full" placeholder="Leave a comment" name="Area" id="" cols="10" rows="5"></textarea>
-                        <button className="p-2 border bg-green-600 rounded w-full">Send</button>
-                    </div>
-
-                   
-                    <div className="p-2 flex">
-                        <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
-                        <div className="flex-1 ml-3">
-                            <div className="flex flex-wrap justify-between mb-2">
-                                <h1 className="font-bold">Name and Surname</h1>
-                                <p className="text-sm text-orange-700">2h ago</p>
-                            </div>
-                            <p className="text-sm">Lorem Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem deleniti tempore, labore quo possimus, eaque, eveniet ducimus veritatis fuga optio fugiat? </p>
-                        </div>
-                    </div>
-
-                    <div className="p-2 flex">
-                        <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
-                        <div className="flex-1 ml-3">
-
-                            <h1 className="font-bold">Joy Anosike</h1>
-                            <p className="text-sm">Lorem Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem deleniti tempore, labore quo possimus, eaque, eveniet ducimus veritatis fuga optio fugiat? </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                ))
+            }
     </div>
    )
 }
