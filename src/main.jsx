@@ -7,6 +7,16 @@ import About from './routes/About.jsx';
 import Podcast from './routes/Podcast.jsx';
 import Articles from './routes/Articles.jsx';
 import Article from './routes/Article.jsx';
+import AdminDashboard from './routes/Admin/AdminDashboard.jsx';
+import AdminPost from './routes/Admin/AdminPost.jsx';
+
+import AdminMember from './routes/Admin/AdminMember.jsx';
+import AdminSchedule from './routes/Admin/AdminSchedule.jsx';
+import Settings from './routes/Admin/Settings.jsx';
+import AdminLogin from './routes/Admin/AdminLogin.jsx';
+
+
+const loggedIn = true;
 
 const router = createBrowserRouter([
   {
@@ -30,14 +40,35 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "articles/",
-    element: <Articles />,
+    path: "admin",
+    element: loggedIn ? (<AdminDashboard />): (<AdminLogin />),
+
     children: [
       {
-        path: ":ow",
-        element: <Article />
-      }
+        path: "",
+        element: <AdminPost />
+      },
+
+      {
+        path: "manage",
+        element: <AdminMember />
+      },
+
+     {
+        path: "schedule",
+        element: <AdminSchedule />
+      },
+
+      {
+        path: "settings",
+        element: <Settings />
+      },
     ]
+  },
+
+  {
+    path: "articles/",
+    element: <Articles />
   }
 ])
 
