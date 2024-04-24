@@ -115,20 +115,21 @@ const AdminMember = () =>{
       setIsModalOpen(true);
     };
     const handleOk = async () => {     
-          const {data, error } = await supabase
-          .from('admin')
-          .insert({
-            name: nameValue,
-            password: phoneValue,
-            email: emailValue,
-            role: roleValue,
-            phone: phoneValue
-          });
-          if(data){
-            window.href = "/admin/manage";
+          // const {data, error } = await supabase
+          // .from('admin')
+          // .insert({
+          //   name: nameValue,
+          //   password: phoneValue,
+          //   email: emailValue,
+          //   role: roleValue,
+          //   phone: phoneValue
+          // });
 
-          }
-               
+
+         const { data, error } = await supabase.auth.admin.inviteUserByEmail(emailValue)
+         alert(JSON.stringify(error))
+         alert(JSON.stringify(data));
+          console.log(error);
           setIsModalOpen(false);
     };
     const handleCancel = () => {
