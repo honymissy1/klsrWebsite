@@ -144,8 +144,8 @@ export default function AdminDashboard() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-         <Outlet />  
-      </Main>
+        <h1>Here we can see the list of posts and manage them</h1>
+       </Main>
     </Box>
   );
 }
