@@ -15,9 +15,9 @@ import AdminSchedule from './routes/Admin/AdminSchedule.jsx';
 import Settings from './routes/Admin/Settings.jsx';
 import AdminLogin from './routes/Admin/AdminLogin.jsx';
 import Contact from './routes/Contact.jsx'
+import Partnership from './components/Partnership.jsx';
 
-
-const loggedIn = true;
+let loggedIn = true;
 
 const router = createBrowserRouter([
   {
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "admin",
+    path: "admin/",
     element: loggedIn ? (<AdminDashboard />): (<AdminLogin />),
 
     children: [
@@ -60,14 +60,19 @@ const router = createBrowserRouter([
         element: <AdminSchedule />
       },
 
+      {
+        path: "settings",
+        element: <Settings />
+      },
     ]
   },
-  
+
   {
-    path: "settings",
-    element: <Settings />
+    path: "/partnership",
+    element: <Partnership />
   },
   
+
   {
     path: "articles",
     element: <Articles />

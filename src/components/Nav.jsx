@@ -30,8 +30,11 @@ const Nav = () =>{
             <li>Contact</li>
           </ul>
 
-          <h1>Partner</h1>
+          <a href="/#partnership">
+                    <i class="fa-solid text-2xl fa-circle-dollar-to-slot"></i>
 
+          </a>
+          
         </nav>
   )
 }

@@ -144,10 +144,7 @@ export default function AdminDashboard() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-         <Outlet>
-            
-         </Outlet>
-        
+         <Outlet />  
       </Main>
     </Box>
   );
