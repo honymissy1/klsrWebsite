@@ -5,6 +5,7 @@ import supabase from '../../supabaseClient';
 const AdminMember = () =>{
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [adminList, setAdminList] = useState();
 
 
     const nameValue = Form.useWatch('name', form);
@@ -13,25 +14,23 @@ const AdminMember = () =>{
     const phoneValue = Form.useWatch('phone', form);
 
     useEffect(() =>{
-        
-      console.log(nameValue);
-      console.log(roleValue);
+     const admins = async () =>{
+       let { data: admin, error } = await supabase
+       .from('admin')
+       .select('*')
+
+       console.log(admin);
+       setAdminList(admin)
+     }
+
+     admins()
     }, [nameValue, roleValue])
 
     const showModal = () => {
       setIsModalOpen(true);
     };
-    const handleOk = async () => {
-        const { data, error } = await supabase.auth.signUp({
-            email: emailValue,
-            password: phoneValue,
-          })
-
-          console.log(data);
-
-          const user = data.user;
-        
-          const { admin, error: profileError } = await supabase
+    const handleOk = async () => {     
+          const {data, error } = await supabase
           .from('admin')
           .insert({
             name: nameValue,
@@ -39,12 +38,8 @@ const AdminMember = () =>{
             role: roleValue,
             phone: phoneValue
           });
-
-          console.log(admin);
-
-          if(profileError) console.log(profileError);
-      
-      setIsModalOpen(false);
+               
+          setIsModalOpen(false);
     };
     const handleCancel = () => {
       setIsModalOpen(false);
@@ -68,15 +63,9 @@ const AdminMember = () =>{
         },
       ];
 
-      const dataSource = [
-        {
-          key: '1',
-          name: 'Joke Silver',
-          role: "Creator",
-          email: 'jioke@gmail.com',
-        }
-      ];
-    return(
+      const dataSource =  adminList;
+
+     return(
         <div>
            <Button type="primary" className='mb-10' onClick={showModal}>
             + Add Admin / Creator
@@ -116,7 +105,7 @@ const AdminMember = () =>{
 
             {
 
-                dataSource.lenght < 1 && (
+                dataSource.length < 1 && (
                     <h1>No Data Available</h1>
                 )
 

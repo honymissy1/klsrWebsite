@@ -3,6 +3,7 @@ import Nav from '../components/Nav';
 import supabase from '../supabaseClient';
 import { useParams, useLocation } from 'react-router-dom';
 import moment from 'moment';
+import Footer from "../components/Footer";
 
 import {
     EmailShareButton,
@@ -131,6 +132,7 @@ const Article = () =>{
                 </div>
                 ))
             }
+            <Footer />
     </div>
    )
 }

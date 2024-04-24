@@ -2,7 +2,7 @@ import Nav from '../components/Nav';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import supabase from '../supabaseClient';
 import { Link } from "react-router-dom";
-
+import Footer from "../components/Footer";
 
 
 import moment from 'moment';
@@ -216,7 +216,7 @@ const Articles = () => {
                 <SwiperSlide>Slide 4</SwiperSlide>
             </Swiper>
             </div> */}
-
+            <Footer />
         </div>
     )
 }

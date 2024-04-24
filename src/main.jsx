@@ -14,6 +14,7 @@ import AdminMember from './routes/Admin/AdminMember.jsx';
 import AdminSchedule from './routes/Admin/AdminSchedule.jsx';
 import Settings from './routes/Admin/Settings.jsx';
 import AdminLogin from './routes/Admin/AdminLogin.jsx';
+import Contact from './routes/Contact.jsx'
 
 
 const loggedIn = true;
@@ -59,16 +60,22 @@ const router = createBrowserRouter([
         element: <AdminSchedule />
       },
 
-      {
-        path: "settings",
-        element: <Settings />
-      },
     ]
+  },
+  
+  {
+    path: "settings",
+    element: <Settings />
+  },
+  
+  {
+    path: "articles",
+    element: <Articles />
   },
 
   {
-    path: "articles/",
-    element: <Articles />
+    path: "contact",
+    element: <Contact />
   }
 ])
 

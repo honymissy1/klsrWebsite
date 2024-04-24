@@ -30,6 +30,8 @@ const Nav = () =>{
             <li>Contact</li>
           </ul>
 
+          <h1>Partner</h1>
+
         </nav>
   )
 }
