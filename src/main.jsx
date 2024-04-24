@@ -41,6 +41,11 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "admin/manage",
+    element: <AdminMember />
+  },
+
+  {
     path: "admin/",
     element: loggedIn ? (<AdminDashboard />): (<AdminLogin />),
 
@@ -50,10 +55,6 @@ const router = createBrowserRouter([
         element: <AdminPost />
       },
 
-      {
-        path: "manage",
-        element: <AdminMember />
-      },
 
      {
         path: "schedule",
