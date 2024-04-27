@@ -43,21 +43,27 @@ const ArticleComponent = () =>{
         navigation={true}
         pagination={false}
         modules={[EffectCoverflow, Pagination]}
-        className="mySwiper"
+        className="mySwiper "
       >
-        <SwiperSlide className='!w-[300px] md:!w-[600px]'>
+        <SwiperSlide className='!w-[300px] md:!w-[600px] self-center'>
+         <img className='' src="/images/designs/img.jpeg" alt="Burger" />
+        </SwiperSlide>
+        <SwiperSlide className='!w-[300px]   self-center'>
+         <img className='' src="/images/designs/img1.jpeg" alt="Burger" />
+        </SwiperSlide>
+        <SwiperSlide className='!w-[300px]  self-center'>
+         <img className='' src="/images/designs/img2.jpeg" alt="Burger" />
+        </SwiperSlide>
+        <SwiperSlide className='!w-[300px]  self-center'>
+         <img className='' src="/images/designs/img3.jpeg" alt="Burger" />
+        </SwiperSlide>
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
          <img className='' src="/images/designs/psalm61.png" alt="Burger" />
         </SwiperSlide>
-        <SwiperSlide className='!w-[300px] md:!w-[600px]'>
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
          <img className="w-full" src="/images/designs/health.png" alt="Burger" />
         </SwiperSlide>
-        <SwiperSlide className='!w-[300px] md:!w-[600px]'>
-         <img className="w-full" src="/images/designs/psalm61.png" alt="Burger" />
-        </SwiperSlide>
-       
-        <SwiperSlide className='!w-[300px] md:!w-[600px]'>
-         <img className="w-full" src="/images/designs/health.png" alt="Burger" />
-        </SwiperSlide>
+ 
       </Swiper>
 
                     {/* <div className='w-[300px] h-auto'>

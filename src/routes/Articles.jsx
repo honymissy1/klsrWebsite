@@ -30,7 +30,7 @@ const Articles = () => {
     const [articles, setArticles] = useState();
   
     useEffect(() =>{
-        setLoading(false)
+        setLoading(true)
         
         const datas = async () =>{
             let { data, error } = await supabase.from('articles').select('*');
@@ -100,28 +100,21 @@ const Articles = () => {
                 </Swiper>
             </div>
 
-            {
-                articles && (
-                    <div className='flex '>
-                        <div className='hidden lg:block !static !top-1 w-[300px] h-[100vh] bg-blue-400'>
-                            <h1>Advert Placement</h1>
+      
+                       <div className='flex '>
+                        <div className='hidden lg:block lg:!static lg:!top-0 w-[300px] h-[auto] bg-blue-400'>
+                            <h1 className='text-2xl font-extrabold'>Advert Placement</h1>
                             <h1>
 
 
                             </h1>
                         </div>
                         <div className='flex-1 h-[1000px]'>
-                            {/* <div className='text-center flex'>
-                                <p onClick={() => setArticleState('')}className={`px-3 flex-1  py-1 w-max ${articleState == '' ? 'font-extrabold border-2 shadow shadow-black':''} text-black`}>All</p>
-                                <p onClick={() => setArticleState('review')} className={`px-3 flex-1  py-1 bg-green-600 w-max ${articleState == 'review' ? 'font-extrabold border-2 shadow shadow-black':''} text-white`}>Reviews</p>
-                                <p onClick={() => setArticleState('devotion')} className={`flex-1 px-3 ${articleState == 'devotion' ? 'font-extrabold border-2 shadow shadow-black':''} py-1 bg-purple-600 w-max  text-white`}>Devotions</p>
-
-                            </div> */}
                             {
                                 loading && (
-                                    <div className='w-full h-[300px] flex justify-center items-center'>
+                                    <div className='w-full h-[300px] flex justify-center flex-col items-center'>
                                        <img src="/images/loading.svg" alt="" />
-
+                                       <h1 className='font-extrabold text-2xl'>Loading Artices....</h1>
                                     </div>
                                 )
                             }
@@ -150,8 +143,7 @@ const Articles = () => {
 
                         </div>
                     </div>
-                )
-            }
+
 
 
             <Footer />

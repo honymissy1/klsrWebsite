@@ -20,10 +20,17 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 
+import supabase from '../../supabaseClient';
 
-import { Outlet } from "react-router-dom";
+import { Card, Input, Select, Button, message, Upload  } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+const { TextArea } = Input;
+
+import { useState, useEffect } from 'react';
 
 const drawerWidth = 240;
+
+const admin = JSON.parse(sessionStorage.getItem('klsr'))
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -74,6 +81,16 @@ export default function AdminDashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  // States
+  const [author, setAuthor] = useState();
+  const [articleType, setArticleType] = useState();
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
+  const [category, setCategory] = useState();
+  const [uploading, setUploading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+  const [url, setUrl] = useState();
+
   const links = ['', 'manage', 'schedule', 'settings'];
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -87,6 +104,69 @@ export default function AdminDashboard() {
 
   }
 
+  const handleFileChange = (info) => {
+    if (info.file.status === 'removed') {
+      setSelectedFile(null); // Clear the selected file when removed
+    } else {
+      setSelectedFile(info.fileList[0].originFileObj); // Store the selected file
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedFile) {
+      // message.error("Please select a file before submitting.");
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      const fileName = `${Date.now()}-${selectedFile.name}`;
+      const filePath = `article_images/${fileName}`; // Customize your folder path
+
+      const { error } = await supabase
+        .storage
+        .from('klsr') // Replace with your bucket name
+        .upload(filePath, selectedFile);
+
+      if (error) {
+        throw error;
+      }
+
+      const { data:pics } = await supabase
+        .storage
+        .from('klsr') // Same bucket name
+        .getPublicUrl(filePath);
+
+        setUrl(pics.publicUrl)
+       
+        const { data: poster  } = await supabase
+        .from('articles')
+        .insert([
+          { 
+            title: title, 
+            content: content,
+            type: articleType,
+            category: category,
+            author: author,
+            img_url: url,
+            creator: admin.name
+          
+          },
+        ])
+        .select()
+        
+        // here we will be posting to the articles database
+      console.log(pics.publicUrl); 
+      await message.success("File uploaded successfully!");
+      window.location.reload();
+
+      } catch (error) {
+     } finally {
+      setUploading(false);
+    }
+  };
+  
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -144,7 +224,65 @@ export default function AdminDashboard() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <h1>Here we can see the list of posts and manage them</h1>
+        <div>
+          <h1>Post Articles</h1>
+          <form className='flex gap-5 flex-wrap'>
+          <Select
+          className="w-full"
+           onChange={(e) => setArticleType(e)}
+          options={[{ value: 'devotion', label: <span>Devotion</span> },
+                            { value: 'review', label: <span className='text-red-600'>Book Review</span> },
+                            { value: 'article', label: <span>Article</span> }
+                            ]} />
+
+          <Input onChange={(e) => setTitle(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Title"/>
+         {
+          articleType == "review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
+         }
+        <Upload
+          beforeUpload={() => false}
+          onChange={handleFileChange}
+          onRemove={() => setSelectedFile(null)}
+          multiple={false} 
+          showUploadList={true} // Show the file list with progress
+        >
+          <Button icon={<UploadOutlined />}>Select cover Image</Button>
+        </Upload>
+
+        <Select
+          className="w-full"
+           onChange={(e) => setCategory(e)}
+          options={[{ value: 'Faith', label: <span>Faith</span> },
+                            { value: 'Finance', label: <span className='text-red-600'>Finance</span> },
+                            { value: 'health', label: <span>Health</span> },
+                            { value: 'ministry', label: <span>Ministry</span> },
+                            { value: 'matrimony', label: <span>Matrimony</span> },
+                            { value: 'academics', label: <span>Academics</span> },
+                            { value: 'business', label: <span>Business</span> },
+                            { value: 'others', label: <span>others</span> }
+                            ]} />
+         <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/>
+         <Button type="primary" onClick={handleSubmit} loading={uploading}>
+          {uploading ? "Uploading..." : "Submit"}
+        
+        
+         </Button>
+          {/* <Input className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>
+          <Input className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/> */}
+            {/*
+               1 Article Type [whether Devotion, Book Review Blablabla] 
+               2 Title of the article or devotion or book review
+               3 If book review name of author
+               4 Body of content
+               5 Input for file upload
+               6 Submit button    
+
+               when sent file will be uploaded first after that data will be sent to supabase article Section along side file link
+            */}
+          </form>
+
+          {/* Table that contain list of Articles */}
+        </div>
        </Main>
     </Box>
   );

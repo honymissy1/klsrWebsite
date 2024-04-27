@@ -139,13 +139,23 @@ export default function AdminSchedule() {
             </Link>
           ))}
         </List>
-        <Divider />
+        <Divider /> 
 
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
 
-        <h1>Let start working on schedules</h1>
+            {/* Here admin with the role super admin will add a schedule for the radio station
+              1. Day of Program
+              2. Time 
+              3. Title
+              4. Description
+              5. Anchor
+              6. Duration
+            
+            */}
+
+            {/* Table containing meeting schedules */}
        </Main>
     </Box>
   );

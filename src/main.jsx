@@ -16,7 +16,8 @@ import AdminLogin from './routes/Admin/AdminLogin.jsx';
 import Contact from './routes/Contact.jsx'
 import Partnership from './components/Partnership.jsx';
 
-let loggedIn = true;
+
+let admin = sessionStorage.getItem('klsr')
 
 const router = createBrowserRouter([
   {
@@ -41,11 +42,11 @@ const router = createBrowserRouter([
 
   {
     path: "admin/manage",
-    element: <AdminMember />
+    element: admin ? (<AdminMember />): (<AdminLogin />)  
   },
   {
      path: "admin/schedule",
-     element: <AdminSchedule />
+     element: admin ? (<AdminSchedule />): (<AdminLogin />) 
    },
 
    {
@@ -55,8 +56,9 @@ const router = createBrowserRouter([
 
   {
     path: "admin",
-    element: loggedIn ? (<AdminDashboard />): (<AdminLogin />),
+    element: admin ? (<AdminDashboard />): (<AdminLogin />),
   },
+
 
   {
     path: "/partnership",

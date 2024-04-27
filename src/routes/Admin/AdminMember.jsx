@@ -24,6 +24,13 @@ import { useEffect, useState } from 'react';
 import supabase from '../../supabaseClient';
 
 
+import {auth, firestore} from '../../firebaseConfig';
+import {  createUserWithEmailAndPassword } from "firebase/auth";
+
+
+let admin = JSON.parse(sessionStorage.getItem('klsr'));
+
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -85,6 +92,10 @@ const AdminMember = () =>{
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
   
+
+    useEffect(() =>{
+     
+    }, [])
     const links = ['', 'manage', 'schedule', 'settings'];
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -115,23 +126,35 @@ const AdminMember = () =>{
       setIsModalOpen(true);
     };
     const handleOk = async () => {     
-          // const {data, error } = await supabase
-          // .from('admin')
-          // .insert({
-          //   name: nameValue,
-          //   password: phoneValue,
-          //   email: emailValue,
-          //   role: roleValue,
-          //   phone: phoneValue
-          // });
+          try {
+            const userCredential = await createUserWithEmailAndPassword(auth, emailValue, phoneValue);
+            const newUser = userCredential.user;
+            console.log(newUser);
+
+            if(newUser){
+              const { data, error } = await supabase
+                .from('admin')
+                .insert([
+                  {  
+                      name: nameValue,
+                      email: emailValue,
+                      role: roleValue,
+                      phone: phoneValue
+                   },
+                ])
+                
+                alert('Admin Added Successfully')
+             }
+                  
+          }catch(error){
+            alert('Admin Not Successfully Added')
+          }
+    
+    setIsModalOpen(false);
+  }
 
 
-         const { data, error } = await supabase.auth.admin.inviteUserByEmail(emailValue)
-         alert(JSON.stringify(error))
-         alert(JSON.stringify(data));
-          console.log(error);
-          setIsModalOpen(false);
-    };
+
     const handleCancel = () => {
       setIsModalOpen(false);
     };
@@ -214,10 +237,28 @@ const AdminMember = () =>{
       <Main open={open}>
         <DrawerHeader />
         <div>
-           <Button type="primary" className='mb-10' onClick={showModal}>
-            + Add Admin / Creator
-           </Button>
-           
+          {
+            admin.role == 'superadmin' ? (
+              <Button type="primary" className='mb-10' onClick={showModal}>
+                + Add Admin / Creator
+              </Button>
+            ):(
+              <Button className='bg-[#ddd]'>
+                 + Add Admin / Creator
+              </Button>
+            )
+          }
+
+           {
+            admin.role == "superadmin" ? (
+              dataSource && (
+                <Table dataSource={dataSource} columns={columns} />
+              )
+            ):(
+              <h1 className='p-5 text-red-400 font-extrabold'>Only Super Admin have access to this page</h1>
+            )
+           }
+
             <Modal title="Add Admin / Creator" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                <Form form={form}>
                    <Form.Item name="name">
@@ -245,9 +286,7 @@ const AdminMember = () =>{
             </Modal>
 
             {
-                dataSource && (
-                    <Table dataSource={dataSource} columns={columns} />
-                )
+
             }
 
             {
