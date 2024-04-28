@@ -223,10 +223,11 @@ export default function AdminDashboard() {
       <Main open={open}>
         <DrawerHeader />
         <div>
-          <h1>Post Articles</h1>
+          <h1 className='font-extrabold text-2xl my-5'>Post Articles</h1>
           <form className='flex gap-5 flex-wrap'>
           <Select
           className="w-full"
+          placeholder="Article Type"
            onChange={(e) => setArticleType(e)}
           options={[{ value: 'Devotion', label: <span>Devotion</span> },
                             { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
@@ -238,6 +239,7 @@ export default function AdminDashboard() {
           articleType == "review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
          }
         <Upload
+ 
           beforeUpload={() => false}
           onChange={handleFileChange}
           onRemove={() => setSelectedFile(null)}
@@ -249,6 +251,7 @@ export default function AdminDashboard() {
 
         <Select
           className="w-full"
+           placeholder="Category"
            onChange={(e) => setCategory(e)}
           options={[{ value: 'Faith', label: <span>Faith</span> },
                             { value: 'Finance', label: <span className='text-red-600'>Finance</span> },
@@ -265,18 +268,7 @@ export default function AdminDashboard() {
         
         
          </Button>
-          {/* <Input className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>
-          <Input className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/> */}
-            {/*
-               1 Article Type [whether Devotion, Book Review Blablabla] 
-               2 Title of the article or devotion or book review
-               3 If book review name of author
-               4 Body of content
-               5 Input for file upload
-               6 Submit button    
-
-               when sent file will be uploaded first after that data will be sent to supabase article Section along side file link
-            */}
+       
           </form>
 
           {/* Table that contain list of Articles */}

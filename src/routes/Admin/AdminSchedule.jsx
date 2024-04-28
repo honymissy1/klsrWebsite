@@ -19,6 +19,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
+import supabase from '../../supabaseClient';
+import { Card, Input, Select, Button, message, Upload  } from 'antd';
 
 
 import { Outlet } from "react-router-dom";
@@ -87,6 +89,26 @@ export default function AdminSchedule() {
 
   }
 
+  React.useEffect(() =>{
+    const dataFetch = async () =>{
+      let { data: programs, error } = await supabase
+      .from('programs')
+      .select('*')
+
+      console.log(programs[0].Day.Monday);
+
+    }
+
+    dataFetch();
+        
+  }, [])
+
+  const handleData = async() =>{
+
+    
+        
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -145,6 +167,27 @@ export default function AdminSchedule() {
       <Main open={open}>
         <DrawerHeader />
 
+        <h1 className="font-extrabold text-2xl my-5">Add a Scheduled Program</h1>
+        <form className='flex gap-5 flex-wrap'>
+
+        <Select
+          className="w-full"
+          placeholder="Day"
+           onChange={(e) => setArticleType(e)}
+           options={[{ value: 'Monday', label: <span>Monday</span> },
+                            { value: 'Tuesday', label: <span>Tuesday</span> },
+                            { value: 'Wednesday', label: <span>Wednesday</span> },
+                            { value: 'Thursday', label: <span>Thursday</span> },
+                            { value: 'Friday', label: <span>Friday</span> },
+                            { value: 'Saturday', label: <span>Saturday</span> },
+                            { value: 'Sunday', label: <span>Sunday</span> }
+                   ]} />
+
+           <Input  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Program"/>
+           <Input  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Anchor"/>
+           <Input  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Time"/>
+           <Button type='primary'>Submit</Button>
+      </form>
             {/* Here admin with the role super admin will add a schedule for the radio station
               1. Day of Program
               2. Time 
@@ -153,6 +196,28 @@ export default function AdminSchedule() {
               5. Anchor
               6. Duration
             
+            */}
+
+
+
+
+            {/* 
+             {
+              monday: [
+                {
+                  program: Morning Devotion,
+                  hours: 7am,
+                  by: 'Omowunmi'
+                },
+
+                {
+                  program: 'Business Corner',
+                  hour: 12pm,
+                  SocialMediaContent: 'blablabla
+                }
+              ]
+             }
+             
             */}
 
             {/* Table containing meeting schedules */}

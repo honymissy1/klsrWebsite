@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 const Footer = () => {
     return(
         <div className="flex min-h-[300px] pb-[50px] gap-5 flex-wrap p-5 text-white bg-black">
@@ -12,21 +15,29 @@ const Footer = () => {
 
                 <div className="text-[#ddd]"><br/>
                     <ul>
-                        <li>Home</li>
-                        <li>About</li>
-                        <li>Article</li>
-                        <li>Contact Us</li>
+                        <li><Link to={`/`}>Home</Link></li>
+                        <li><Link to={`/about`}>About</Link></li>
+                         <li><Link to={`/articles`}>Articles</Link></li>  
+                        <li><Link to={`/contact`}>Contact</Link></li>
                     </ul>
                 </div>
             </div>
 
             <div className="min-w-[200px] flex-1"> 
-                <h1 className="text-xl font-extrabold text-white">Top Article</h1>
+                <h1 className="text-xl font-extrabold text-white">Partnership</h1>
 
                 <div className="text-white"><br/>
-                    <ul>
-
-                    </ul>
+                <div className="py-4">
+                     <h1 className="font-bold text-red-500">Zenith Bank</h1>
+                     <p>1229216755</p>
+                     <p className="text-xs text-blue-400">Kingdom Lifestyle & Diamond Charities</p>
+                </div>
+                <hr />
+                 <div>
+                     <h1 className="font-bold text-red-500">Guarantee Trust Bank</h1>
+                     <p>0892125365</p>
+                     <p className="text-xs text-blue-400">Kingdom Lifestyle & Diamond Charities</p>
+                </div>
                 </div>
             </div>
 

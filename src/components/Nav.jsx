@@ -27,12 +27,11 @@ const Nav = () =>{
             <li><Link to="/">Home</Link></li>
             <li><Link to={`/about`}>About Us</Link></li>
             <li><Link to={`/articles`}>Articles</Link></li>
-            <li>Contact</li>
+            <li><Link to={`/contact`}>Contact</Link> </li>
           </ul>
 
           <a href="/#partnership">
                     <i class="fa-solid text-2xl fa-circle-dollar-to-slot"></i>
-
           </a>
           
         </nav>
