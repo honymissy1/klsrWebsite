@@ -109,7 +109,7 @@ const Articles = () => {
 
                             </h1>
                         </div>
-                        <div className='flex-1 h-[1000px]'>
+                        <div className='flex-1 min-h-[700px]'>
                             {
                                 loading && (
                                     <div className='w-full h-[300px] flex justify-center flex-col items-center'>
@@ -125,7 +125,7 @@ const Articles = () => {
                                     <div key={ele.id} className='p-4 lg:p-10'>
                                         <div>
                                             <div className='flex justify-between flex-wrap-reverse'>
-                                                <h1 className='font-extrabold text-lg'>{ele.title} {ele.type == 'Book Review' ? (<sup className='p-1 text-xs rounded font-normal bg-orange-300'>{ele.author}</sup>) :('')} </h1>
+                                                <h1 className='font-extrabold text-lg'>{ele.title} {ele.type == 'Review' ? (<sup className='p-1 text-xs rounded font-normal bg-orange-300'>{'by ' +ele.author}</sup>) :('')} </h1>
                                                 <h1 className={`${ele.type == 'Devotion' ? "text-green-600" : ele.type == 'Book Review' ? "text-purple-600": "text-green-600"} font-bold text-xs`}>{ele.type}</h1>
                                             </div>
                                             <p className='text-sm text-[#838080] py-3'>{ele.content.substring(0, 200)}</p>

@@ -36,7 +36,6 @@ const Article = () =>{
 
     const comment = async () =>{
         let { data, error } = await supabase.from('comment').select('*').eq('article_id', id)
-        console.log(data);
         setComments(data)
     }
 
@@ -58,13 +57,13 @@ const Article = () =>{
 
                     <div id="container" className="lg:p-10 p-5 flex min-h-[400px] flex-col md:flex-row">
                         <div className="flex-1 p-2 lg:p-10">
-                            <div className={`object-cover w-full pb-10 ${ele.type == "Book Review" ? 'm-auto md:m-0 w-1/3' : ''}`}>
-                                <img className="w-full" src="/images/hero.png" alt="" />
+                            <div className={`object-cover w-full pb-10 ${ele.type == "Review" ? 'm-auto md:m-0 w-1/3' : ''}`}>
+                                <img className="w-full" src={ele.img_url} alt="what is this" />
                             </div>
 
                             <div>
                                 <h1 className="font-extrabold text-xl">{ele.title}</h1>
-                               {ele.type == "Book Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')} 
+                               {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')} 
                             </div>
                             <h1 className="mt-5">
                                {ele.content}
@@ -111,6 +110,12 @@ const Article = () =>{
                                 <textarea className="outline p-2 rounded w-full" placeholder="Leave a comment" name="Area" id="" cols="10" rows="5"></textarea>
                                 <button className="p-2 border bg-green-600 rounded w-full">Send</button>
                             </div>
+
+                            {
+                                comments?.length < 1 && (
+                                    <h1 className='p-5 font-extrabold text-center'>No Comments yet be the first to drop a comment</h1>
+                                )
+                            } 
 
                             {
                                comments && comments.map(ele =>(

@@ -138,7 +138,7 @@ export default function AdminDashboard() {
         .from('klsr') // Same bucket name
         .getPublicUrl(filePath);
 
-        setUrl(pics.publicUrl)
+        setUrl()
        
         const { data: poster  } = await supabase
         .from('articles')
@@ -149,16 +149,14 @@ export default function AdminDashboard() {
             type: articleType,
             category: category,
             author: author,
-            img_url: url,
-            creator: admin.name
-          
+            img_url: pics.publicUrl,
+            creator: admin.name  
           },
         ])
         .select()
         
-        // here we will be posting to the articles database
       console.log(pics.publicUrl); 
-      await message.success("File uploaded successfully!");
+      message.success("File uploaded successfully!");
       window.location.reload();
 
       } catch (error) {
@@ -230,9 +228,9 @@ export default function AdminDashboard() {
           <Select
           className="w-full"
            onChange={(e) => setArticleType(e)}
-          options={[{ value: 'devotion', label: <span>Devotion</span> },
-                            { value: 'review', label: <span className='text-red-600'>Book Review</span> },
-                            { value: 'article', label: <span>Article</span> }
+          options={[{ value: 'Devotion', label: <span>Devotion</span> },
+                            { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
+                            { value: 'Article', label: <span>Article</span> }
                             ]} />
 
           <Input onChange={(e) => setTitle(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Title"/>
