@@ -20,10 +20,11 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 import supabase from '../../supabaseClient';
-import { Card, Input, Select, Button, message, Upload  } from 'antd';
-
+import { Card, Input, Select, Button, message, TimePicker  } from 'antd';
+import moment from 'moment';
 
 import { Outlet } from "react-router-dom";
+import { Message } from '@mui/icons-material';
 
 const drawerWidth = 240;
 
@@ -76,7 +77,17 @@ export default function AdminSchedule() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const links = ['', 'manage', 'schedule', 'settings'];
+  const [day, setDay] = React.useState('');
+  const [social, setSocial] = React.useState('');
+  const [program, setProgram] = React.useState('');
+  const [anchor, setAnchor] = React.useState('');
+  const [time, setTime] = React.useState(null);
+
+
+
+
+
+  const links = ['', 'manage', 'schedule', 'events'];
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -89,22 +100,30 @@ export default function AdminSchedule() {
 
   }
 
-  React.useEffect(() =>{
-    const dataFetch = async () =>{
-      let { data: programs, error } = await supabase
-      .from('programs')
-      .select('*')
 
-      console.log(programs[0].Day.Monday);
+  const handleTimeChange = (time, timeString) => {
+    setTime(timeString);
+    console.log('Selected Time:', timeString);
+  };
+
+  const handleSubmit = async() =>{
+
+
+    const { data, error } = await supabase
+    .from(day)
+    .insert([
+      { program: program, time: time, socialmedia: social, anchor: anchor },
+    ])
+
+    if(error){
+      message.error("error scheduling")
+    }else{
+      console.log(error);
+      await message.success("Scheduled successfully!");
+      window.location.reload();
 
     }
-
-    dataFetch();
         
-  }, [])
-
-  const handleData = async() =>{
-
     
         
   }
@@ -148,7 +167,7 @@ export default function AdminSchedule() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Settings'].map((text, index) => (
+          {['Manage Post', 'Admin', 'Add Schedule'].map((text, index) => (
             <Link to={`/admin/${links[index]}`} key={text} >
               <ListItem onClick={handleNav}disablePadding>
                 <ListItemButton>
@@ -167,26 +186,37 @@ export default function AdminSchedule() {
       <Main open={open}>
         <DrawerHeader />
 
-        <h1 className="font-extrabold text-2xl my-5">Add a Scheduled Program</h1>
-        <form className='flex gap-5 flex-wrap'>
+        <h1 onClick={() => alert(time)} className="font-extrabold text-2xl my-5">Add a Scheduled Program</h1>
+
+        <form className='flex lg:w-[70%] lg:m-auto gap-5 flex-wrap'>
 
         <Select
           className="w-full"
           placeholder="Day"
-           onChange={(e) => setArticleType(e)}
-           options={[{ value: 'Monday', label: <span>Monday</span> },
-                            { value: 'Tuesday', label: <span>Tuesday</span> },
-                            { value: 'Wednesday', label: <span>Wednesday</span> },
-                            { value: 'Thursday', label: <span>Thursday</span> },
-                            { value: 'Friday', label: <span>Friday</span> },
-                            { value: 'Saturday', label: <span>Saturday</span> },
-                            { value: 'Sunday', label: <span>Sunday</span> }
+           onChange={(e) => setDay(e)}
+           options={[{ value: 'monday', label: <span>Monday</span> },
+                            { value: 'tuesday', label: <span>Tuesday</span> },
+                            { value: 'wednesday', label: <span>Wednesday</span> },
+                            { value: 'thursday', label: <span>Thursday</span> },
+                            { value: 'friday', label: <span>Friday</span> },
+                            { value: 'saturday', label: <span>Saturday</span> },
+                            { value: 'sunday', label: <span>Sunday</span> }
                    ]} />
 
-           <Input  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Program"/>
-           <Input  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Anchor"/>
-           <Input  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Time"/>
-           <Button type='primary'>Submit</Button>
+
+           <Input onChange={(e) => setProgram(e.target.value)}  className='flex-1 w-full min-w-[300px]' placeholder="Program"/>
+         
+           <Input onChange={(e) => setAnchor(e.target.value)}  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Anchor"/>
+           <TimePicker
+            className="w-full"
+            // value={time} // Bind to state
+            onChange={handleTimeChange} // Handle time changes
+            format="HH:mm a" // Desired format
+            use12Hours={true} // Toggle 12-hour or 24-hour format
+            // showSecond={true} // Control whether to show seconds
+          />
+           <Input onChange={(e) => setSocial(e.target.value)}  className='flex-1 w-full min-w-[300px]' placeholder="Social Media Content"/>
+           <Button onClick={handleSubmit} className='w-full' type='primary'>Submit</Button>
       </form>
             {/* Here admin with the role super admin will add a schedule for the radio station
               1. Day of Program

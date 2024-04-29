@@ -70,11 +70,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Settings() {
+export default function Events() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const links = ['', 'manage', 'schedule', 'settings'];
+  const links = ['', 'manage', 'schedule', 'events'];
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -126,7 +126,7 @@ export default function Settings() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Settings'].map((text, index) => (
+          {['Manage Post', 'Admin', 'Add Schedule', 'Events'].map((text, index) => (
             <Link to={`/admin/${links[index]}`} key={text} >
               <ListItem onClick={handleNav}disablePadding>
                 <ListItemButton>

@@ -23,11 +23,11 @@ const Contact = () =>{
                     to get more content from  KLSR
                 </p>
                  <div className="flex p-4 bg-teal-900 text-[#e4e3dc] justify-between flex-wrap gap-5 rounded">
-                   <i className="fa-brands  text-4xl fa-whatsapp mx-1"></i>
-                   <i className="fa-brands text-4xl fa-facebook mx-1"></i>
-                   <i className="fa-brands text-4xl fa-youtube mx-1"></i>
-                   <i className="fa-brands text-4xl fa-twitter mx-1"></i>
-                   <i className="fa-solid text-4xl fa-envelope mx-1"></i>
+                  {/* <Link><i className="fa-brands  text-4xl fa-whatsapp mx-1"></i></Link>  */}
+                  <Link to={`https://www.facebook.com/kingdomLifestyleradio`}><i className="fa-brands text-4xl fa-facebook mx-1"></i></Link> 
+                  <Link><i className="fa-brands text-4xl fa-youtube mx-1"></i></Link>  
+                  <Link to={`https://twitter.com/kingdomlifestr`}> <i className="fa-brands text-4xl fa-twitter mx-1"></i></Link> 
+                  <Link to={`https://instagram.com/kingdomlifestyleradio`}><i className="fa-brands text-4xl fa-instagram mx-1"></i></Link>  
 
                   </div>
                 </div>

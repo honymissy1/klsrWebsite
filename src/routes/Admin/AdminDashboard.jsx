@@ -91,7 +91,7 @@ export default function AdminDashboard() {
   const [selectedFile, setSelectedFile] = useState();
   const [url, setUrl] = useState();
 
-  const links = ['', 'manage', 'schedule', 'settings'];
+  const links = ['', 'manage', 'schedule', 'events'];
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -204,7 +204,7 @@ export default function AdminDashboard() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Settings'].map((text, index) => (
+          {['Manage Post', 'Admin', 'Add Schedule'].map((text, index) => (
             <Link to={`/admin/${links[index]}`} key={text} >
               <ListItem onClick={handleNav}disablePadding>
                 <ListItemButton>
@@ -260,6 +260,7 @@ export default function AdminDashboard() {
                             { value: 'matrimony', label: <span>Matrimony</span> },
                             { value: 'academics', label: <span>Academics</span> },
                             { value: 'business', label: <span>Business</span> },
+                            { value: 'event', label: <span className='text-[gold]'>Events / Programs</span> },
                             { value: 'others', label: <span>others</span> }
                             ]} />
          <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/>

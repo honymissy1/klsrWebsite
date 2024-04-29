@@ -45,7 +45,7 @@ const Footer = () => {
                 <h1 className="text-xl font-extrabold text-white">Contact</h1><br />
 
                 <div>
-                  <i className="fa-solid fa-phone text-sm mx-3"> +2349160006614</i>
+                  <i className="fa-solid fa-phone text-sm mx-3">+2349160006614</i>
                   <i className="fa-solid fa-phone text-sm mx-3">+2347067873032</i>
                   <i className="fa-solid fa-phone text-sm mx-3">+2347018036538</i>
                   <br />
@@ -55,11 +55,11 @@ const Footer = () => {
 
 
                   <div className="flex p-2 bg-[#FFD700] justify-evenly rounded">
-                   <i className="fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i>
-                   <i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i>
-                   <i className="fa-brands text-[#050601] text-2xl fa-youtube mx-1"></i>
-                   <i className="fa-brands text-[#050601] text-2xl fa-twitter mx-1"></i>
-                   <i className="fa-solid text-[#050601] text-2xl fa-envelope mx-1"></i>
+                  {/* <Link><i className="fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i></Link>  */}
+                  <Link to={`https://www.facebook.com/kingdomLifestyleradio`}><i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i></Link> 
+                  <Link><i className="fa-brands text-[#050601] text-2xl fa-youtube mx-1"></i></Link>  
+                  <Link to={`https://twitter.com/kingdomlifestr`}><i className="fa-brands text-[#050601] text-2xl fa-twitter mx-1"></i></Link>  
+                   <Link to={`https://www.instagram.com/kingdomlifestyleradio/`}><i className="fa-brands text-[#050601] text-2xl fa-instagram mx-1"></i></Link> 
 
                   </div>
                 </div>

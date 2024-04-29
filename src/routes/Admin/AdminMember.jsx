@@ -96,7 +96,7 @@ const AdminMember = () =>{
     useEffect(() =>{
      
     }, [])
-    const links = ['', 'manage', 'schedule', 'settings'];
+    const links = ['', 'manage', 'schedule', 'events'];
     const handleDrawerOpen = () => {
       setOpen(true);
     };
@@ -218,7 +218,7 @@ const AdminMember = () =>{
         </DrawerHeader>
         <Divider />
         <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Settings'].map((text, index) => (
+          {['Manage Post', 'Admin', 'Add Schedule'].map((text, index) => (
             <Link to={`/admin/${links[index]}`} key={text} >
               <ListItem onClick={handleNav}disablePadding>
                 <ListItemButton>

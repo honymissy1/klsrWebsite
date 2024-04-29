@@ -65,7 +65,7 @@ const Article = () =>{
                                 <h1 className="font-extrabold text-xl">{ele.title}</h1>
                                {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')} 
                             </div>
-                            <h1 className="mt-5">
+                            <h1 className="mt-5 text-[#626060]">
                                {ele.content}
                             </h1>
                             <p className="mt-5 text-right">{moment(ele.created_at, "YYYYMMDD").fromNow()}</p>

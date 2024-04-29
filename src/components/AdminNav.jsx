@@ -74,7 +74,7 @@ export default function AdminNav() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const links = ['', 'manage', 'schedule', 'settings'];
+  const links = ['', 'manage', 'schedule'];
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -126,7 +126,7 @@ export default function AdminNav() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Settings'].map((text, index) => (
+          {['Manage Post', 'Admin', 'Add Schedule'].map((text, index) => (
             <Link to={`/admin/${links[index]}`} key={text} >
               <ListItem onClick={handleNav}disablePadding>
                 <ListItemButton>

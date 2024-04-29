@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { register } from 'swiper/element/bundle';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
-
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
+import { Link } from 'react-router-dom';
 
 const ArticleComponent = () =>{
 
@@ -70,6 +70,8 @@ const ArticleComponent = () =>{
                     </div> */}
 
         </div>
+
+        <Link to={`/programs`}><h1 className='bg-[gold] w-max p-2 rounded-lg my-5 font-extrabold m-auto'>More Programs</h1></Link>
 
       </div>
     )
