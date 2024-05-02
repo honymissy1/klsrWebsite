@@ -42,7 +42,8 @@ const Articles = () => {
         datas()
     }, [])
     
-        
+    
+
     return (
         <div>
             <Nav />
@@ -55,48 +56,32 @@ const Articles = () => {
                     modules={[Pagination]}
                     className="mySwiper"
                 >
-                    <SwiperSlide className='text-black relative border border-solid border-black'>
-                        <div className='p-3 right-0 absolute z-20'>
-                            <h1 className='p-1 text-sm text-white bg-[#d4af37] rounded'>Book Review</h1>
-                        </div>
-                        <div className='absolute flex h-full w-full bg-[#072a1ae5] items-center justify-center'>
-                            <div className=' z-10 text-white'>
-                                <p>John G Lake</p>
-                                <h1 className='text-2xl w-[300px] md:text-4xl font-bold'>Speaking in tongues from your heart</h1>
 
-                                <div className='bg-[white] text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
-                                    <p>Review by Lanre Afolayan</p>
-                                    <p>6m age</p>
+                    {
+                       articles?.slice(0, 5).map(ele => (
+                            <SwiperSlide className='text-black relative border border-solid border-black'>
+                                <div className='p-3 right-0 absolute z-20'>
+                                    <h1 className='p-1 text-sm text-white bg-[#d4af37] rounded'>{ele.type}</h1>
                                 </div>
+                                <div className='absolute flex h-full w-full bg-[#072a1ae5] items-center justify-center'>
+                                    <div className=' z-10 text-white'>
+                                       {ele.type == 'Review'? (<p className='text-orange-300'>{ele.author}</p>): ''} 
+                                        <h1 className='text-2xl w-[300px] md:text-4xl font-bold'>{ele.title}</h1>
 
-                                <h1 className='text-left mt-2 px-3 text-black font-extrabold text-sm bg-[gold] w-max p-1 rounded-md'>Read More</h1>
+                                        <div className='bg-[white] text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
+                                            <p>{ele.type === 'Review' ? (<>Book review</>): ''} By {ele.creator}</p>
+                                            <p>{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
+                                        </div>
 
-                            </div>
-                        </div>
-                        <img src="/images/features_img.png" className='z-0' alt="" />
-                    </SwiperSlide>
+                                       <Link to={`/articles/${ele.id}`}><h1 className='text-left m-auto mt-10 px-3 text-black font-extrabold text-sm bg-[gold] w-max p-1 rounded-md'>Read More</h1></Link> 
 
-                    <SwiperSlide className='text-black relative border border-solid border-black'>
-                        <div className='p-3 right-0 absolute z-20'>
-                            <h1 className='p-1 text-sm text-white bg-[#d4af37] rounded'>Book Review</h1>
-                        </div>
-                        <div className='absolute flex h-full w-full bg-[#072a1ae5] items-center justify-center'>
-                            <div className=' z-10 text-white'>
-                                <p>John G Lake</p>
-                                <h1 className='text-2xl w-[300px] md:text-4xl font-bold'>Speaking in tongues from your heart</h1>
-
-                                <div className='bg-[white] text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
-                                    <p>Review by Lanre Afolayan</p>
-                                    <p>6m age</p>
+                                    </div>
                                 </div>
+                                <img src={ele.img_url} className='z-0' alt="" />
+                            </SwiperSlide>
 
-                                <h1 className='text-left mt-2 px-3 text-black font-extrabold text-sm bg-[gold] w-max p-1 rounded-md'>Read More</h1>
-
-                            </div>
-                        </div>
-                        <img src="/images/designs/health.png" className='z-0' alt="" />
-                    </SwiperSlide>
-
+                        ))
+                    }
                 </Swiper>
             </div>
 

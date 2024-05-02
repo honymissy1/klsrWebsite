@@ -231,7 +231,9 @@ export default function AdminDashboard() {
            onChange={(e) => setArticleType(e)}
           options={[{ value: 'Devotion', label: <span>Devotion</span> },
                             { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
-                            { value: 'Article', label: <span>Article</span> }
+                            { value: 'Article', label: <span>Article</span> },
+                            { value: 'event', label: <span className='text-[gold]'>Events / Programs</span> },
+
                             ]} />
 
           <Input onChange={(e) => setTitle(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Title"/>
@@ -239,7 +241,7 @@ export default function AdminDashboard() {
           articleType == "review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
          }
         <Upload
- 
+
           beforeUpload={() => false}
           onChange={handleFileChange}
           onRemove={() => setSelectedFile(null)}
@@ -260,7 +262,6 @@ export default function AdminDashboard() {
                             { value: 'matrimony', label: <span>Matrimony</span> },
                             { value: 'academics', label: <span>Academics</span> },
                             { value: 'business', label: <span>Business</span> },
-                            { value: 'event', label: <span className='text-[gold]'>Events / Programs</span> },
                             { value: 'others', label: <span>others</span> }
                             ]} />
          <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/>

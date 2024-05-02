@@ -9,7 +9,7 @@ const Content = () =>{
                     <h1 className="my-3 font-extrabold text-xl text-[#FFD700]">Multiligua Radio</h1>
 
                     <p>Radio rich in the word of God for you daily consumption both in English and Yoruba</p>
-                    <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
+                    <i style={{visibility: 'hidden'}} class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
                  </div>
 
                  <div style={{border: '1px solid'}} className="p-8 min-w-[250px] flex-1">

@@ -1,5 +1,7 @@
 import supabase from '../supabaseClient';
 
+import Nav from '../components/Nav'
+
 import { Card, Input, Select, Button, message, Upload, Table  } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
@@ -78,6 +80,7 @@ const Programs = () =>{
     }, [])
     return(
         <div>
+            <Nav />
            <div className="relative h-[60vh] w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/podcast.jpg')", backgroundPosition:'center right', backgroundSize: 'cover' }}>
                 {/* <img src="" className="!object-cover object-bottom ob" alt="" /> */}
                 <div className="absolute flex items-end  text-white w-full h-full bg-[#0b0f14bf]">

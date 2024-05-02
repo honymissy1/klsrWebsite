@@ -1,6 +1,8 @@
 import { Card, Input, Button } from 'antd';
 import Footer from "../components/Footer";
 import Nav from '../components/Nav.jsx';
+import { Link } from 'react-router-dom';
+
 
 const Contact = () =>{
     return (
@@ -37,7 +39,7 @@ const Contact = () =>{
                     <p>For prayers, counseling or support you can contact us through this numbers</p>
                     <div className='p-2 my-5 bg-white text-black relative'>
                         <sup className='rounded-md bg-red-600 p-2 text-white font-extrabold absolute right-0'>USA</sup>
-                        <p className='font-extrabold text-sm'>+1347-481-6604  +1347-208-4052</p>
+                        <p className='font-extrabold text-sm'>+1347-481-6604 OR +1347-208-4052</p>
                     </div>
 
                     <div className='p-2 bg-white text-black relative'>

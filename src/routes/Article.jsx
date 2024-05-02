@@ -4,6 +4,7 @@ import supabase from '../supabaseClient';
 import { useParams, useLocation } from 'react-router-dom';
 import moment from 'moment';
 import Footer from "../components/Footer";
+import { Button, Modal } from 'antd';
 
 import {
     EmailShareButton,
@@ -20,11 +21,38 @@ import {
 
 const Article = () =>{
    const location = useLocation();
-
+   const currentUrl = location.pathname
    let {id} = useParams();
+   const [isModalOpen, setIsModalOpen] = useState(false);
    const [article, setArticle] = useState();
    const [comments, setComments] = useState();
-   const currentUrl = window.location.href; 
+   const [commentText, setCommentText] = useState();
+   const [loading, setLoading] = useState(false)
+
+   const [user, setUser] = useState();
+   const userCredentials = JSON.parse(localStorage.getItem('user'))
+
+   const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    console.log(user);
+    localStorage.setItem('user', JSON.stringify(user))
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+   useEffect(() =>{
+    const data = () =>{
+        const userCredentials = JSON.parse(localStorage.getItem('user'));
+        
+        if(user){ setUser(userCredentials) }
+    }
+
+    data()
+   },[])
 
    useEffect(() =>{
     const singleArticle = async () =>{
@@ -44,6 +72,20 @@ const Article = () =>{
     comment()
    }, [])
 
+   const handleComment = async () =>{
+    console.log('Ok works');
+     if(user?.name !== null){
+        const { data, error } = await supabase
+        .from('comment')
+        .insert([
+        { name: userCredentials?.name, article_id: id, content: commentText, email: userCredentials?.email },
+        ])
+        .select()
+
+        setLoading(true);
+        window.location.reload();
+     }
+    }
    return(
     <div> 
         <Nav />
@@ -107,9 +149,21 @@ const Article = () =>{
                             <h1 className="bg-teal-900 text-white p-2">Comments</h1>
 
                             <div className="border rounded w-full p-2">
-                                <textarea className="outline p-2 rounded w-full" placeholder="Leave a comment" name="Area" id="" cols="10" rows="5"></textarea>
-                                <button className="p-2 border bg-green-600 rounded w-full">Send</button>
+                                <textarea onChange={(e) => setCommentText(e.target.value) } className="outline p-2 rounded w-full" placeholder="Leave a comment" name="Area" id="" cols="10" rows="5"></textarea>
+                                {
+                                    userCredentials !== null ? (<button className="p-2 border bg-green-600 rounded w-full" onClick={handleComment}>{loading ? ('Sending...'):('Send')}</button>):
+                                    (<><button className="p-2 border bg-green-600 rounded w-full" onClick={showModal}>Sender</button></>)
+                                }
                             </div>
+
+                            <Modal title="Details" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                <h1 className='text-xs text-center mb-2 text-green-700'>Seems we don't know you, let's know you before you can drop a comment</h1>
+                                <form>
+                                    <input onChange={(e) => setUser({...user, name: e.target.value})} placeholder="Full Name" className='mb-3 rounded p-2 border w-full' type="text" />
+                                    <input onChange={(e) => setUser({...user, email: e.target.value})} placeholder="Email" className='rounded p-2 border w-full' type="text" />
+
+                                </form>
+                             </Modal>
 
                             {
                                 comments?.length < 1 && (
@@ -124,7 +178,7 @@ const Article = () =>{
                                     <div className="flex-1 ml-3">
                                         <div className="flex flex-wrap justify-between mb-2">
                                             <h1 className="font-bold">{ele.name}</h1>
-                                            <p className="text-sm text-orange-700">{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
+                                            <p className="text-sm text-orange-700">{moment(ele.created_at, "YYYYMMDD").fromNow()}</p>
                                         </div>
                                         <p className="text-sm">{ele.content}</p>
                                     </div>
