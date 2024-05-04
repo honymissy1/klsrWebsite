@@ -8,7 +8,7 @@ const Content = () =>{
                     <i class="fa-solid fa-radio text-4xl"></i> 
                     <h1 className="my-3 font-extrabold text-xl text-[#FFD700]">Multiligua Radio</h1>
 
-                    <p>Radio rich in the word of God for you daily consumption both in English and Yoruba</p>
+                    <p>Radio rich in the word of God for your daily consumption both in English and Yoruba</p>
                     <i style={{visibility: 'hidden'}} class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
                  </div>
 
@@ -26,7 +26,7 @@ const Content = () =>{
                  <i class="fa-solid fa-book-open-reader text-4xl"></i>
                     <h1 className="my-3 text-xl font-extrabold  text-[#FFD700]">Devotion</h1>
 
-                    <p>Get you day running with daily devotions from KLSR that'll keep your spirit energized</p>
+                    <p>Get you day running with daily devotions from KLSR that will keep your spirit energized</p>
 
                     <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
                     

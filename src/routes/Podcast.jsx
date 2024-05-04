@@ -12,7 +12,6 @@ const Podcast = () =>{
   let [currentTime, setCurrentTime] = useState('00:00:00');
   const [play, setPlay] = useState(false);
   const [podNum, setPodnum] = useState(0);
-  let [percentage, setPercentage] = useState(0);
 
   const formatTime = (seconds) => {
   const hrs = Math.floor(seconds / 3600);
@@ -25,8 +24,6 @@ const Podcast = () =>{
 
   return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
 };
-
-let playPercentage = 
 
   useEffect(() =>{
     const fetchPod = async () =>{
@@ -82,6 +79,7 @@ let playPercentage =
     const handleBackward = () =>{
       if(currentPodcast > 0){
         setCurrentPodcast(currentPodcast--);
+        setPlay(true)
       }else{
         alert('No more data')
       }
@@ -90,9 +88,9 @@ let playPercentage =
     const handleFoward = () =>{
       if(currentPodcast < podNum){
         setCurrentPodcast(currentPodcast++);
-         setPlay(false)
+         setPlay(true)
       }else{
-        alert('No more data')
+        alert('Reached the last page')
       }
     }
 
@@ -112,10 +110,6 @@ let playPercentage =
                 </div>
               </div>
 
-              <div className="w-full overflow-hidden lg:h-[600px] p-10 m-auto">
-                <img className="w-full" src="/images/designs/img3.jpeg" alt="" />
-              </div>
-
               <div className="min-h-[300px] p-5 md:p-10 flex-wrap gap-10 flex">
  
                            {
@@ -124,7 +118,7 @@ let playPercentage =
                               <div className="" id="player">
                               <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
                                 <div className="p-5 text-center">
-                                <i class="fa-solid fa-compact-disc w-max !mx-auto text-8xl"></i>
+                                <img className="w-full" src="/images/designs/img3.jpeg" alt="" />
                                 <div className="py-5 flex items-center font-bold gap-2">
                                   <h1>{currentTime}</h1>
                                   <h1 className="w-full h-[10px] rounded bg-green-500"></h1>
@@ -155,25 +149,33 @@ let playPercentage =
 
                               </div>
                               </div>
-                              <div className="shadow !mx-auto my-4 shadow-slate-300 min-w-[300px] w-[80%] rounded" id="description">
-                                <div className="p-5">
-                                  <h1 className="font-extrabold py-2 text-2xl">
-                                  {podcastData && podcastData[currentPodcast].children.find(child => child.name === 'title').value}</h1>
-                                  <p className="text-sm">{podcastData && podcastData[currentPodcast].children.find(child => child.name === 'description').value}</p>
-                                  <hr />
-                                  <div className="flex flex-wrap justify-between items-center pt-2">
-                                      <h1 className="text-[#985be3] font-extrabold py-1"><i className="fa-solid fa-user-tie"></i> Olalekan Oloyede</h1>
-                                      <p className="bg-slate-300 text-sm p-1 rounded-xl">{podcastData && podcastData[currentPodcast].children.find(child => child?.name == 'pubDate')?.value}</p>
+
+                              {
+                                podcastData && (
+                                  <div className="shadow !mx-auto my-4 shadow-slate-300 min-w-[300px] w-[80%] rounded" id="description">
+                                    <div className="p-5">
+                                      <h1 className="font-extrabold py-2 text-2xl">
+                                      {podcastData && podcastData[currentPodcast].children.find(child => child.name === 'title').value}</h1>
+                                      <p className="text-sm">{podcastData && podcastData[currentPodcast].children.find(child => child.name === 'description').value}</p>
+                                      <hr />
+                                      <div className="flex flex-wrap justify-between items-center pt-2">
+                                          <h1 className="text-[#985be3] font-extrabold py-1"><i className="fa-solid fa-user-tie"></i> Olalekan Oloyede</h1>
+                                          <p className="bg-slate-300 text-sm p-1 rounded-xl">{podcastData && podcastData[currentPodcast].children.find(child => child?.name == 'pubDate')?.value}</p>
+                                      </div>
+                                    </div>
+                                    
                                   </div>
-                                </div>
-                                
-                              </div>
+
+                                )
+                              }
                           
                             </div>
 
         
               }
 
+              {
+              podcastData ? (
                <div className="flex-1 h-[100vh] overflow-y-auto rounded max-[80%] min-w-[300px] shadow shadow-black" id="other-podcasts">
                     <div className="p-5 sticky top-0 bg-[#880808] text-white"><h1>Other Podcast</h1></div>
              
@@ -191,6 +193,19 @@ let playPercentage =
 
                                  </div>
                </div>
+              ): (
+                 <div className="min-w-[300px] rounded-md text-center bg-teal-900 text-white h-max py-10 flex-1">
+                   <h1 className="font-extrabold text-2xl">Could not get podcasts</h1>
+                   <p className="text-red-100 text-xs mt-4 bg-red-800 w-max m-auto p-1 rounded-full">This could be due to</p>
+     
+                   <ul className="list-disc  text-left w-max m-auto">
+                    <li>Network Connectivity issue</li>
+                    <li>Internal Server error</li>
+                   </ul>
+                 </div>
+              )
+              }
+
 
 
               </div>

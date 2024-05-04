@@ -178,7 +178,7 @@ const Article = () =>{
                                     <div className="flex-1 ml-3">
                                         <div className="flex flex-wrap justify-between mb-2">
                                             <h1 className="font-bold">{ele.name}</h1>
-                                            <p className="text-sm text-orange-700">{moment(ele.created_at, "YYYYMMDD").fromNow()}</p>
+                                            <p className="text-sm text-orange-700">{moment(ele.created_at, "YYYYMMDD").fromNow() }</p>
                                         </div>
                                         <p className="text-sm">{ele.content}</p>
                                     </div>

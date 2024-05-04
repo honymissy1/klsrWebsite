@@ -20,9 +20,9 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 
+import supabase from '../../supabaseClient';
 
-import { Outlet } from "react-router-dom";
-
+import moment from 'moment';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -70,11 +70,27 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Events() {
+export default function Messages() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [messageData, setMessageData] = React.useState();
 
-  const links = ['', 'manage', 'schedule', 'events'];
+  React.useEffect(() =>{
+   const message = async () =>{
+     
+    let { data: messages, error } = await supabase
+    .from('messages')
+    .select('*')
+
+    setMessageData(messages)
+    console.log(messages);
+   }
+
+   message()
+
+  },[])
+
+  const links = ['', 'manage', 'schedule', 'messages'];
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -126,7 +142,7 @@ export default function Events() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Events'].map((text, index) => (
+          {['Manage Post', 'Admin', 'Add Schedule', 'Messages'].map((text, index) => (
             <Link to={`/admin/${links[index]}`} key={text} >
               <ListItem onClick={handleNav}disablePadding>
                 <ListItemButton>
@@ -145,7 +161,29 @@ export default function Events() {
       <Main open={open}>
         <DrawerHeader />
 
-        <h1>Lets start working on settings</h1>
+        <h1 className="text-2xl font-extrabold">Messages</h1>
+
+        <div className='w-full lg:p-10 p-3 min-h-[500px] bg-teal-900'>
+
+          {
+            messageData && messageData.map(ele =>(
+              <div className='rounded mb-2 p-2 w-full text-white bg-teal-800'>
+              <div className='flex justify-between items-center'>
+                <div>
+                  <h1 className='font-extrabold'>{ele.name}</h1>
+                  <p className='text-sms text-[#ddd]'>{ele.email}</p>
+                </div>
+                <h1>{moment(ele.created_at).format('LLL')}</h1>
+              </div>
+                <hr />
+                <p className='p-2'>{ele.content} </p>
+              </div>
+            )) 
+
+          
+          }
+
+        </div>
        </Main>
     </Box>
   );

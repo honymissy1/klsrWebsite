@@ -8,7 +8,7 @@ const Features = () =>{
                     <div className="flex p-10 gap-5 flex-1 flex-wrap lg:w-[50%]" style={{ height: 'auto' }}> 
                             <div style={{ height: 'max-content'}} className="rounded p-5 text-center bg-[#0d3243] text-white min-w-[250px] flex-1 h-auto">
                             <div>
-                                <i clasName="fa-regular fa-paper-plane text-4xl"> </i>
+                                <i clasName="fa-regular fa-paper-foward text-4xl"> </i>
                                 <h1 className="p-3 font-bold text-lg"> Uplifting Content and Positive Messaging</h1>
 
                             </div>

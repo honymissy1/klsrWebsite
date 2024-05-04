@@ -20,7 +20,7 @@ const Nav = () =>{
               <img className="" src="/images/logo.png" style={{width: '70px', padding: '0px 10px'}} alt="" />
             </div>
           </div>
-          <ul className="lg:flex transform translate-x-[-100%] lg:translate-x-0">
+          <ul className="lg:flex gap-10 transform translate-x-[-100%] lg:translate-x-0">
             <div className="block text-right lg:hidden">
                <p onClick={remove}><i class="fa-solid fa-xmark"></i></p>
             </div>
@@ -28,7 +28,7 @@ const Nav = () =>{
             <li><Link to={`/about`}>About Us</Link></li>
             <li><Link to={`/articles`}>Articles</Link></li>
             <li><Link to={`/podcast`}>Podcast</Link></li>
-            <li><Link to={`/contact`}>Contact</Link> </li>
+            <li><Link to={`/contact`}>Contact Us</Link> </li>
           </ul>
 
           <a href="/#partnership">

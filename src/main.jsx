@@ -11,11 +11,11 @@ import AdminDashboard from './routes/Admin/AdminDashboard.jsx';
 
 import AdminMember from './routes/Admin/AdminMember.jsx';
 import AdminSchedule from './routes/Admin/AdminSchedule.jsx';
-import Events from './routes/Admin/Events.jsx';
 import AdminLogin from './routes/Admin/AdminLogin.jsx';
 import Contact from './routes/Contact.jsx'
 import Partnership from './components/Partnership.jsx';
 import Programs from './routes/programs.jsx';
+import Messages from './routes/Admin/Messages.jsx';
 
 
 let admin = sessionStorage.getItem('klsr')
@@ -51,8 +51,8 @@ const router = createBrowserRouter([
    },
 
    {
-     path: "admin/events",
-     element: <Events />
+     path: "admin/messages",
+     element: admin ? (<Messages />): (<AdminLogin />)
    },
 
   {

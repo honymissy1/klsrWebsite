@@ -19,6 +19,7 @@ const Footer = () => {
                         <li><Link to={`/about`}>About</Link></li>
                          <li><Link to={`/articles`}>Articles</Link></li>  
                         <li><Link to={`/contact`}>Contact</Link></li>
+                        <li><Link to={`/podcast`}>Podcast</Link></li>
                     </ul>
                 </div>
             </div>
@@ -45,17 +46,23 @@ const Footer = () => {
                 <h1 className="text-xl font-extrabold text-white">Contact</h1><br />
 
                 <div>
-                  <i className="fa-solid fa-phone text-sm mx-3">+2349160006614</i>
-                  <i className="fa-solid fa-phone text-sm mx-3">+2347067873032</i>
-                  <i className="fa-solid fa-phone text-sm mx-3">+2347018036538</i>
-                  <br />
+                    <div className="border-b-2 border-purple-800 py-3">
+                        <h1 className="text-xs text-purple-500">Nigeria</h1>
+                        <p className="fa-solid fa-phone text-sm mx-3"> +2349160006614</p>
+                        <p className="fa-solid fa-phone text-sm mx-3"> +2347067873032</p>
+                        <p className="fa-solid fa-phone text-sm mx-3"> +2347018036538</p>
+
+                    </div>
+
+                    <div className="mb-4">
+                        <h1 className="mt-4 text-xs text-red-500">USA</h1>
+                        <p className="fa-solid fa-phone text-sm mx-3"> +134 748 16604</p>
+                        <p className="fa-solid fa-phone text-sm mx-3"> +134 720 84052</p>
+                    </div>
             
-                  <i className="fa-solid fa-phone text-sm mx-3">+134 748 16604</i>
-                  <i className="fa-solid fa-phone text-sm my-3 mx-3">+134 720 84052</i>
 
 
                   <div className="flex p-2 bg-[#FFD700] justify-evenly rounded">
-                  {/* <Link><i className="fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i></Link>  */}
                   <Link to={`https://www.facebook.com/kingdomLifestyleradio`}><i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i></Link> 
                   <Link><i className="fa-brands text-[#050601] text-2xl fa-youtube mx-1"></i></Link>  
                   <Link to={`https://twitter.com/kingdomlifestr`}><i className="fa-brands text-[#050601] text-2xl fa-twitter mx-1"></i></Link>  

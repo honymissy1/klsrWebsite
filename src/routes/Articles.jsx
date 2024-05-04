@@ -58,7 +58,7 @@ const Articles = () => {
                 >
 
                     {
-                       articles?.slice(0, 5).map(ele => (
+                     articles &&  articles?.slice(0, 5).map(ele => (
                             <SwiperSlide className='text-black relative border border-solid border-black'>
                                 <div className='p-3 right-0 absolute z-20'>
                                     <h1 className='p-1 text-sm text-white bg-[#d4af37] rounded'>{ele.type}</h1>
