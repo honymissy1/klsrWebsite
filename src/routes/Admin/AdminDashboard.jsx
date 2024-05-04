@@ -20,7 +20,15 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 
+
 import supabase from '../../supabaseClient';
+// import Editor from '@draft-js-plugins/editor';
+// import createLinkifyPlugin from 'draft-js-plugins/linkify';
+
+
+// const linkifyPlugin = createLinkifyPlugin();
+
+// const plugins = [linkifyPlugin];
 
 import { Card, Input, Select, Button, message, Upload  } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
@@ -81,6 +89,7 @@ export default function AdminDashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  // const [editorState, setEditorState] = useState(EditorState.createEmpty());
   // States
   const [author, setAuthor] = useState();
   const [articleType, setArticleType] = useState();
@@ -164,6 +173,8 @@ export default function AdminDashboard() {
       setUploading(false);
     }
   };
+
+
   
   return (
     <Box sx={{ display: 'flex' }}>
@@ -265,6 +276,11 @@ export default function AdminDashboard() {
                             { value: 'others', label: <span>others</span> }
                             ]} />
          <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/>
+         {/* <Editor
+        editorState={editorState}
+        onChange={(e) => console.log(e)}
+        plugins={plugins}
+      /> */}
          <Button type="primary" onClick={handleSubmit} loading={uploading}>
           {uploading ? "Uploading..." : "Submit"}
         

@@ -76,7 +76,7 @@ const About = () =>{
                     </div>
                     <div className="flex items-center flex-1 max-w-[500px] min-w-[300px]">
                       <div className="w-max h-max">
-                        <h1 className="text-4xl text-[#dec1c1] font-extrabold">Mr Olalekan Oloyede</h1>
+                        <h1 className="text-4xl text-[#dec1c1] font-extrabold">Olalekan Oloyede</h1>
                         <p className="bg-white p-1">Founder, Kingdom Life Radio</p>
                       </div>
                     </div>

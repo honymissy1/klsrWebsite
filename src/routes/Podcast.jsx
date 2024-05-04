@@ -1,16 +1,108 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
-// import xml2js from 'xml2js';
+import  XMLParser from 'react-xml-parser';
+import moment from "moment"; 
 
 const Podcast = () =>{
+
+  const audioRef = useRef(null);
+  const [podcastData, setPodcastData] = useState();
+  let [currentPodcast, setCurrentPodcast] = useState(0);
+  let [currentTime, setCurrentTime] = useState('00:00:00');
+  const [play, setPlay] = useState(false);
+  const [podNum, setPodnum] = useState(0);
+  let [percentage, setPercentage] = useState(0);
+
+  const formatTime = (seconds) => {
+  const hrs = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+
+  const formattedHrs = hrs.toString().padStart(2, '0');
+  const formattedMins = mins.toString().padStart(2, '0');
+  const formattedSecs = secs.toString().padStart(2, '0');
+
+  return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
+};
+
+let playPercentage = 
+
+  useEffect(() =>{
+    const fetchPod = async () =>{
+      fetch(`https://anchor.fm/s/1d6ad87c/podcast/rss`, {
+        "Content-Type": "application/xml; charset=utf-8"
+      }).then(response => response.text())
+      .then(str => {
+        const xml = new XMLParser().parseFromString(str);
+        setPodcastData(xml.getElementsByTagName('item'))
+        setPodnum(xml.getElementsByTagName('item').length)
+       })       
+      }
+      
+      fetchPod()
+    }, [])
+
+    const audioElement = audioRef.current;
+
+    useEffect(() => {
+      const audioElement = audioRef.current;
+
+      const updateCurrentTime = () => {
+        const currentSeconds = audioElement.currentTime;
+        setCurrentTime(formatTime(currentSeconds));
+      };
+  
+      if (audioElement) {
+        audioElement.addEventListener('timeupdate', updateCurrentTime);
+      }
+  
+      return () => {
+        if (audioElement) {
+          audioElement.removeEventListener('timeupdate', updateCurrentTime);
+        }
+      };
+    }, []);
+
+    const handlePlay = () => {
+      if (audioRef.current) {
+        audioRef.current.play();
+        setPlay(true)
+      }
+    };
+  
+    // Pause the audio
+    const handlePause = () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        setPlay(false)
+      }
+    };
+
+    const handleBackward = () =>{
+      if(currentPodcast > 0){
+        setCurrentPodcast(currentPodcast--);
+      }else{
+        alert('No more data')
+      }
+    }
+
+    const handleFoward = () =>{
+      if(currentPodcast < podNum){
+        setCurrentPodcast(currentPodcast++);
+         setPlay(false)
+      }else{
+        alert('No more data')
+      }
+    }
+
     return (
         <div>
             <Nav />
 
             <div className="min-h-[60vh]">
 
-              <div className="relative h-[60vh] mb-10 w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/podcast.jpg')", backgroundPosition:'center right', backgroundSize: 'cover' }}>
+              <div className="relative h-[70vh] mb-10 w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/designs/img2.jpeg')", backgroundPosition:'center bottom', backgroundSize: 'cover' }}>
                 {/* <img src="" className="!object-cover object-bottom ob" alt="" /> */}
                 <div className="absolute flex items-end  text-white w-full h-full bg-[#0b0f14bf]">
                    <div className="p-10">
@@ -20,84 +112,84 @@ const Podcast = () =>{
                 </div>
               </div>
 
+              <div className="w-full overflow-hidden lg:h-[600px] p-10 m-auto">
+                <img className="w-full" src="/images/designs/img3.jpeg" alt="" />
+              </div>
+
               <div className="min-h-[300px] p-5 md:p-10 flex-wrap gap-10 flex">
-               <div className="flex-1 min-w-[300px]">
-                 <div className="" id="player">
-                 <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
-                   <div className="p-5 text-center">
-                   <i class="fa-solid fa-compact-disc w-max !mx-auto text-8xl"></i>
-                   <div className="py-5 flex items-center font-bold gap-2">
-                    <h1>00:00</h1>
-                    <input type="range" min={0} max="100" value="50" className="range range-primary h-2 " />                    <h1 className="font-extrabold text-2xl"></h1>
-                    <h1>04:10</h1>
-                   </div>
+ 
+                           {
+                
+                            <div className="flex-1 min-w-[300px]">
+                              <div className="" id="player">
+                              <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
+                                <div className="p-5 text-center">
+                                <i class="fa-solid fa-compact-disc w-max !mx-auto text-8xl"></i>
+                                <div className="py-5 flex items-center font-bold gap-2">
+                                  <h1>{currentTime}</h1>
+                                  <h1 className="w-full h-[10px] rounded bg-green-500"></h1>
+                                   <h1>{podcastData && podcastData[currentPodcast].children.find(child => child.name === 'itunes:duration').value}</h1>
+                                </div>
 
-                   </div>
-                   
-                 </div>
-                 </div>
-                 <div className="shadow !mx-auto my-4 shadow-slate-300 min-w-[300px] w-[80%] rounded" id="description">
-                   <div className="p-5">
-                    <h1 className="font-extrabold text-2xl">We love the Evangelitic</h1>
-                    <p className="text-sm">Tempora corporis, maiores repellendus maxime, deleniti, aspernatur similique molestias eius tempore culpa vel reiciendis.</p>
-                    <hr />
-                    <div className="flex flex-wrap justify-between items-center pt-2">
-                        <h1 className="text-[#383316] py-1"><i className="fa-solid fa-user-tie"></i> Ayodele Babajide</h1>
-                        <p className="bg-slate-300 text-sm p-1 rounded-xl">2 hours ago</p>
-                    </div>
-                   </div>
-                   
-                 </div>
-                 {/* <div id="comments">
-                 <div className="shadow !mx-auto mb-3 shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
-                   <div className="p-5">
-                    <h1 className="font-extrabold text-2xl pb-5">Comments</h1>
+                                <div className="flex w-1/2 m-auto justify-between">
+                                  <i  onClick={handleBackward} class="fa-solid fa-backward"></i>
+                                  {
+                                    play ? (  <i onClick={handlePause} class="fa-solid fa-pause"></i>):
+                                    (<i onClick={handlePlay} class="fa-solid fa-play"></i>)
+                                  }
+                                
+                                  <i onClick={handleFoward} class="fa-solid fa-forward"></i>
 
-                    <div className="p-2 mb-2 border border-solid border-black rounded">
-                        <h1 className="font-extrabold"><i class="fa-solid fa-user"></i> Tomiwa Martin</h1>
-                        <p className="px-5 text-sm">I love your podcast it has always been ablessing sir</p>
-                        <p className="text-right font-extrabold">- 4 min ago</p>
-                    </div>
+                                </div>
+                                </div>
+                                
+               
+                                <audio ref={audioRef} className="absolute" key={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url}>
+                                  {
+                                    podcastData !== "undefined" && (
+                                      <source src={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url} type="audio/mpeg" />
+                                    )
+                                  }
+                                  Your browser does not support the audio element.
+                                </audio>
 
-                    <div className="p-2 mb-2 border border-solid border-black rounded">
-                        <h1 className="font-extrabold"><i class="fa-solid fa-user"></i> Steven Matthew</h1>
-                        <p className="px-4 text-sm">I love your podcast it has always been ablessing sir</p>
-                    </div>
+                              </div>
+                              </div>
+                              <div className="shadow !mx-auto my-4 shadow-slate-300 min-w-[300px] w-[80%] rounded" id="description">
+                                <div className="p-5">
+                                  <h1 className="font-extrabold py-2 text-2xl">
+                                  {podcastData && podcastData[currentPodcast].children.find(child => child.name === 'title').value}</h1>
+                                  <p className="text-sm">{podcastData && podcastData[currentPodcast].children.find(child => child.name === 'description').value}</p>
+                                  <hr />
+                                  <div className="flex flex-wrap justify-between items-center pt-2">
+                                      <h1 className="text-[#985be3] font-extrabold py-1"><i className="fa-solid fa-user-tie"></i> Olalekan Oloyede</h1>
+                                      <p className="bg-slate-300 text-sm p-1 rounded-xl">{podcastData && podcastData[currentPodcast].children.find(child => child?.name == 'pubDate')?.value}</p>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                          
+                            </div>
 
-                    <div className="p-2 mb-2 border border-solid border-black rounded">
-                        <h1 className="font-extrabold"><i class="fa-solid fa-user"></i> Tomiwa Martin</h1>
-                        <p className="px-5 text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, in optio? Fugit magni rerum, earum aliquid facere quas incidunt modi ad ab quia.</p>
-                        <p className="text-right font-extrabold">- 4 min ago</p>
-                    </div>
+        
+              }
 
-
-                   </div>
-                   
-                 </div>
-                 </div> */}
-               </div>
-
-               <div className="flex-1 rounded max-[80%] min-w-[300px] shadow shadow-black" id="other-podcasts">
-                    <div className="p-5 bg-[#880808] text-white"><h1>Other Podcast</h1></div>
+               <div className="flex-1 h-[100vh] overflow-y-auto rounded max-[80%] min-w-[300px] shadow shadow-black" id="other-podcasts">
+                    <div className="p-5 sticky top-0 bg-[#880808] text-white"><h1>Other Podcast</h1></div>
              
                     <div className="p-5">
 
-                      <div className="flex mb-5 items-center border-l-4 rounded border-lime-600">
-                        <i class="fa-solid fa-podcast text-4xl px-2"></i> 
-                        <div>
-                          <h1 className="font-extrabold">Title</h1>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, eaque.</p>
-                        </div>
-                      </div>
+                          <div>
+                            {podcastData?.map((item, index) => (
+                              <div onClick={() => setCurrentPodcast(index)} className="p-2 mb-5 items-center border-l-4 rounded border-lime-600" key={index}>
+                                <h2 className="p-2 font-extrabold">{item.children.find(child => child.name === 'title').value}</h2>
+                                <p className="text-right font-bold text-xs">{item.children.find(child => child?.name == 'pubDate')?.value}</p>
 
-                      <div className="flex items-center border-l-4 rounded border-lime-600">
-                        <i class="fa-solid fa-podcast text-4xl px-2"></i> 
-                        <div>
-                          <h1 className="font-extrabold">Title</h1>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, eaque.</p>
-                        </div>
-                      </div>
-                    </div>
+                              </div>
+                            ))}
+                          </div>
+
+                                 </div>
                </div>
 
 

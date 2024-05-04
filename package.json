@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@draft-js-plugins/editor": "^4.1.4",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
@@ -19,6 +20,8 @@
     "@supabase/supabase-js": "^2.42.5",
     "antd": "^5.16.2",
     "aos": "^2.3.4",
+    "draft-js": "^0.11.7",
+    "fast-xml-parser": "^4.3.6",
     "firebase": "^10.11.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
@@ -27,7 +30,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "react-share": "^5.1.0",
-    "sort-by": "^1.2.0",
+    "react-xml-parser": "^1.1.8",
+    "sort-by": "^0.0.2",
     "swiper": "^11.1.1",
     "xml-js": "^1.6.11",
     "xml2js": "^0.6.2"
