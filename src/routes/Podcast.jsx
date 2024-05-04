@@ -40,11 +40,11 @@ const Podcast = () =>{
       fetchPod()
     }, [])
 
-    const audioElement = audioRef.current;
+    // const audioElement = audioRef.current;
 
-    useEffect(() => {
+    const timer = () =>{
       const audioElement = audioRef.current;
-
+  
       const updateCurrentTime = () => {
         const currentSeconds = audioElement.currentTime;
         setCurrentTime(formatTime(currentSeconds));
@@ -56,9 +56,16 @@ const Podcast = () =>{
   
       return () => {
         if (audioElement) {
-          audioElement.removeEventListener('timeupdate', updateCurrentTime);
+          setCurrentTime(audioRef.current.currentTime.toFixed())
+          // audioElement.removeEventListener('timeupdate', updateCurrentTime);
         }
       };
+
+    }
+
+
+    timer()
+    useEffect(() => {
     }, []);
 
     const handlePlay = () => {
@@ -79,7 +86,7 @@ const Podcast = () =>{
     const handleBackward = () =>{
       if(currentPodcast > 0){
         setCurrentPodcast(currentPodcast--);
-        setPlay(true)
+        setPlay(false)
       }else{
         alert('No more data')
       }
@@ -88,7 +95,7 @@ const Podcast = () =>{
     const handleFoward = () =>{
       if(currentPodcast < podNum){
         setCurrentPodcast(currentPodcast++);
-         setPlay(true)
+         setPlay(false)
       }else{
         alert('Reached the last page')
       }
@@ -101,7 +108,6 @@ const Podcast = () =>{
             <div className="min-h-[60vh]">
 
               <div className="relative h-[70vh] mb-10 w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/designs/img2.jpeg')", backgroundPosition:'center bottom', backgroundSize: 'cover' }}>
-                {/* <img src="" className="!object-cover object-bottom ob" alt="" /> */}
                 <div className="absolute flex items-end  text-white w-full h-full bg-[#0b0f14bf]">
                    <div className="p-10">
                         <h1 className="md:text-8xl text-4xl font-extrabold">KLSR PODCAST</h1>
