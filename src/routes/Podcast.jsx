@@ -57,7 +57,6 @@ const Podcast = () =>{
       return () => {
         if (audioElement) {
           setCurrentTime(audioRef.current.currentTime.toFixed())
-          // audioElement.removeEventListener('timeupdate', updateCurrentTime);
         }
       };
 
@@ -86,7 +85,8 @@ const Podcast = () =>{
     const handleBackward = () =>{
       if(currentPodcast > 0){
         setCurrentPodcast(currentPodcast--);
-        setPlay(false)
+        // setPlay(!play)
+        // // setPlay(false)
       }else{
         alert('No more data')
       }
@@ -95,7 +95,7 @@ const Podcast = () =>{
     const handleFoward = () =>{
       if(currentPodcast < podNum){
         setCurrentPodcast(currentPodcast++);
-         setPlay(false)
+        // setPlay(!play)
       }else{
         alert('Reached the last page')
       }
@@ -131,20 +131,20 @@ const Podcast = () =>{
                                    <h1>{podcastData && podcastData[currentPodcast].children.find(child => child.name === 'itunes:duration').value}</h1>
                                 </div>
 
-                                <div className="flex w-1/2 m-auto justify-between">
-                                  <i  onClick={handleBackward} class="fa-solid fa-backward"></i>
+                                <div className="flex w-1/2 m-auto justify-center">
+                                  {/* <i  onClick={handleBackward} class="fa-solid fa-backward"></i> */}
                                   {
                                     play ? (  <i onClick={handlePause} class="fa-solid fa-pause"></i>):
                                     (<i onClick={handlePlay} class="fa-solid fa-play"></i>)
                                   }
                                 
-                                  <i onClick={handleFoward} class="fa-solid fa-forward"></i>
+                                  {/* <i onClick={handleFoward} class="fa-solid fa-forward"></i> */}
 
                                 </div>
                                 </div>
                                 
                
-                                <audio ref={audioRef} className="absolute" key={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url}>
+                                <audio autoplay ref={audioRef} className="absolute" key={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url}>
                                   {
                                     podcastData !== "undefined" && (
                                       <source src={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url} type="audio/mpeg" />
