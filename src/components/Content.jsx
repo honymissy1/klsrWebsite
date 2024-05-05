@@ -16,7 +16,7 @@ const Content = () =>{
                  <i class="fa-solid fa-podcast text-4xl"></i> 
                     <h1 className="my-3 text-xl font-extrabold text-[#FFD700]">Podcast</h1>
 
-                    <p>Radio rich in the word of God for you daily consumption both in English and Yoruba</p>
+                    <p>Radio rich in the word of God for your daily consumption both in English and Yoruba languages</p>
 
                     <Link to={"/podcast"}> <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i></Link>
                  </div>
@@ -38,7 +38,7 @@ const Content = () =>{
                         <i class="fa-solid fa-book-open text-4xl"></i> 
                             <h1 className="my-3 text-xl font-extrabold text-[#FFD700]">Book Review</h1>
 
-                            <p>In-depth Reviews to Illuminate Your Reading Path. Click and Explore with Us.</p>
+                            <p>In-depth Reviews to Illuminate Your Reading Path. Click and explore with Us.</p>
 
                             <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
                     </Link>

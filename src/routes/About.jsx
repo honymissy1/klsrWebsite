@@ -23,13 +23,17 @@ const About = () =>{
                       Kingdom lifestyle-Radio is a 24/7 internet gospel radio station established with the burden to reach out to people and nations with encouraging words from the Scripture. We are committed to the transmission of God’s word, powerful spirit and soul lifting messages from various ministers of the gospel, worship songs, and hymns. We do not compromise Scriptural standard, hence, the kingdom life-style template through the Scripture is our priority for all age brackets.
                     </p>
                     <br />
-                    <p className="p-3 mb-5" style={{borderLeft: '7px solid'}}>
-                      More so, among so many tools available in the toolbox of a Christian, faith, is an essential tool that helps a person to connect with God. We found this to be true in the book of <b className="text-teal-800">Hebrews 11:6</b> 
-                    </p>
+                    <div className="p-3 mb-5" style={{borderLeft: '7px solid'}}>
+                        <p className="">
+                        More so, among so many tools available in the toolbox of a Christian, faith, is an essential tool that helps a person to connect with God. We found this to be true in the book of <b className="text-teal-800">Hebrews 11:6</b> 
+                        </p>
+                       <p className="text-right text-white font-extrabold">- Romans 11: 6</p>
+
+                    </div>
 
                     <div role="alert" className="alert bg-[#222020]">
                     {/* <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> */}
-                     <span className="text-xs text-[#d8c13e] font-extrabold">And it is impossible to please God without faith.  Anyone who wants to come to him must believe that God exists and that he rewards those who sincerely seek him.”</span>
+                     <span className="text-xs text-[#d8c13e] font-extrabold">And it is impossible to please God without faith.  Anyone who wants to come to him must believe that God exists and that he rewards those who sincerely seek him.” <span className="text-white px-3">(Hebrews 11:6)</span></span>
                     </div>
 
                     <br /><br />
@@ -40,13 +44,13 @@ const About = () =>{
 
                     <p className="p-3 my-5" style={{borderLeft: '7px solid'}}>
                         Therefore, it is imperative to listen to the right people, the right word that comes in the form of songs, messages, exhortation, Christian based seminar, 
-                        and sermons in order to build our faith. The Bible stated in Romans 10:17 thus;
+                        and sermons in order to build our faith. The Bible stated in <span className="text-white font-extrabold">Romans 10:17</span> thus;
                     </p>
 
 
                     <div role="alert" className="alert my-5 bg-[#222020]">
                         {/* <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> */}
-                        <span className="text-xs text-[#d8c13e] font-extrabold">So, then faith comes by hearing, and hearing by the word of God.</span>
+                        <span className="text-xs text-[#d8c13e] font-extrabold">So, then faith comes by hearing, and hearing by the word of God. <span className="text-white font-extrabold">Romans 10:11</span></span>
                     </div>
 
                     <p  className="shadow p-4 text-white rounded bg-teal-900">

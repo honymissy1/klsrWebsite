@@ -3,27 +3,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import supabase from '../supabaseClient';
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-
-
 import moment from 'moment';
 
-
-// Supabase
-// import { createClient } from '@supabase/supabase-js';
-
-
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import '../App.css'
 
-// import required modules
 import { Pagination } from 'swiper/modules';
 import { Navigation } from 'swiper/modules';
 import { useEffect, useState } from 'react';
 
-// const supabase = createClient('https://caltnspokiidtzfykyqf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhbHRuc3Bva2lpZHR6ZnlreXFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTM1NjE1NTUsImV4cCI6MjAyOTEzNzU1NX0.N3fu378hR-YBFS7M0RJRz4uEaIGrd09DLCLV5MpD3dU')
 const Articles = () => {
     const [loading, setLoading] = useState(false)
     const [articleState, setArticleState] = useState();

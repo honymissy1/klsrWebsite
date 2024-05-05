@@ -131,7 +131,7 @@ export default function AdminSchedule() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar className='!bg-teal-800' position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -142,8 +142,8 @@ export default function AdminSchedule() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            KLSR Admin Dashboard
+          <Typography className='flex items-center gap-5' variant="h6" noWrap component="div">
+            <img className='w-[50px]' src="/images/logo.png" alt="" />KLSR Admin Dashboard
           </Typography>
         </Toolbar>
       </AppBar>

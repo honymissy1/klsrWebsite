@@ -106,7 +106,7 @@ export default function Messages() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar className='!bg-teal-800' position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -117,8 +117,8 @@ export default function Messages() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            KLSR Admin Dashboard
+          <Typography className='flex items-center gap-5' variant="h6" noWrap component="div">
+            <img className='w-[50px]' src="/images/logo.png" alt="" />KLSR Admin Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -164,7 +164,13 @@ export default function Messages() {
         <h1 className="text-2xl font-extrabold">Messages</h1>
 
         <div className='w-full lg:p-10 p-3 min-h-[500px] bg-teal-900'>
-
+          {
+            messageData?.length  < 1 || messageData === null && (
+              <div className='rounded mb-2 p-2 w-full text-white bg-teal-800'>
+                 <h1 className='text-2xl text-center'>No messages yet</h1>
+              </div>
+            )
+          }
           {
             messageData && messageData.map(ele =>(
               <div className='rounded mb-2 p-2 w-full text-white bg-teal-800'>

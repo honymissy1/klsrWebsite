@@ -179,7 +179,7 @@ export default function AdminDashboard() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar className='!bg-teal-800' position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -190,8 +190,8 @@ export default function AdminDashboard() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            KLSR Admin Dashboard
+          <Typography className='flex items-center gap-5' variant="h6" noWrap component="div">
+            <img className='w-[50px]' src="/images/logo.png" alt="" />KLSR Admin Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -243,7 +243,7 @@ export default function AdminDashboard() {
           options={[{ value: 'Devotion', label: <span>Devotion</span> },
                             { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
                             { value: 'Article', label: <span>Article</span> },
-                            { value: 'event', label: <span className='text-[gold]'>Events / Programs</span> },
+                            { value: 'event', label: <span>Events / Programs</span> },
 
                             ]} />
 
@@ -270,10 +270,10 @@ export default function AdminDashboard() {
                             { value: 'Finance', label: <span className='text-red-600'>Finance</span> },
                             { value: 'health', label: <span>Health</span> },
                             { value: 'ministry', label: <span>Ministry</span> },
-                            { value: 'matrimony', label: <span>Matrimony</span> },
-                            { value: 'academics', label: <span>Academics</span> },
+                            { value: 'matrimony', label: <span>Relationship</span> },
+                            { value: 'academics', label: <span>Education</span> },
                             { value: 'business', label: <span>Business</span> },
-                            { value: 'others', label: <span>others</span> }
+                            { value: 'others', label: <span>Others</span> }
                             ]} />
          <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/>
          {/* <Editor

@@ -29,7 +29,7 @@ const HeroSection = () =>{
 
 
   return(
-    <div className="hero-section h-[70vh] lg:h-[80vh] p-5 lg:p-[50px]">
+    <div className="hero-section relative h-[70vh] lg:h-[80vh] p-5 lg:p-[50px]">
       <div style={{display: 'none'}}>
         <audio id="english" controls>
           <source src="https://s3.voscast.com:9425/stream" type="audio/mpeg" />
@@ -43,6 +43,7 @@ const HeroSection = () =>{
 
       </div>
 
+      <img className='hidden md:block absolute w-[450px] bottom-0 right-0' src="/images/hero2.png" alt="" />
     
 
       <div id="content" className='w-[100%] md:w-[40%] text-center md:text-left m-auto md:m-0'>
