@@ -48,9 +48,9 @@ const Footer = () => {
                 <div>
                     <div className="border-b-2 border-purple-800 py-3">
                         <h1 className="text-xs text-purple-500">Nigeria</h1>
-                        <p className="fa-solid fa-phone text-sm mx-3"> +2349160006614</p>
-                        <p className="fa-solid fa-phone text-sm mx-3"> +2347067873032</p>
-                        <p className="fa-solid fa-phone text-sm mx-3"> +2347018036538</p>
+                        <a href={`tel: +2349160006614`}><p className="fa-solid fa-phone text-sm mx-3"> +2349160006614</p></a>
+                        <a href={`tel: +2347067873032`}> <p className="fa-solid fa-phone text-sm mx-3"> +2347067873032</p></a>
+                        <a href={`tel: +2347018036538`}><p className="fa-solid fa-phone text-sm mx-3"> +2347018036538</p></a>
 
                     </div>
 
@@ -63,8 +63,9 @@ const Footer = () => {
 
 
                   <div className="flex p-2 bg-[#FFD700] justify-evenly rounded">
+                  <a href='https://api.whatsapp.com/send?phone=2349160006614&text=Hello Kingdom lifestyle Radio'><i className="fa-brands fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i></a> 
                   <Link to={`https://www.facebook.com/kingdomLifestyleradio`}><i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i></Link> 
-                  <Link><i className="fa-brands text-[#050601] text-2xl fa-youtube mx-1"></i></Link>  
+                  <Link to={`https://www.youtube.com/@kingdomLifestyle-radio`}><i className="fa-brands text-[#050601] text-2xl fa-youtube mx-1"></i></Link>  
                   <Link to={`https://twitter.com/kingdomlifestr`}><i className="fa-brands text-[#050601] text-2xl fa-twitter mx-1"></i></Link>  
                    <Link to={`https://www.instagram.com/kingdomlifestyleradio/`}><i className="fa-brands text-[#050601] text-2xl fa-instagram mx-1"></i></Link> 
 

@@ -60,9 +60,9 @@ const Contact = () =>{
                     to get more content from  KLSR
                 </p>
                  <div className="flex p-4 bg-teal-900 text-[#e4e3dc] justify-between flex-wrap gap-5 rounded">
-                  {/* <Link><i className="fa-brands  text-4xl fa-whatsapp mx-1"></i></Link>  */}
+                  <a href='https://api.whatsapp.com/send?phone=2349160006614&text=Hello Kingdom lifestyle Radio'><i className="fa-brands  text-4xl fa-whatsapp mx-1"></i></a> 
                   <Link to={`https://www.facebook.com/kingdomLifestyleradio`}><i className="fa-brands text-4xl fa-facebook mx-1"></i></Link> 
-                  <Link><i className="fa-brands text-4xl fa-youtube mx-1"></i></Link>  
+                  <Link to={'https://www.youtube.com/@kingdomLifestyle-radio'}><i className="fa-brands text-4xl fa-youtube mx-1"></i></Link>  
                   <Link to={`https://twitter.com/kingdomlifestr`}> <i className="fa-brands text-4xl fa-twitter mx-1"></i></Link> 
                   <Link to={`https://instagram.com/kingdomlifestyleradio`}><i className="fa-brands text-4xl fa-instagram mx-1"></i></Link>  
 
@@ -79,7 +79,11 @@ const Contact = () =>{
 
                     <div className='p-2 bg-white text-black relative'>
                         <sup className='rounded-md bg-green-600 p-2 text-white font-extrabold absolute right-0'>Nigeria</sup>
-                        <p className='font-extrabold text-sm'>+2349160006614, +2347067873032, +2347018036538</p>
+                        <p className='font-extrabold text-sm'>
+                        <a href={`tel: +2349160006614`}> +2349160006614, </a>
+                        <a href={`tel: +2347067873032`}>  +2347067873032, </a>
+                        <a href={`tel: +2347018036538`}> +2347018036538 </a>
+                        </p>
                     </div>
 
                     <div>
