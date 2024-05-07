@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .hero-section{
     background-image: url('../images/hero_img.jpg');
     background-repeat: no-repeat;
@@ -15,16 +17,21 @@
 }
 
 .hero-section div h1{
-    /* width: 400px; */
-    font-weight: bolder;
+    text-shadow: 1px 1px 5px black;
+    letter-spacing: 5px;
     color: white;
-    font-size: 40px;
+    text-align: center;
+    font-family: "Lobster", sans-serif;
 }
 
 
 #content p{
-    color: rgb(211, 211, 211);
     font-size: 20px;
+    background-color: white;
+    color: black;
+    margin-top: 10px;
+    padding: 15px;
+    text-align: center;
 }
 
 #content div{

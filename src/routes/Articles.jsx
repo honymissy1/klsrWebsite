@@ -102,10 +102,10 @@ const Articles = () => {
                                                 <h1 className='font-extrabold text-lg'>{ele.title} {ele.type == 'Review' ? (<sup className='p-1 text-xs rounded font-normal bg-orange-300'>{'by ' +ele.author}</sup>) :('')} </h1>
                                                 <h1 className={`${ele.type == 'Devotion' ? "text-green-600" : ele.type == 'Book Review' ? "text-purple-600": "text-green-600"} font-bold text-xs`}>{ele.type}</h1>
                                             </div>
-                                            <p className='text-sm text-[#838080] py-3'>{ele.content.substring(0, 200)}</p>
+                                            {/* <p className='text-sm text-[#838080] py-3'>{ele.content.substring(0, 200)}</p> */}
                                         </div>
                                         <div className='flex text-sm justify-between py-2'>
-                                            <p className='font-bold'>By {ele.creator}</p>
+                                            <p className='font-bold text-[#777]'>By {ele.creator} <span className='bg-purple-600 text-xs font-normal text-white p-1 rounded-lg'>{ele.category}</span></p>
                                             <p>{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
                                         </div>
                                         <hr />

@@ -20,6 +20,9 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 
+import { EditorState, convertToRaw } from 'draft-js';
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import supabase from '../../supabaseClient';
 // import Editor from '@draft-js-plugins/editor';
@@ -94,15 +97,23 @@ export default function AdminDashboard() {
   const [author, setAuthor] = useState();
   const [articleType, setArticleType] = useState();
   const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+  // const [content, setContent] = useState();
   const [category, setCategory] = useState();
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [url, setUrl] = useState();
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+
 
   const links = ['', 'manage', 'schedule', 'messages'];
   const handleDrawerOpen = () => {
     setOpen(true);
+  };
+
+  const handleEditorChange = (state) => {
+    console.log(state);
+    setEditorState(state);
   };
 
   const handleDrawerClose = () => {
@@ -121,13 +132,31 @@ export default function AdminDashboard() {
     }
   };
 
+  const content = editorState.getCurrentContent();
+  const rawContent = JSON.stringify(convertToRaw(content));
+
   const handleSubmit = async () => {
+    setUploading(true);
     if (!selectedFile) {
-      // message.error("Please select a file before submitting.");
-      return;
+      const { data: poster  } = await supabase
+        .from('articles')
+        .insert([
+          { 
+            title: title, 
+            content: rawContent,
+            type: articleType,
+            category: category,
+            author: author,
+            img_url: "",
+            creator: admin.name  
+          },
+        ])
+        .select()
+        setUploading(true);
+        window.location.reload();
     }
 
-    setUploading(true);
+    
 
     try {
       const fileName = `${Date.now()}-${selectedFile.name}`;
@@ -146,25 +175,22 @@ export default function AdminDashboard() {
         .storage
         .from('klsr') // Same bucket name
         .getPublicUrl(filePath);
-
-        setUrl()
        
-        const { data: poster  } = await supabase
-        .from('articles')
-        .insert([
-          { 
-            title: title, 
-            content: content,
-            type: articleType,
-            category: category,
-            author: author,
-            img_url: pics.publicUrl,
-            creator: admin.name  
-          },
-        ])
-        .select()
+           const { data: poster  } = await supabase
+         .from('articles')
+         .insert([
+           { 
+             title: title, 
+             content: rawContent,
+             type: articleType,
+             category: category,
+             author: author,
+             img_url: pics.publicUrl,
+             creator: admin.name  
+           },
+         ])
+         .select()
         
-      console.log(pics.publicUrl); 
       message.success("File uploaded successfully!");
       window.location.reload();
 
@@ -173,6 +199,7 @@ export default function AdminDashboard() {
       setUploading(false);
     }
   };
+
 
 
   
@@ -249,7 +276,7 @@ export default function AdminDashboard() {
 
           <Input onChange={(e) => setTitle(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Title"/>
          {
-          articleType == "review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
+          articleType == "Review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
          }
         <Upload
 
@@ -268,25 +295,26 @@ export default function AdminDashboard() {
            onChange={(e) => setCategory(e)}
           options={[{ value: 'Faith', label: <span>Faith</span> },
                             { value: 'Finance', label: <span className='text-red-600'>Finance</span> },
-                            { value: 'health', label: <span>Health</span> },
-                            { value: 'ministry', label: <span>Ministry</span> },
-                            { value: 'matrimony', label: <span>Relationship</span> },
-                            { value: 'academics', label: <span>Education</span> },
-                            { value: 'business', label: <span>Business</span> },
-                            { value: 'others', label: <span>Others</span> }
+                            { value: 'Health', label: <span>Health</span> },
+                            { value: 'Ministry', label: <span>Ministry</span> },
+                            { value: 'Relationship', label: <span>Relationship</span> },
+                            { value: 'Education', label: <span>Education</span> },
+                            { value: 'Business', label: <span>Business</span> },
+                            { value: 'Others', label: <span>Others</span> }
                             ]} />
-         <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/>
-         {/* <Editor
-        editorState={editorState}
-        onChange={(e) => console.log(e)}
-        plugins={plugins}
-      /> */}
-         <Button type="primary" onClick={handleSubmit} loading={uploading}>
+         {/* <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/> */}
+         <Editor
+          editorClassName=""
+          editorState={editorState}
+          onEditorStateChange={handleEditorChange}
+          toolbar={{}}
+        />
+       
+         <Button className='z-10 mb-20 mt-10' type="primary" onClick={handleSubmit} loading={uploading}>
           {uploading ? "Uploading..." : "Submit"}
         
         
          </Button>
-       
           </form>
 
           {/* Table that contain list of Articles */}

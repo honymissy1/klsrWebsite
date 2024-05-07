@@ -17,6 +17,29 @@ import {
     WhatsappShareButton,
 } from "react-share";
 
+import { Editor, EditorState, convertFromRaw } from 'draft-js';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+
+const RichTextRenderer = ({ rawContent }) => {
+    // Convert the raw content to a Draft.js content state
+    const contentState = convertFromRaw(rawContent);
+  
+    // Create an EditorState from the content state
+    const editorState = EditorState.createWithContent(contentState);
+  
+    return (
+      <div className="rich-text-renderer">
+        <Editor
+          editorState={editorState}
+          toolbarHidden={true} // Hide the toolbar since we don't need it
+          readOnly={true} // Ensure it's read-only
+          stripPastedStyles={true} // Ensure no additional styles are pasted
+        />
+      </div>
+    );
+  };
+
 
 
 const Article = () =>{
@@ -28,6 +51,7 @@ const Article = () =>{
    const [comments, setComments] = useState();
    const [commentText, setCommentText] = useState();
    const [loading, setLoading] = useState(false)
+   const [content, setContent] = useState();
 
    const [user, setUser] = useState();
    const userCredentials = JSON.parse(localStorage.getItem('user'))
@@ -58,8 +82,8 @@ const Article = () =>{
     const singleArticle = async () =>{
         let { data, error } = await supabase.from('articles').select('*')
         .eq('id', id)
-        setArticle(data)
-        console.log(data);
+        setArticle(data);
+        await setContent(JSON.parse(data[0].content))
     }
 
     const comment = async () =>{
@@ -83,9 +107,18 @@ const Article = () =>{
         .select()
 
         setLoading(true);
+        
         window.location.reload();
      }
     }
+
+
+
+    //  const contentState = convertFromRaw(content?.blocks)
+    // Create an EditorState from the content sate
+    // const html = stateToHTML(contentState)
+
+    console.log(content);
    return(
     <div> 
         <Nav />
@@ -108,7 +141,9 @@ const Article = () =>{
                                {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')} 
                             </div>
                             <h1 className="mt-5 text-[#626060]">
-                               {ele.content}
+                              <RichTextRenderer rawContent={content} />
+                               {/* {ele.content} */}
+                               {/* <div dangerouslySetInnerHTML={{__html: html}}></div> */}
                             </h1>
                             <p className="mt-5 text-right">{moment(ele.created_at, "YYYYMMDD").fromNow()}</p>
 
