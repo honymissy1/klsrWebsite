@@ -9,7 +9,7 @@ nav ul {
     /* display: flex; */
     margin: 0px auto;
     min-width: 400px;
-    max-width: 500px;
+    max-width: auto;
     justify-content: space-between;
     transition: .2s ease-in;
 

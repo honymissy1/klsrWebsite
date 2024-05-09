@@ -96,7 +96,7 @@ const Articles = () => {
                             {
                             loading == false && articles && articles.map((ele, index) =>(
                                 <Link to={`/articles/${ele.id}`}>
-                                    <div key={ele.id} className='p-4 lg:p-10'>
+                                    <div key={ele.id} className='p-4 lg:p-5'>
                                         <div>
                                             <div className='flex justify-between flex-wrap-reverse'>
                                                 <h1 className='font-extrabold text-lg'>{ele.title} {ele.type == 'Review' ? (<sup className='p-1 text-xs rounded font-normal bg-orange-300'>{'by ' +ele.author}</sup>) :('')} </h1>

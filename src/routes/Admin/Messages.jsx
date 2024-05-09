@@ -83,7 +83,6 @@ export default function Messages() {
     .select('*')
 
     setMessageData(messages)
-    console.log(messages);
    }
 
    message()

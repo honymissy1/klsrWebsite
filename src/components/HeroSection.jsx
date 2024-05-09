@@ -29,7 +29,7 @@ const HeroSection = () => {
 
 
   return (
-    <div className="hero-section justify-center text-center flex-row flex-wrap border relative min-h-[70vh] h-auto lg:h-[80vh] p-5 lg:p-[50px]">
+    <div className="hero-section justify-center text-center flex-row flex-wrap relative min-h-[70vh] h-auto lg:h-[80vh] p-5 lg:p-[50px]">
       <div style={{ display: 'none' }}>
         <audio id="english" controls>
           <source src="https://s3.voscast.com:9425/stream" type="audio/mpeg" />
@@ -48,7 +48,7 @@ const HeroSection = () => {
 
       <div id="content" className='md:w-[50%] md:ml-[50px] lg:ml-0  w-[400px] md text-center md:text-left m-auto md:m-0'>
         <h1 className='text-5xl font-bold font-serif'>KINGDOM LIFESTYLE RADIO</h1>
-        <p className='italic rounded-md'> 24/7 gospel, inspiration, edification and transformation, stay tuned and be blessed</p>
+        <p className='font-bold rounded-md !py-10'> 24/7 gospel, inspiration, edification and transformation, stay tuned and be blessed</p>
         <div className='flex lg:!mx-0 flex-wrap'>
           <button className=' p-2 flex-1  !text-black !bg-[gold] text-sm  font-extrabold' onClick={playEnglish} style={{ outline: english ? '2px solid white' : '' }}>English Channel &nbsp;</button>
           <button className=' p-2 flex-1  font-extrabold !bg-[gold] text-sm   !text-black' onClick={playYoruba} style={{ outline: !english ? '2px solid white' : '' }}>Yoruba Channel &nbsp;</button>

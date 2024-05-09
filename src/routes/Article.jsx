@@ -44,7 +44,7 @@ const RichTextRenderer = ({ rawContent }) => {
 
 const Article = () =>{
    const location = useLocation();
-   const currentUrl = location.pathname
+   const currentUrl = window.location.href
    let {id} = useParams();
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [article, setArticle] = useState();
@@ -60,7 +60,6 @@ const Article = () =>{
     setIsModalOpen(true);
   };
   const handleOk = () => {
-    console.log(user);
     localStorage.setItem('user', JSON.stringify(user))
     setIsModalOpen(false);
   };
@@ -97,7 +96,6 @@ const Article = () =>{
    }, [])
 
    const handleComment = async () =>{
-    console.log('Ok works');
      if(user?.name !== null){
         const { data, error } = await supabase
         .from('comment')
@@ -111,14 +109,6 @@ const Article = () =>{
         window.location.reload();
      }
     }
-
-
-
-    //  const contentState = convertFromRaw(content?.blocks)
-    // Create an EditorState from the content sate
-    // const html = stateToHTML(contentState)
-
-    console.log(content);
    return(
     <div> 
         <Nav />
@@ -142,8 +132,6 @@ const Article = () =>{
                             </div>
                             <h1 className="mt-5 text-[#626060]">
                               <RichTextRenderer rawContent={content} />
-                               {/* {ele.content} */}
-                               {/* <div dangerouslySetInnerHTML={{__html: html}}></div> */}
                             </h1>
                             <p className="mt-5 text-right">{moment(ele.created_at, "YYYYMMDD").fromNow()}</p>
 

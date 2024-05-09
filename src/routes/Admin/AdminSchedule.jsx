@@ -103,7 +103,6 @@ export default function AdminSchedule() {
 
   const handleTimeChange = (time, timeString) => {
     setTime(timeString);
-    console.log('Selected Time:', timeString);
   };
 
   const handleSubmit = async() =>{
@@ -118,7 +117,6 @@ export default function AdminSchedule() {
     if(error){
       message.error("error scheduling")
     }else{
-      console.log(error);
       await message.success("Scheduled successfully!");
       window.location.reload();
 

@@ -115,7 +115,6 @@ const AdminMember = () =>{
        .from('admin')
        .select('*')
 
-       console.log(admin);
        setAdminList(admin)
      }
 
@@ -129,7 +128,6 @@ const AdminMember = () =>{
           try {
             const userCredential = await createUserWithEmailAndPassword(auth, emailValue, phoneValue);
             const newUser = userCredential.user;
-            console.log(newUser);
 
             if(newUser){
               const { data, error } = await supabase

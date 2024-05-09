@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap');
 .hero-section{
     background-image: url('../images/hero_img.jpg');
     background-repeat: no-repeat;
@@ -27,7 +27,10 @@
 #content p{
     font-size: 20px;
     background-color: #3dc9c488;
-    color: rgba(24, 17, 17, 0.945);
+    font-family: "Ubuntu Sans Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: italic;
+    color: whitesmoke;
     margin-top: 10px;
     padding: 15px;
     text-align: center;

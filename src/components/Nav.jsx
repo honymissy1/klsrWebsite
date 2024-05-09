@@ -27,7 +27,8 @@ const Nav = () =>{
             <li><Link to="/">Home</Link></li>
             <li><Link to={`/about`}>About Us</Link></li>
             <li><Link to={`/articles`}>Articles</Link></li>
-            <li><Link to={`/podcast`}>Podcast</Link></li>
+            <li className="lg:border-r-2 lg:border-r-black lg:pr-4"><Link to={`/podcast`}><i class="fa-solid fa-microphone"></i> Podcast</Link></li>
+            <li><Link to={`/contact`}>Charity</Link> </li>
             <li><Link to={`/contact`}>Contact Us</Link> </li>
           </ul>
 

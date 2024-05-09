@@ -112,7 +112,6 @@ export default function AdminDashboard() {
   };
 
   const handleEditorChange = (state) => {
-    console.log(state);
     setEditorState(state);
   };
 

@@ -25,7 +25,6 @@ const AdminLogin = () =>{
                 .select('*')
                 .eq('email', user.email)
             
-                console.log(admin);
                 if(admin){
                     sessionStorage.setItem('klsr', JSON.stringify(admin[0]))
                     window.location.reload();
@@ -39,7 +38,6 @@ const AdminLogin = () =>{
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(errorMessage);
         });
 
 

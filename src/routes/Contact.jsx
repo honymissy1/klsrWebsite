@@ -36,8 +36,7 @@ const Contact = () =>{
         ])
         .select()
         window.location.reload();
-        console.log(data);
-        
+       
     }
 
     return (
