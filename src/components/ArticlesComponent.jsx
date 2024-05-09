@@ -45,6 +45,17 @@ const ArticleComponent = () =>{
         modules={[EffectCoverflow, Pagination]}
         className="mySwiper "
       >
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
+         <img className="" src="/images/designs/img1.jpg" alt="Burger" />
+        </SwiperSlide>
+
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
+         <img className="w-full" src="/images/designs/img2.jpg" alt="Burger" />
+        </SwiperSlide>
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
+         <img className="w-full" src="/images/designs/img3.jpg" alt="Burger" />
+        </SwiperSlide>
+      
         <SwiperSlide className='!w-[300px] md:!w-[600px] self-center'>
          <img className='' src="/images/designs/img.jpeg" alt="Burger" />
         </SwiperSlide>
@@ -58,12 +69,22 @@ const ArticleComponent = () =>{
          <img className='' src="/images/designs/img3.jpeg" alt="Burger" />
         </SwiperSlide>
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
-         <img className='' src="/images/designs/psalm61.png" alt="Burger" />
+         <img className='' src="/images/designs/img4.jpg" alt="Burger" />
+        </SwiperSlide>
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
+         <img className='' src="/images/designs/img5.jpg" alt="Burger" />
         </SwiperSlide>
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
          <img className="w-full" src="/images/designs/health.png" alt="Burger" />
         </SwiperSlide>
  
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
+         <img className='' src="/images/designs/img6.jpg" alt="Burger" />
+        </SwiperSlide>
+      
+        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
+         <img className='' src="/images/designs/img7.jpg" alt="Burger" />
+        </SwiperSlide>
       </Swiper>
 
                     {/* <div className='w-[300px] h-auto'>

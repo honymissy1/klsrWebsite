@@ -46,9 +46,9 @@ const HeroSection = () => {
       <img className='w-[300px] lg:w-[400px] md:absolute md:left-0 md:bottom-0 m-auto' src="/images/hero2.png" alt="" />
 
 
-      <div id="content" className='md:w-[40%] md:ml-[50px] lg:ml-0  w-[400px] md text-center md:text-left m-auto md:m-0'>
+      <div id="content" className='md:w-[50%] md:ml-[50px] lg:ml-0  w-[400px] md text-center md:text-left m-auto md:m-0'>
         <h1 className='text-5xl font-bold font-serif'>KINGDOM LIFESTYLE RADIO</h1>
-        <p className='italic rounded-md'>24/7 gospel, inspiration, edification and transformation, stay tuned and be blessed</p>
+        <p className='italic rounded-md'> 24/7 gospel, inspiration, edification and transformation, stay tuned and be blessed</p>
         <div className='flex lg:!mx-0 flex-wrap'>
           <button className=' p-2 flex-1  !text-black !bg-[gold] text-sm  font-extrabold' onClick={playEnglish} style={{ outline: english ? '2px solid white' : '' }}>English Channel &nbsp;</button>
           <button className=' p-2 flex-1  font-extrabold !bg-[gold] text-sm   !text-black' onClick={playYoruba} style={{ outline: !english ? '2px solid white' : '' }}>Yoruba Channel &nbsp;</button>
