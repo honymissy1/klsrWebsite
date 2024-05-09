@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-      <div class="p-2 w-[50px] rounded-md flex justify-center bg-teal-500" id="pauseplay" onClick="playaudio()"><i class="fa-solid fa-pause"></i></div>
+      <div class="p-2 w-[50px] rounded-md flex justify-center bg-teal-500" id="pauseplay" onClick="playaudio()"><i class="fa-solid fa-play"></i></div>
       </div>
 
   </div>
@@ -61,8 +61,7 @@
     const pausePlay = document.querySelector('#pauseplay');
 
     let currentAudio = english
-
-
+    
     const playaudio = () =>{
       if(currentAudio.paused){
         currentAudio.play()
@@ -131,11 +130,11 @@
     
     }
 
+    let show = true
     
     const slide = () =>{
       const panel = document.querySelector('#panel');
       const down = document.querySelector('.fa-chevron-down');
-      let show = true
       if(show){
         panel.classList.add('translate-y-[100%]');
         down.style.transform = `rotate(180deg)`
