@@ -8,6 +8,7 @@ import Content from './components/Content';
 import Footer from './components/Footer';
 import ArticleComponent from './components/ArticlesComponent';
 import Partnership from './components/Partnership';
+import Charity from './components/Charity';
  
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             <Content />
             <ArticleComponent />
             <Features />
+            <Charity />
             <Partnership />
             {/* <Tools /> */}
 

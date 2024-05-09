@@ -4,28 +4,22 @@ import { Link } from "react-router-dom";
 const Footer = () => {
     return(
         <div className="flex min-h-[300px] pb-[50px] gap-5 flex-wrap p-5 text-white bg-black">
-            <div className="flex-1">
-                <img src="/images/logo.png" style={{width: '100px'}} alt="" />
+            <div className="flex-1 mx-auto min-w-[70px] max-w-[130px]">
+                <img src="/images/logo.png" style={{width: '100%'}} alt="" />
             </div>
-            <div className="min-w-[200px] flex-1"> 
+            <div className="min-w-[200px] text-center flex-1"> 
                 <h1 className="text-xl font-extrabold text-white">Pages</h1>
 
                 <div className="text-[#ddd]"><br/>
                     <ul>
-                        <li><Link to={`/`}>Home</Link></li>
-                        <li><Link to={`/about`}>About</Link></li>
-                         <li><Link to={`/articles`}>Articles</Link></li>  
-                        <li><Link to={`/podcast`}>Podcast</Link></li>
-                        <li><Link to={`/charity`}>Charity</Link></li>
-                        <li><Link to={`/contact`}>Contact</Link></li>
+                        <li className="mb-2"><Link to={`/`}>Home</Link></li>
+                        <li className="mb-2"><Link to={`/about`}>About</Link></li>
+                         <li className="mb-2"><Link to={`/articles`}>Articles</Link></li>  
+                        <li className="mb-2"><Link to={`/podcast`}>Podcast</Link></li>
+                        <li className="mb-2"><a href={`/#charity`}>Charity</a></li>
+                        <li className="mb-2"><Link to={`/contact`}>Contact</Link></li>
                     </ul>
                 </div>
-            </div>
-            <div className="min-w-[200px]  flex-1"> 
-                <h1 className="text-xl font-extrabold text-white">KLSR</h1>
-                <p className="mb-2 text-sm text-[gold]">Download Kindom Lifestyle Radio App</p>
-
-                <img className="w-full max-w-[200px]" src="/images/app.png" alt="" />
             </div>
 
             <div className="min-w-[200px] flex-1"> 
@@ -76,6 +70,12 @@ const Footer = () => {
                   </div>
                 </div>
 
+            </div>
+            <div className="min-w-[200px]  flex-1"> 
+                <h1 className="text-xl font-extrabold text-white">KLSR</h1>
+                <p className="mb-2 text-sm text-[gold]">Download Kindom Lifestyle Radio App</p>
+
+                <img className="w-full max-w-[200px]" src="/images/app.png" alt="" />
             </div>
 
         </div>
