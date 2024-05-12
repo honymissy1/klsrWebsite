@@ -43,7 +43,7 @@
       <div class="flex gap-5 items-center flex-wrap">
         <div>
           <p class="text-xs text-white">Tap to switch channel</p>
-          <div id="channel" onClick="switchChannel()" class="w-max anim p-2 text-xs bg-[#4def0d] rounded font-bold">Yoruba Channel
+          <div id="channel" onClick="switchChannel()" class="w-max p-2 text-xs bg-[#4def0d] rounded font-bold">Yoruba Channel
           </div>
         </div>
         <div class=" font-extrabold text-white text-center">
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div id="playaudio" class="p-2 w-[50px] rounded-md flex justify-center bg-teal-500" id="pauseplay" onClick="playaudio()"><i class="fa-solid fa-play"></i></div>
+      <div id="playaudio" class="p-2 w-[50px] rounded-md flex justify-center bg-teal-500 anim" id="pauseplay" onClick="playaudio()"><i class="fa-solid fa-play"></i></div>
       </div>
 
   </div>
@@ -74,6 +74,10 @@
     let currentAudio = english
     
     const playaudio = () =>{
+          const playaudio = document.querySelector('#playaudio');
+
+
+          playaudio.classList.remove('anim')
       if(currentAudio.paused){
         currentAudio.play()
         pausePlay.innerHTML = `<i class="fa-solid fa-pause"></i>`
