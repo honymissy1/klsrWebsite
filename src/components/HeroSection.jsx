@@ -2,29 +2,71 @@ import { useState, useRef, useEffect } from 'react'
 import '../assets/styles/hero.css'
 
 const HeroSection = () => {
-  const [english, setEnglish] = useState(true);
 
-  const playEnglish = () => {
     const english = document.querySelector('#english');
     const yoruba = document.querySelector('#yoruba');
+  // const playEnglish = () => {
+  //   const english = document.querySelector('#english');
+  //   const yoruba = document.querySelector('#yoruba');
 
-    if (yoruba.play) {
-      yoruba.pause()
+  //   if (yoruba.play) {
+  //     yoruba.pause()
+  //   }
+  //   setEnglish(true)
+  //   english.play()
+  // }
+
+  // const playYoruba = () => {
+  //   const english = document.querySelector('#english');
+  //   const yoruba = document.querySelector('#yoruba');
+
+  //   if (english.play) {
+  //     english.pause()
+  //   }
+  //   setEnglish(false)
+  //   yoruba.play()
+  // }
+
+  let currentAudio;
+    
+  const playaudio =  (x) =>{
+      currentAudio = x === "english" ? english : yoruba
+
+      if(currentAudio.paused){
+        currentAudio.play()
+        pausePlay.innerHTML = `<i class="fa-solid fa-pause"></i>`
+      }else{
+        currentAudio.pause();
+        pausePlay.innerHTML = `<i class="fa-solid fa-play"></i>`
+      }
     }
-    setEnglish(true)
-    english.play()
-  }
 
-  const playYoruba = () => {
-    const english = document.querySelector('#english');
-    const yoruba = document.querySelector('#yoruba');
+    const switchChannel = () => {
+      const label = document.querySelector('#label1');
+      const label2 = document.querySelector('#label2');
+      const channel = document.querySelector('#channel');
 
-    if (english.play) {
-      english.pause()
+      currentAudio.pause()
+      currentAudio = (currentAudio === english) ? yoruba : english;
+
+      currentAudio.play()
+     
+      if (currentAudio === english) {
+        channel.textContent = "Yoruba Channel"
+        label.classList.add("block")
+        label.classList.remove("hidden")
+        label2.classList.add("hidden")
+        label2.classList.remove("block")
+      } else {
+        channel.textContent = "English Channel"
+        label.classList.add("hidden")
+        label2.classList.remove("block")
+        label.classList.add("block")
+        label2.classList.remove("hidden")
+
+      }
+    
     }
-    setEnglish(false)
-    yoruba.play()
-  }
 
 
   return (
@@ -49,8 +91,8 @@ const HeroSection = () => {
         <h1 className='text-5xl font-bold font-serif'>KINGDOM LIFESTYLE RADIO</h1>
         <p className='font-bold rounded-md !py-10'> 24/7 gospel, inspiration, edification and transformation, stay tuned and be blessed</p>
         {/* <div className='flex lg:!mx-0 flex-wrap'>
-          <button className=' p-2 flex-1  !text-black !bg-[gold] text-sm  font-extrabold' onClick={playEnglish} style={{ outline: english ? '2px solid white' : '' }}>English Channel &nbsp;</button>
-          <button className=' p-2 flex-1  font-extrabold !bg-[gold] text-sm   !text-black' onClick={playYoruba} style={{ outline: !english ? '2px solid white' : '' }}>Yoruba Channel &nbsp;</button>
+          <button className=' p-2 flex-1  !text-black !bg-[gold] text-sm  font-extrabold' onClick={() => playaudio('english')} style={{ outline: english ? '2px solid white' : '' }}>English Channel &nbsp;</button>
+          <button className=' p-2 flex-1  font-extrabold !bg-[gold] text-sm   !text-black' onClick={() => playaudio('yoruba')} style={{ outline: !english ? '2px solid white' : '' }}>Yoruba Channel &nbsp;</button>
         </div> */}
       </div>
     </div>
