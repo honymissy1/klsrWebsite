@@ -23,7 +23,7 @@ const Footer = () => {
             </div>
 
             <div className="min-w-[200px] flex-1"> 
-                <h1 className="text-xl font-extrabold text-white">Partnership</h1>
+                <h1 className="text-xl font-extrabold text-white">Partnership / Support</h1>
 
                 <div className="text-white"><br/>
                 <div className="py-4">
@@ -35,6 +35,12 @@ const Footer = () => {
                  <div>
                      <h1 className="font-bold text-red-500">Guarantee Trust Bank</h1>
                      <p>0892125365</p>
+                     <p className="text-xs text-blue-400">Kingdom Lifestyle & Diamond Charities</p>
+                </div>
+                <hr />
+                <div className="py-2">
+                     <h1 className="font-bold text-orange-500">Guarantee Trust Bank  <span className="top-0 font-extrabold text-xs bg-orange-600 text-white p-1 rounded-lg -left-3"> USD</span></h1>
+                     <p>0892172060</p>
                      <p className="text-xs text-blue-400">Kingdom Lifestyle & Diamond Charities</p>
                 </div>
                 </div>

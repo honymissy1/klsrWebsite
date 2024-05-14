@@ -17,7 +17,7 @@
     @keyframes btn {
       0% { transform: scale(1)}
       50% {transform: scale(1.4);}
-      100% { transform: scale(1)}
+      100% { transform: scale(1);}
     }
   </style>
 </head>
@@ -37,8 +37,8 @@
 
   </div>
 
-  <div id="panel" class="fixed w-full p-5 bottom-0 z-50 text-black bg-teal-950 transform transition-all">
-    <h1 onclick="slide()" class="absolute p-3 text-white left-0 top-0 bg-teal-950 transform translate-y-[-100%]"><i class="fa-solid fa-chevron-down"></i></h1>
+  <div id="panel" class="fixed w-full p-5 bottom-0 z-50 text-black bg-[#002F3D] transform transition-all">
+    <h1 onclick="slide()" class="absolute p-3 text-white left-0 top-0 bg-[#002F3D] transform translate-y-[-100%]"><i class="fa-solid fa-chevron-down"></i></h1>
     <div class="flex items-center justify-between">
       <div class="flex gap-5 items-center flex-wrap">
         <div>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div id="playaudio" class="p-2 w-[50px] rounded-md flex justify-center bg-teal-500 anim" id="pauseplay" onClick="playaudio()"><i class="fa-solid fa-play"></i></div>
+      <div id="playaudio" class="p-2 w-[50px] text-black rounded-md flex justify-center bg-white anim" id="pauseplay" onClick="playaudio()"><i class="fa-solid fa-play"></i></div>
       </div>
 
   </div>
@@ -72,12 +72,13 @@
     const pausePlay = document.querySelector('#pauseplay');
 
     let currentAudio = english
+    const playRadio = document.querySelector('#playaudio');
     
     const playaudio = () =>{
-          const playaudio = document.querySelector('#playaudio');
+      const pausePlay = document.querySelector('#pauseplay');
 
+      playRadio.classList.remove('anim')
 
-          playaudio.classList.remove('anim')
       if(currentAudio.paused){
         currentAudio.play()
         pausePlay.innerHTML = `<i class="fa-solid fa-pause"></i>`
@@ -87,32 +88,32 @@
       }
       }
 
-    if (yoruba.play) {
-        yoruba.pause()
-        english.play()
-    }
+    // if (yoruba.play) {
+    //     yoruba.pause()
+    //     english.play()
+    // }
 
-    const playEnglish = () => {
-      const english = document.querySelector('#english');
-      const yoruba = document.querySelector('#yoruba');
+    // const playEnglish = () => {
+    //   const english = document.querySelector('#english');
+    //   const yoruba = document.querySelector('#yoruba');
 
-      if (yoruba.play) {
-        yoruba.pause()
-      }
-      english.play()
-    }
+    //   if (yoruba.play) {
+    //     yoruba.pause()
+    //   }
+    //   english.play()
+    // }
 
 
-    const playYoruba = () => {
-      const english = document.querySelector('#english');
-      const yoruba = document.querySelector('#yoruba');
+    // const playYoruba = () => {
+    //   const english = document.querySelector('#english');
+    //   const yoruba = document.querySelector('#yoruba');
 
-      if (english.play) {
-        english.pause()
-      }
+    //   if (english.play) {
+    //     english.pause()
+    //   }
 
-      yoruba.play();
-    }
+    //   yoruba.play();
+    // }
 
 
     const switchChannel = () => {

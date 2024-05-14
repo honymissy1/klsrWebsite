@@ -74,10 +74,7 @@ const ArticleComponent = () =>{
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
          <img className='' src="/images/designs/img5.jpg" alt="Burger" />
         </SwiperSlide>
-        <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
-         <img className="w-full" src="/images/designs/health.png" alt="Burger" />
-        </SwiperSlide>
- 
+
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
          <img className='' src="/images/designs/img6.jpg" alt="Burger" />
         </SwiperSlide>
@@ -86,9 +83,6 @@ const ArticleComponent = () =>{
          <img className='' src="/images/designs/img7.jpg" alt="Burger" />
         </SwiperSlide>
       </Swiper>
-
-                    {/* <div className='w-[300px] h-auto'>
-                    </div> */}
 
         </div>
 

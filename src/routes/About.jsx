@@ -25,7 +25,7 @@ const About = () =>{
                     <br />
                     <div className="p-3 mb-5" style={{borderLeft: '7px solid'}}>
                         <p className="">
-                        More so, among so many tools available in the toolbox of a Christian, faith, is an essential tool that helps a person to connect with God. We found this to be true in the book of <b className="text-teal-800">Hebrews 11:6</b> 
+                         More so, among so many tools available in the toolbox of a Christian, faith, is an essential tool that helps a person to connect with God. We found this to be true in the book of <b className="">Hebrews 11:6</b> 
                         </p>
                     </div>
 

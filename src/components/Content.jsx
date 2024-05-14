@@ -8,7 +8,7 @@ const Content = () =>{
                     <i class="fa-solid fa-radio text-4xl"></i> 
                     <h1 className="my-3 font-extrabold text-xl text-[#FFD700]">Multiligua Radio</h1>
 
-                    <p>Radio rich in the word of God for your daily consumption both in English and Yoruba</p>
+                    <p>Radio rich in the word of God for your daily consumption both in <span className="text-[#f5dd58]">English and Yoruba</span> languages</p>
                     <i style={{visibility: 'hidden'}} class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
                  </div>
 
@@ -16,7 +16,7 @@ const Content = () =>{
                  <i class="fa-solid fa-podcast text-4xl"></i> 
                     <h1 className="my-3 text-xl font-extrabold text-[#FFD700]">Podcast</h1>
 
-                    <p>Radio rich in the word of God for your daily consumption both in English and Yoruba languages</p>
+                    <p>Listen to weekly podcast by KLSR for spiritual edification and insights in the word God </p>
 
                     <Link to={"/podcast"}> <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i></Link>
                  </div>
@@ -26,7 +26,7 @@ const Content = () =>{
                  <i class="fa-solid fa-book-open-reader text-4xl"></i>
                     <h1 className="my-3 text-xl font-extrabold  text-[#FFD700]">Devotion</h1>
 
-                    <p>Get you day running with daily devotions from KLSR that will keep your spirit energized</p>
+                    <p>Get your day running with daily devotions from KLSR that will keep your spirit energized</p>
 
                     <i class="fa-solid fa-arrow-right mt-8 font-bold text-2xl"></i>
                     
