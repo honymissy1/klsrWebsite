@@ -19,11 +19,11 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
-import { Card, Form, Select, Input, Button, Modal, Table } from 'antd';
+import { Card, Form, Select, Input, Button, Modal, Table, Space, Popconfirm, notification, Alert } from 'antd';
 import { useEffect, useState } from 'react';
 import supabase from '../../supabaseClient';
 
-
+import { DeleteOutlined } from '@ant-design/icons';
 import {auth, firestore} from '../../firebaseConfig';
 import {  createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -82,7 +82,7 @@ const AdminMember = () =>{
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [adminList, setAdminList] = useState();
-
+    const [loading, setLoading] = useState(false)
 
     const nameValue = Form.useWatch('name', form);
     const roleValue = Form.useWatch('role', form);
@@ -124,7 +124,8 @@ const AdminMember = () =>{
     const showModal = () => {
       setIsModalOpen(true);
     };
-    const handleOk = async () => {     
+    const handleOk = async () => {  
+      setLoading(true)   
           try {
             const userCredential = await createUserWithEmailAndPassword(auth, emailValue, phoneValue);
             const newUser = userCredential.user;
@@ -142,15 +143,52 @@ const AdminMember = () =>{
                 ])
                 
                 alert('Admin Added Successfully')
+                setLoading(false)
+                window.location.reload()
              }
                   
           }catch(error){
-            alert('Admin Not Successfully Added')
+            alert('Admin Not Successfully Added');
+            setLoading(false)
           }
     
     setIsModalOpen(false);
   }
 
+  const handleDelete = async(email) =>{
+
+    if(email === "oladaniel@outlook.com"){
+      notification.open({
+        type: 'error',
+        message: 'Cannot perform this operation on this specific admin',
+        duration: 5,
+      })
+
+      return
+    }
+   
+      const { error } = await supabase
+      .from('admin')
+      .delete()
+      .eq('email', email)
+
+      if(!error){
+        notification.open({
+          type: 'success',
+          message: 'User deleted successfully',
+          duration: 3,
+          onClose: () => window.location.reload()
+        })
+      }else{
+        notification.open({
+          type: 'error',
+          message: 'User not deleted successfully',
+          duration: 3,
+          onClose: () => window.location.reload()
+        })
+      }
+        
+  }
 
 
     const handleCancel = () => {
@@ -173,6 +211,21 @@ const AdminMember = () =>{
           dataIndex: 'email',
           key: 'email',
         },
+
+        {
+          title: "",
+          dataIndex: "action",
+          key: 'action',
+          render: (text, record) => (
+            <Space size="middle">
+              <Popconfirm title={`Are you sure delete ${record.name} from admin?`}
+                onConfirm={() => handleDelete(record.email)}
+              >
+                <p><DeleteOutlined className='text-red-500' /></p>
+              </Popconfirm>
+            </Space>
+          )
+        }
       ];
 
       const dataSource =  adminList;
@@ -236,19 +289,19 @@ const AdminMember = () =>{
         <DrawerHeader />
         <div>
           {
-            admin.role == 'superadmin' ? (
-              <Button type="primary" className='mb-10' onClick={showModal}>
+            admin.role === 'Superadmin' ? (
+              <Button type="primary"  className='!bg-[#115E59] mb-5' onClick={showModal}>
                 + Add Admin / Creator
               </Button>
             ):(
-              <Button className='bg-[#ddd]'>
+              <Button className='!bg-[#115E59] text-green-700'>
                  + Add Admin / Creator
               </Button>
             )
           }
 
            {
-            admin.role == "superadmin" ? (
+            admin.role == "Superadmin" ? (
               dataSource && (
                 <Table dataSource={dataSource} columns={columns} />
               )
@@ -273,7 +326,7 @@ const AdminMember = () =>{
                     </Form.Item>
 
                     <Form.Item name="role">
-                       <Select name="role" className='w-full' placeholder="Role" options={[{ value: 'superadmin', label: <span>Super Admin</span> },
+                       <Select name="role" className='w-full' placeholder="Role" options={[{ value: 'Superadmin', label: <span>Super Admin</span> },
                                     { value: 'creator', label: <span>Admin(Creator)</span> }
                       ]} />
                     </Form.Item>
@@ -282,18 +335,6 @@ const AdminMember = () =>{
                 {/* <Input className='mb-4'  placeholder=""/> */}
 
             </Modal>
-
-            {
-
-            }
-
-            {
-
-                // adminList.length < 1 && (
-                //     <h1>No Data Available</h1>
-                // )
-
-            }
 
         </div>
                 

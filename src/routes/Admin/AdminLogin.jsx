@@ -9,10 +9,11 @@ import { useNavigate } from 'react-router-dom';
 const AdminLogin = () =>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
     
     const handleLogin = () =>{
+        setLoader(true)
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
         .then(async(userCredential) => {
@@ -27,11 +28,12 @@ const AdminLogin = () =>{
             
                 if(admin){
                     sessionStorage.setItem('klsr', JSON.stringify(admin[0]))
-                    window.location.reload();
+                    window.location.reload(); 
                 }
 
             }else{
-                alert('User not found')
+                alert('User not found');
+                setLoader(false)
             }
 
         })
@@ -57,7 +59,7 @@ const AdminLogin = () =>{
                 >
                 <Input placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
                 <Input.Password placeholder="Password" className='my-4' onChange={(e) => setPassword(e.target.value)}  />
-                <Button type="primary" onClick={handleLogin}>Login</Button>
+                <Button type="primary" onClick={handleLogin}>{loader ? "Login" : "Loading..."}</Button>
                 </Card>
 
             </div>

@@ -162,9 +162,9 @@ export default function Messages() {
 
         <h1 className="text-2xl font-extrabold">Messages</h1>
 
-        <div className='w-full lg:p-10 p-3 min-h-[500px] bg-teal-900'>
+        <div className='w-full lg:p-10 p-3 min-h-[300px] bg-teal-900'>
           {
-            messageData?.length  < 1 || messageData === null && (
+            messageData?.length  < 1 && (
               <div className='rounded mb-2 p-2 w-full text-white bg-teal-800'>
                  <h1 className='text-2xl text-center'>No messages yet</h1>
               </div>
