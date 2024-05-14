@@ -76,10 +76,10 @@ const About = () =>{
                     <div className="flex-1 max-w-[500px] min-w-[300px]">
                         <img className="w-full" src="/images/founder.png" alt="" />
                     </div>
-                    <div className="flex items-center flex-1 max-w-[500px] min-w-[300px]">
-                      <div className="w-max h-max">
-                        <h1 className="text-4xl text-[#dec1c1] font-extrabold">Olalekan Oloyede</h1>
-                        <p className="bg-white p-1">Founder, Kingdom Life Radio</p>
+                    <div className="flex items-center flex-1 max-w-[500px]">
+                      <div className="w-full h-max p-2 text-center md:text-left">
+                        <h1 className="text-4xl md:text-[50px] text-[white] font-extrabold">Olalekan Oloyede</h1>
+                        <p className="bg-white text-center font-bold p-1">Founder, Kingdom Life Radio</p>
                       </div>
                     </div>
 

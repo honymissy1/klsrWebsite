@@ -100,7 +100,7 @@ const Articles = () => {
                                                     {/* <p className='text-sm text-[#838080] py-3'>{ele.content.substring(0, 200)}</p> */}
                                                 </div>
                                                 <div className='flex text-sm justify-between py-2'>
-                                                    <p className='font-bold text-[#777]'>By {ele.creator} <span className='bg-purple-600 text-xs font-normal text-white p-1 rounded-lg'>{ele.category}</span></p>
+                                                    <p className='font-bold text-[#777]'>By {ele.creator} <span className='bg-green-800 text-xs font-normal text-white p-1 rounded-lg'>{ele.category}</span></p>
                                                     <p>{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
                                                 </div>
                                                 <hr />
