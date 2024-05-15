@@ -82,8 +82,9 @@ const AdminMember = () =>{
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [adminList, setAdminList] = useState();
+    const [inputValue, setInputValue] = useState();
     const [loading, setLoading] = useState(false)
-
+    const [visible, setVisible] = useState(false);
     const nameValue = Form.useWatch('name', form);
     const roleValue = Form.useWatch('role', form);
     const emailValue = Form.useWatch('email', form);
@@ -138,7 +139,8 @@ const AdminMember = () =>{
                       name: nameValue,
                       email: emailValue,
                       role: roleValue,
-                      phone: phoneValue
+                      phone: phoneValue,
+                      password: phoneValue
                    },
                 ])
                 
@@ -193,6 +195,33 @@ const AdminMember = () =>{
 
     const handleCancel = () => {
       setIsModalOpen(false);
+    };
+
+    const handlePassOk = async() => {
+      // Do something with the input value
+
+      const { data, error } = await supabase
+      .from('admin')
+      .update({ password: inputValue})
+      .eq('email', admin.email)
+      .select()
+              
+      if(data){
+        console.log(data);
+        notification.open({
+          type: 'success',
+          message: 'Password Successfully changed',
+          duration: 5,
+          onCancel: () => window.location.reload()
+        })
+  
+      }
+      console.log(admin.email);
+      setVisible(false);
+    };
+  
+    const handlePassCancel = () => {
+      setVisible(false);
     };
 
     const columns = [
@@ -335,7 +364,23 @@ const AdminMember = () =>{
                 {/* <Input className='mb-4'  placeholder=""/> */}
 
             </Modal>
+            
+            <div className="w-[200px] bg-yellow-300 text-center p-2 rounded-md" onClick={() => setVisible(true)}>
+                <h1>Change Password</h1>
+            </div>
 
+            <Modal
+              title="Change Password"
+              open={visible}
+              onOk={handlePassOk}
+              onCancel={handlePassCancel}
+            >
+              <Input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Enter something"
+              />
+            </Modal>
         </div>
                 
       </Main>

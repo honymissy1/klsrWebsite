@@ -59,7 +59,7 @@ const AdminLogin = () =>{
                 >
                 <Input placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
                 <Input.Password placeholder="Password" className='my-4' onChange={(e) => setPassword(e.target.value)}  />
-                <Button type="primary" onClick={handleLogin}>{loader ? "Login" : "Loading..."}</Button>
+                <Button type="primary" onClick={handleLogin}>{!loader ? "Login" : "Loading..."}</Button>
                 </Card>
 
             </div>
