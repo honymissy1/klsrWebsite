@@ -113,6 +113,13 @@ const Article = () =>{
     <div> 
         <Nav />
             {
+             article == null || article == undefined && (
+                <div className='w-full min-h-[400] flex justify-center items-center'>
+                    <h1>Loading...</h1>
+                </div>
+             )
+            }
+            {
                 article?.map(ele =>(
                 <div key={ele.id}>
                     <div className="bg-[gold] p-2 flex-wrap flex justify-between">
@@ -140,28 +147,28 @@ const Article = () =>{
                                     <h1>Share <span className='text-green-500'>{ele.type}</span> on</h1>
                                     <div className="flex gap-3">
                                         <div className="w-7 h-7">
-                                            <FacebookShareButton url={currentUrl} hashtag="klsr" quote="Welcome to KLSR">
+                                            <FacebookShareButton url={currentUrl} title={ele.title} hashtag="klsr" quote="Welcome to KLSR">
                                               <i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i>
                                             </FacebookShareButton>
                                         </div>
                                         <div className="w-7 h-7 ">
-                                            <WhatsappShareButton url={currentUrl}>
+                                            <WhatsappShareButton url={currentUrl} title={ele.title}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i>
 
                                             </WhatsappShareButton>
                                         </div>
                                         <div className="w-7 h-7">
-                                           <TwitterShareButton url={currentUrl}>
+                                           <TwitterShareButton url={currentUrl} title={ele.title}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-x-twitter mx-1"></i>
                                             </TwitterShareButton>
                                         </div>
                                         <div className="w-7 h-7">
-                                          <TelegramShareButton url={currentUrl}>
+                                          <TelegramShareButton url={currentUrl} title={ele.title}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-telegram mx-1"></i>
                                             </TelegramShareButton>
                                         </div>
 
-                                        <LinkedinShareButton url={currentUrl}>
+                                        <LinkedinShareButton url={currentUrl} title={ele.title}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-linkedin mx-1"></i>
                                             </LinkedinShareButton>
                                     </div>
@@ -175,7 +182,7 @@ const Article = () =>{
                                 <textarea onChange={(e) => setCommentText(e.target.value) } className="outline p-2 rounded w-full" placeholder="Leave a comment" name="Area" id="" cols="10" rows="5"></textarea>
                                 {
                                     userCredentials !== null ? (<button className="p-2 border bg-green-600 rounded w-full" onClick={handleComment}>{loading ? ('Sending...'):('Send')}</button>):
-                                    (<><button className="p-2 border bg-green-600 rounded w-full" onClick={showModal}>Sender</button></>)
+                                    (<><button className="p-2 border bg-green-600 rounded w-full" onClick={showModal}>Send</button></>)
                                 }
                             </div>
 

@@ -119,7 +119,7 @@ const Articles = () => {
                     <div className='min-h-[500px] dark:bg-white'>
                         <div className='w-full h-[300px] flex justify-center flex-col items-center'>
                         <img src="/images/loading.svg" alt="" />
-                        <h1 className='font-bold text-xl'>Loading Artices...</h1>
+                        <h1 className='font-bold text-xl'>Loading Articles...</h1>
                         </div>
                     </div>
                 )
