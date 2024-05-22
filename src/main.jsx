@@ -16,6 +16,7 @@ import Contact from './routes/Contact.jsx'
 import Partnership from './components/Partnership.jsx';
 import Programs from './routes/programs.jsx';
 import Messages from './routes/Admin/Messages.jsx';
+import CharityPage from './routes/Charity.jsx';
 
 
 let admin = sessionStorage.getItem('klsr')
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
   {
     path: "podcast",
     element: <Podcast />
+  },
+
+  {
+    path: "charity",
+    element: <CharityPage />
   },
 
   {

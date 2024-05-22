@@ -14,7 +14,7 @@ import Charity from './components/Charity';
 const App = () => {
   return (
           <div className='overflow-x-hidden'>
-            <Nav /> 
+            <Nav page="home" /> 
 
             <HeroSection />
             <Content />
@@ -22,9 +22,8 @@ const App = () => {
             <Features />
             <Charity />
             <Partnership />
-            {/* <Tools /> */}
-
-            <Footer />
+ 
+            <Footer page="home" />
            </div>
   )
 }
