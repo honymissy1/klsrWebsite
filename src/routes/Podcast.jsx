@@ -122,7 +122,7 @@ const Podcast = () =>{
                 
                             <div className="flex-1 min-w-[300px]">
                               <div className="" id="player">
-                              <div className="shadow !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
+                              <div className="shadow p-3 !mx-auto shadow-slate-300 min-w-[300px]  w-[80%] rounded" id="description">
                                 <div className="p-5 text-center">
                                 <img className="w-full" src="/images/designs/img3.jpeg" alt="" />
                                 <div className="py-5 flex items-center font-bold gap-2">
@@ -141,7 +141,14 @@ const Podcast = () =>{
                                   {/* <i onClick={handleFoward} class="fa-solid fa-forward"></i> */}
 
                                 </div>
+
                                 </div>
+                                <a href={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url} download type="audio/mpeg">
+
+                                <div className="p-1 text-center rounded bg-green-600">
+                                  <h1 className="text-white font-bold"><i class="fa-solid fa-download mr-5"></i> Download podcast</h1>
+                                </div>
+                                </a>
                                 
                
                                 <audio autoplay ref={audioRef} className="absolute" key={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url}>

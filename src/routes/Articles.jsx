@@ -81,11 +81,8 @@ const Articles = () => {
                     
                             <div className='flex '>
                                 <div className='hidden lg:block lg:!static lg:!top-0 w-[300px] h-[auto] bg-blue-400'>
-                                    <h1 className='text-2xl font-extrabold'>Advert Placement</h1>
-                                    <h1>
-            
-            
-                                    </h1>
+                                    <h1 className='text-2xl font-extrabold'></h1>
+ 
                                 </div>
                                 <div className='flex-1 min-h-[700px]'>            
                                     {

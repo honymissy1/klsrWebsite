@@ -32,9 +32,13 @@ const Nav = ({page}) =>{
             <li><Link to={`/contact`}>Contact</Link> </li>
           </ul>
 
-          {/* <a href="/#partnership">
-             <i class="fa-solid text-2xl fa-circle-dollar-to-slot"></i>
-          </a> */}
+         {
+          page === 'home' && (
+            <a href="/#partnership">
+              <i class="fa-solid text-2xl fa-circle-dollar-to-slot"></i>
+            </a>
+          )
+         }
           
         </nav>
   )
