@@ -13,7 +13,7 @@ const Nav = ({page}) =>{
   }
 
  return(
-        <nav className="flex md:items-center z-20 ease-in-out md:justify-around p-3">
+        <nav className="flex md:items-center items-center z-20 ease-in-out md:justify-around p-3">
           <div className="flex w-full lg:w-max">
             <h1 className=" lg:hidden p-5 top-5" onClick={add}><i class="fa-solid fa-bars"></i></h1>
             <div className="" style={{margin: 'auto'}}>
