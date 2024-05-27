@@ -143,7 +143,7 @@ const Podcast = () =>{
                                 </div>
 
                                 </div>
-                                <a href={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url} download type="audio/mpeg">
+                                <a href={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'enclosure').attributes.url} download={podcastData && podcastData[currentPodcast].children.find(child => child.name === 'title').value+'.mp3'} type="audio/mpeg">
 
                                 <div className="p-1 text-center rounded bg-green-600">
                                   <h1 className="text-white font-bold"><i class="fa-solid fa-download mr-5"></i> Download podcast</h1>
