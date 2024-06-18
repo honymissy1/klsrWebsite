@@ -82,9 +82,7 @@ export default function AdminSchedule() {
   const [program, setProgram] = React.useState('');
   const [anchor, setAnchor] = React.useState('');
   const [time, setTime] = React.useState(null);
-
-
-
+  const [loading, setLoading] = React.useState(false)
 
 
   const links = ['', 'manage', 'schedule', 'Messages'];
@@ -106,18 +104,20 @@ export default function AdminSchedule() {
   };
 
   const handleSubmit = async() =>{
-
+    setLoading(true)
 
     const { data, error } = await supabase
-    .from(day)
+    .from('schedule')
     .insert([
-      { program: program, time: time, socialmedia: social, anchor: anchor },
+      { program: program, day: day, time: time, social: social, anchor: anchor },
     ])
 
     if(error){
-      message.error("error scheduling")
+      message.error("error scheduling");
+      setLoading(false)
     }else{
       await message.success("Scheduled successfully!");
+      setLoading(false)
       window.location.reload();
 
     }
@@ -192,13 +192,13 @@ export default function AdminSchedule() {
           className="w-full"
           placeholder="Day"
            onChange={(e) => setDay(e)}
-           options={[{ value: 'monday', label: <span>Monday</span> },
-                            { value: 'tuesday', label: <span>Tuesday</span> },
-                            { value: 'wednesday', label: <span>Wednesday</span> },
-                            { value: 'thursday', label: <span>Thursday</span> },
-                            { value: 'friday', label: <span>Friday</span> },
-                            { value: 'saturday', label: <span>Saturday</span> },
-                            { value: 'sunday', label: <span>Sunday</span> }
+           options={[{ value: 0, label: <span>Monday</span> },
+                            { value: 1, label: <span>Tuesday</span> },
+                            { value: 2, label: <span>Wednesday</span> },
+                            { value: 3, label: <span>Thursday</span> },
+                            { value: 4, label: <span>Friday</span> },
+                            { value: 5, label: <span>Saturday</span> },
+                            { value: 6, label: <span>Sunday</span> }
                    ]} />
 
 
@@ -214,41 +214,15 @@ export default function AdminSchedule() {
             // showSecond={true} // Control whether to show seconds
           />
            <Input onChange={(e) => setSocial(e.target.value)}  className='flex-1 w-full min-w-[300px]' placeholder="Social Media Content"/>
-           <Button onClick={handleSubmit} className='w-full' type='primary'>Submit</Button>
+           {
+            loading ? (
+              <Button  className='w-full' type='primary'>Submitting......</Button>
+            ):(
+              <Button onClick={handleSubmit} className='w-full' type='primary'>Submit</Button>
+            )
+           }
       </form>
-            {/* Here admin with the role super admin will add a schedule for the radio station
-              1. Day of Program
-              2. Time 
-              3. Title
-              4. Description
-              5. Anchor
-              6. Duration
-            
-            */}
 
-
-
-
-            {/* 
-             {
-              monday: [
-                {
-                  program: Morning Devotion,
-                  hours: 7am,
-                  by: 'Omowunmi'
-                },
-
-                {
-                  program: 'Business Corner',
-                  hour: 12pm,
-                  SocialMediaContent: 'blablabla
-                }
-              ]
-             }
-             
-            */}
-
-            {/* Table containing meeting schedules */}
        </Main>
     </Box>
   );

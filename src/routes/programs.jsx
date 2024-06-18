@@ -9,80 +9,95 @@ const { TextArea } = Input;
 
 const Programs = () =>{
 
-    const [monday, setMonday] = useState(null)
-    const [tuesday, setTuesday] = useState(null)
-    const [wednesday, setWednesday] = useState(null);
-    const [thursday, setThursday] = useState(null);
 
-    const [friday, setFriday] = useState(null);
-    const [saturday, setSaturday] = useState(null);
-    const [sunday, setSunday] = useState(null);
+    const [data, setData] = useState();
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    // const [monday, setMonday] = useState(null)
+    // const [tuesday, setTuesday] = useState(null)
+    // const [wednesday, setWednesday] = useState(null);
+    // const [thursday, setThursday] = useState(null);
+
+    // const [friday, setFriday] = useState(null);
+    // const [saturday, setSaturday] = useState(null);
+    // const [sunday, setSunday] = useState(null);
 
     useEffect(() =>{
-      const tableData = async () =>{
-      
-        let { data: monday, error } = await supabase
-        .from('monday')
+      const schedule = async () =>{
+        let { data, error } = await supabase
+        .from('schedule')
         .select('*')
-        if(monday){
-            setMonday(monday)
-        }
 
-
-        let { data: tuesday } = await supabase
-        .from('tuesday')
-        .select('*')
-        if(tuesday){
-            setTuesday(tuesday)
-        }
-
-
-
-        let { data: wednesday } = await supabase
-        .from('wednesday')
-        .select('*')
-        if(wednesday){
-            setWednesday(wednesday)
-        }
-
-
-        let { data: thursday } = await supabase
-        .from('thursday')
-        .select('*')
-        if(thursday){
-            setThursday(thursday)
-        }
-
-        let { data: friday } = await supabase
-        .from('friday')
-        .select('*')
-        if(friday){
-            setFriday(friday)
-        }
-
-        let { data: saturday } = await supabase
-        .from('saturday')
-        .select('*')
-        if(saturday){
-            setSaturday(saturday)
-        }
-
-        let { data: sunday } = await supabase
-        .from('sunday')
-        .select('*')
-        if(sunday){
-            setSunday(sunday)
-        }
-
+        setData(data)
+        console.log(data);
       }
 
-      tableData();
-    }, [])
+      schedule()
+    },[])
+
+    // useEffect(() =>{
+    //   const tableData = async () =>{
+      
+    //     let { data: monday, error } = await supabase
+    //     .from('monday')
+    //     .select('*')
+    //     if(monday){
+    //         setMonday(monday)
+    //     }
+
+
+    //     let { data: tuesday } = await supabase
+    //     .from('tuesday')
+    //     .select('*')
+    //     if(tuesday){
+    //         setTuesday(tuesday)
+    //     }
+
+
+
+    //     let { data: wednesday } = await supabase
+    //     .from('wednesday')
+    //     .select('*')
+    //     if(wednesday){
+    //         setWednesday(wednesday)
+    //     }
+
+
+    //     let { data: thursday } = await supabase
+    //     .from('thursday')
+    //     .select('*')
+    //     if(thursday){
+    //         setThursday(thursday)
+    //     }
+
+    //     let { data: friday } = await supabase
+    //     .from('friday')
+    //     .select('*')
+    //     if(friday){
+    //         setFriday(friday)
+    //     }
+
+    //     let { data: saturday } = await supabase
+    //     .from('saturday')
+    //     .select('*')
+    //     if(saturday){
+    //         setSaturday(saturday)
+    //     }
+
+    //     let { data: sunday } = await supabase
+    //     .from('sunday')
+    //     .select('*')
+    //     if(sunday){
+    //         setSunday(sunday)
+    //     }
+
+    //   }
+
+    //   tableData();
+    // }, [])
     return(
         <div>
             <Nav />
-           <div className="relative h-[60vh] w-[100%] overflow-hidden" style={{backgroundImage: "url('/images/podcast.jpg')", backgroundPosition:'center right', backgroundSize: 'cover' }}>
-                {/* <img src="" className="!object-cover object-bottom ob" alt="" /> */}
+           <div className="relative h-[60vh] w-[100vw] overflow-hidden" style={{backgroundImage: "url('/images/podcast.jpg')", backgroundPosition:'center right', backgroundSize: 'cover' }}>
                 <div className="absolute flex items-end  text-white w-full h-full bg-[#0b0f14bf]">
                    <div className="p-10">
                         <h1 className="md:text-8xl text-4xl font-extrabold">Programs</h1>
@@ -91,9 +106,47 @@ const Programs = () =>{
                 </div>
             </div>
 
-            <h1 className='bg-[gold] p-3'>Monday</h1>
+          <Table className='pb-10' dataSource={data}
+            pagination={false} 
+            columns={[
+                {
+                  title: 'Day',
+                  dataIndex: 'day',
+                  key: 'day',
+                  ellipsis: true,
+                  render: (text) =>{
+                    return <span className='bg-orange-500 p-1 text-xs font-bold rounded'>{days[text]}</span> 
+                  }
+                },
 
-            <Table dataSource={monday}
+                {
+                title: 'Program',
+                dataIndex: 'program',
+                key: 'program',
+                },
+                {
+                title: 'Anchor',
+                dataIndex: 'anchor',
+                key: 'anchor',
+                },
+
+                {
+                    title: 'Social Media',
+                    dataIndex: 'social',
+                    key: 'social',
+                },
+
+
+                {
+                    title: 'Time',
+                    dataIndex: 'time',
+                    key: 'time',
+                },
+
+      ]} />
+
+
+            {/* <Table dataSource={monday}
             pagination={false} 
             columns={[
 
@@ -124,9 +177,9 @@ const Programs = () =>{
       ]} />
 
 
-<h1 className='bg-[gold] p-3'>Tuesday</h1>
+<h1 className='bg-[gold] p-3'>Tuesday</h1> */}
 
-<Table dataSource={tuesday}
+{/* <Table dataSource={tuesday}
 pagination={false} 
 columns={[
 
@@ -292,7 +345,7 @@ columns={[
         key: 'time',
     },
 
-]} />
+]} /> */}
         </div>
     )
 }
