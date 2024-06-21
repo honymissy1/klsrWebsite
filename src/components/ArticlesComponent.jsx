@@ -54,19 +54,19 @@ const ArticleComponent = () =>{
         </SwiperSlide>
 
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
-         <img className='' src="/images/designs/new1.jpeg" alt="Burger" />
+         <img className='' src="/images/new1.jpeg" alt="Burger" />
         </SwiperSlide>
 
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
-         <img className='' src="/images/designs/new3.jpeg" alt="Burger" />
+         <img className='' src="/images/new3.jpeg" alt="Burger" />
         </SwiperSlide>
 
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
-         <img className='' src="/images/designs/new2.jpeg" alt="Burger" />
+         <img className='' src="/images/new2.jpeg" alt="Burger" />
         </SwiperSlide>
 
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
-         <img className='' src="/images/designs/new4.jpeg" alt="Burger" />
+         <img className='' src="/images/new4.jpeg" alt="Burger" />
         </SwiperSlide>
 
         <SwiperSlide className='!w-[300px] md:!w-[600px]  self-center'>
