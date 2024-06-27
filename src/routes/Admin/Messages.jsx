@@ -178,7 +178,15 @@ export default function Messages() {
                   <h1 className='font-extrabold'>{ele.name}</h1>
                   <p className='text-sms text-[#ddd]'>{ele.email}</p>
                 </div>
-                <h1>{moment(ele.created_at).format('LLL')}</h1>
+                <h1>
+                    {Intl.DateTimeFormat('en',
+                    { year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    }).format(new Date(ele.created_at))}
+                </h1>
               </div>
                 <hr />
                 <p className='p-2'>{ele.content} </p>

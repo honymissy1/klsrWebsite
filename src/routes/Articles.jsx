@@ -12,6 +12,7 @@ import '../App.css'
 import { Pagination } from 'swiper/modules';
 import { Navigation } from 'swiper/modules';
 import { useEffect, useState } from 'react';
+import RelativeTime from '../components/RelativeTime';
 
 const Articles = () => {
     const [loading, setLoading] = useState(false)
@@ -63,7 +64,7 @@ const Articles = () => {
             
                                                         <div className='bg-[white] text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
                                                             <p>{ele.type === 'Review' ? (<>Book review</>): ''} By {ele.creator}</p>
-                                                            <p>{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
+                                                            <p><RelativeTime date={ele.created_at} /></p>
                                                         </div>
             
                                                     <Link to={`/articles/${ele.id}`}><h1 className='text-left m-auto mt-10 px-3 text-black font-extrabold text-sm bg-[gold] w-max p-1 rounded-md'>Read More</h1></Link> 
@@ -92,12 +93,17 @@ const Articles = () => {
                                                 <div>
                                                     <div className='flex justify-between flex-wrap-reverse'>
                                                         <h1 className='font-extrabold text-lg'>{ele.title} {ele.type == 'Review' ? '- ' +ele.author :('')}</h1>
-                                                        <h1 className={`${ele.type == 'Devotion' ? "text-green-600" : ele.type == 'Book Review' ? "text-purple-600": "text-green-600"} font-bold text-xs`}>{ele.type}</h1>
+                                                        <div className='flex w-full justify-between items-center'>
+                                                            <h1 className={`${ele.type == 'Devotion' ? "text-green-600" : ele.type == 'Book Review' ? "text-purple-600": "text-green-600"} font-bold text-xs`}>{ele.type}</h1>
+                                                            <p> <span className='bg-green-800 text-xs font-normal text-white p-1 rounded-lg'>{ele.category}</span></p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className='flex text-sm justify-between py-2'>
-                                                    <p className='font-bold text-[#777]'>By {ele.creator} <span className='bg-green-800 text-xs font-normal text-white p-1 rounded-lg'>{ele.category}</span></p>
-                                                    <p>{moment(ele.created_at, "YYYYMMDD").startOf('hour').fromNow()}</p>
+                                                    <p className='font-bold text-[#777]'>By {ele.creator}</p>
+                                                    <p className='font-bold'>
+                                                     <RelativeTime date={ele.created_at} />
+                                                    </p>
                                                 </div>
                                                 <hr />
                                             </div>

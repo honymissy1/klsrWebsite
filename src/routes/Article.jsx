@@ -5,6 +5,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import moment from 'moment';
 import Footer from "../components/Footer";
 import { Button, Modal } from 'antd';
+import DOMPurify from 'dompurify';
 
 import {
     EmailShareButton,
@@ -17,30 +18,9 @@ import {
     WhatsappShareButton,
 } from "react-share";
 
-import { Editor, EditorState, convertFromRaw } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
-
-const RichTextRenderer = ({ rawContent }) => {
-    // Convert the raw content to a Draft.js content state
-    const contentState = convertFromRaw(rawContent);
-  
-    // Create an EditorState from the content state
-    const editorState = EditorState.createWithContent(contentState);
-  
-    return (
-      <div className="rich-text-renderer">
-        <Editor
-          editorState={editorState}
-          toolbarHidden={true} // Hide the toolbar since we don't need it
-          readOnly={true} // Ensure it's read-only
-          stripPastedStyles={true} // Ensure no additional styles are pasted
-        />
-      </div>
-    );
-  };
-
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'
+import '../assets/styles/custom-quill.css'
 
 const Article = () =>{
    const location = useLocation();
@@ -82,7 +62,7 @@ const Article = () =>{
         let { data, error } = await supabase.from('articles').select('*')
         .eq('id', id)
         setArticle(data);
-        await setContent(JSON.parse(data[0].content))
+        // await setContent(JSON.parse(data[0].content))
     }
 
     const comment = async () =>{
@@ -137,10 +117,21 @@ const Article = () =>{
                                 <h1 className="font-extrabold text-xl">{ele.title}</h1>
                                {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')} 
                             </div>
-                            <h1 className="mt-5 text-[#626060]">
-                              <RichTextRenderer rawContent={content} />
-                            </h1>
-                            <p className="mt-5 text-right">{moment(ele.created_at, "YYYYMMDD").fromNow()}</p>
+                            <p className="mt-5 text-2xl text-[#1a1a1a]">
+                               <ReactQuill
+                                value={ele.content}
+                                readOnly={true}
+                                theme={"bubble"}
+                                />
+                            </p>
+                            <p className="mt-5 text-right">
+                                {Intl.DateTimeFormat('en',
+                                 { year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                                  hour: 'numeric',
+                                  minute: 'numeric',
+                                  }).format(new Date(ele.created_at))}</p>
 
                             <div id="share" className="my-10">
                                 <div>

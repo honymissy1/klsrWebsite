@@ -20,24 +20,17 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 
-import { EditorState, convertToRaw } from 'draft-js';
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import supabase from '../../supabaseClient';
-// import Editor from '@draft-js-plugins/editor';
-// import createLinkifyPlugin from 'draft-js-plugins/linkify';
 
 
-// const linkifyPlugin = createLinkifyPlugin();
-
-// const plugins = [linkifyPlugin];
 
 import { Card, Input, Select, Button, message, Upload  } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
 import { useState, useEffect } from 'react';
+import PostArticles from '../../components/PostArticles';
 
 const drawerWidth = 240;
 
@@ -92,27 +85,13 @@ export default function AdminDashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  // const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  // States
-  const [author, setAuthor] = useState();
-  const [articleType, setArticleType] = useState();
-  const [title, setTitle] = useState();
-  // const [content, setContent] = useState();
-  const [category, setCategory] = useState();
-  const [uploading, setUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState();
-  const [url, setUrl] = useState();
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
+ 
+  const [articles, setArticles] = useState();
 
 
   const links = ['', 'manage', 'schedule', 'messages'];
   const handleDrawerOpen = () => {
     setOpen(true);
-  };
-
-  const handleEditorChange = (state) => {
-    setEditorState(state);
   };
 
   const handleDrawerClose = () => {
@@ -123,83 +102,19 @@ export default function AdminDashboard() {
 
   }
 
-  const handleFileChange = (info) => {
-    if (info.file.status === 'removed') {
-      setSelectedFile(null); // Clear the selected file when removed
-    } else {
-      setSelectedFile(info.fileList[0].originFileObj); // Store the selected file
-    }
-  };
+  useEffect(() =>{
 
-  const content = editorState.getCurrentContent();
-  const rawContent = JSON.stringify(convertToRaw(content));
+    const articles = async() =>{
+      let { data: articles, error } = await supabase
+      .from('articles')
+      .select('*')
 
-  const handleSubmit = async () => {
-    setUploading(true);
-    if (!selectedFile) {
-      const { data: poster  } = await supabase
-        .from('articles')
-        .insert([
-          { 
-            title: title, 
-            content: rawContent,
-            type: articleType,
-            category: category,
-            author: author,
-            img_url: "",
-            creator: admin.name  
-          },
-        ])
-        .select()
-        setUploading(true);
-        window.location.reload();
+      setArticles(articles)
     }
 
-    
-
-    try {
-      const fileName = `${Date.now()}-${selectedFile.name}`;
-      const filePath = `article_images/${fileName}`; // Customize your folder path
-
-      const { error } = await supabase
-        .storage
-        .from('klsr') // Replace with your bucket name
-        .upload(filePath, selectedFile);
-
-      if (error) {
-        throw error;
-      }
-
-      const { data:pics } = await supabase
-        .storage
-        .from('klsr') // Same bucket name
-        .getPublicUrl(filePath);
-       
-           const { data: poster  } = await supabase
-         .from('articles')
-         .insert([
-           { 
-             title: title, 
-             content: rawContent,
-             type: articleType,
-             category: category,
-             author: author,
-             img_url: pics.publicUrl,
-             creator: admin.name  
-           },
-         ])
-         .select()
-        
-      message.success("File uploaded successfully!");
-      window.location.reload();
-
-      } catch (error) {
-     } finally {
-      setUploading(false);
-    }
-  };
-
-
+    articles()
+              
+  }, [])
 
   
   return (
@@ -259,65 +174,37 @@ export default function AdminDashboard() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <div>
-          <h1 className='font-extrabold text-2xl my-5'>Post Articles</h1>
-          <form className='flex gap-5 flex-wrap'>
-          <Select
-          className="w-full"
-          placeholder="Article Type"
-           onChange={(e) => setArticleType(e)}
-          options={[{ value: 'Devotion', label: <span>Devotion</span> },
-                            { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
-                            { value: 'Article', label: <span>Article</span> },
-                            { value: 'event', label: <span>Events / Programs</span> },
+        <div className='flex gap-5 flex-wrap'>
+          <div className='min-w-[300px] flex-1'>
+            <div className='my-5 flex items-center justify-between'>
+                <h1 className='font-bold text-2xl'>Posted Articles</h1>
+                <button className='p-2 bg-teal-900 text-white rounded-md md:hidden'>+ Add Article</button>
+            </div>
 
-                            ]} />
 
-          <Input onChange={(e) => setTitle(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Title"/>
-         {
-          articleType == "Review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
-         }
-        <Upload
+            {
+              articles?.map(ele =>(
+                <div className='p-2 rounded text-white bg-green-800 py-5 mb-1'>
+                 <div className='flex justify-between'>
+                    <h1 className='font-bold truncate'>{ele.title}</h1>
+                    <p>Edit</p>
+                 </div>
+                  <div className='flex justify-between py-1'>
+                    <p>By {ele.creator}</p>
+                    <p>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true}).format(new Date(ele.created_at))}</p>
 
-          beforeUpload={() => false}
-          onChange={handleFileChange}
-          onRemove={() => setSelectedFile(null)}
-          multiple={false} 
-          showUploadList={true} // Show the file list with progress
-        >
-          <Button icon={<UploadOutlined />}>Select cover Image</Button>
-        </Upload>
+                  </div>
+                </div>
+              ))
+            }
 
-        <Select
-          className="w-full"
-           placeholder="Category"
-           onChange={(e) => setCategory(e)}
-          options={[{ value: 'Faith', label: <span>Faith</span> },
-                            { value: 'Finance', label: <span className='text-red-600'>Finance</span> },
-                            { value: 'Health', label: <span>Health</span> },
-                            { value: 'Ministry', label: <span>Ministry</span> },
-                            { value: 'Relationship', label: <span>Relationship</span> },
-                            { value: 'Education', label: <span>Education</span> },
-                            { value: 'Business', label: <span>Business</span> },
-                            { value: 'Others', label: <span>Others</span> }
-                            ]} />
-         {/* <TextArea rows={4} placeholder="Content" onChange={(e) => setContent(e.target.value)}/> */}
-         <Editor
-          editorClassName=""
-          editorState={editorState}
-          onEditorStateChange={handleEditorChange}
-          toolbar={{}}
-        />
-       
-         <Button className='z-10 mb-20 mt-10' type="primary" onClick={handleSubmit} loading={uploading}>
-          {uploading ? "Uploading..." : "Submit"}
-        
-        
-         </Button>
-          </form>
+          </div>
 
-          {/* Table that contain list of Articles */}
+           
+          <PostArticles />
+
         </div>
+            <h1>Here will have list of Blog Posts very good</h1>
        </Main>
     </Box>
   );
