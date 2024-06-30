@@ -133,7 +133,7 @@ const PostArticles = () =>{
     
 
     return (
-        <div className='flex-1 hidden md:block'>
+        <div className='flex-1 hidden md:block border p-3'>
             <h1 className='font-extrabold text-2xl my-5'>Post Articles</h1>
             <form className='flex gap-5 flex-wrap'>
             <Select

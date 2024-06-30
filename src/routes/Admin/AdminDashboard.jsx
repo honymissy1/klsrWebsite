@@ -20,17 +20,19 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 
+import { MoreOutlined, DeleteOutlined, EditFilled} from '@ant-design/icons';
 
 import supabase from '../../supabaseClient';
 
 
 
-import { Card, Input, Select, Button, message, Upload  } from 'antd';
+import { Card, Input, Select, Button, notification, Upload, Popover, Popconfirm  } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
 import { useState, useEffect } from 'react';
 import PostArticles from '../../components/PostArticles';
+import EditPost from '../../components/EditPost';
 
 const drawerWidth = 240;
 
@@ -85,8 +87,10 @@ export default function AdminDashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
- 
+  const [api, contextHolder] = notification.useNotification();
+
   const [articles, setArticles] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   const links = ['', 'manage', 'schedule', 'messages'];
@@ -108,6 +112,7 @@ export default function AdminDashboard() {
       let { data: articles, error } = await supabase
       .from('articles')
       .select('*')
+      .order('created_at', { ascending: false }); 
 
       setArticles(articles)
     }
@@ -116,7 +121,60 @@ export default function AdminDashboard() {
               
   }, [])
 
-  
+  const handleDelete = async (id) =>{
+
+    const {data,  error } = await supabase
+    .from('articles')
+    .delete()
+    .eq('id', id)
+
+     if(error){
+       return;
+     }
+
+    api.open({
+      message: 'Delete Successful',
+      description:"This article have been deleted successfully.",
+      duration: 0,
+      onClose: () =>{
+       window.location.reload();
+      }
+      
+    });
+            
+  }
+
+  const [popOpen, setPopOpen] = React.useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const showPopconfirm = () => {
+    setPopOpen(true);
+  };
+  const handleOk = (id) => {
+    setConfirmLoading(true);
+    handleDelete(id)
+    setTimeout(() => {
+      setPopOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setPopOpen(false);
+  };
+
+
+  // Modal
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleModalOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -174,30 +232,50 @@ export default function AdminDashboard() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <div className='flex gap-5 flex-wrap'>
-          <div className='min-w-[300px] flex-1'>
-            <div className='my-5 flex items-center justify-between'>
+            {contextHolder}
                 <h1 className='font-bold text-2xl'>Posted Articles</h1>
+        <div className='flex gap-5 flex-wrap'>
+          <div className='min-w-[300px] flex-1 max-h-[100vh] px-5'>
+            <div className='my-5 flex items-center justify-between'>
                 <button className='p-2 bg-teal-900 text-white rounded-md md:hidden'>+ Add Article</button>
             </div>
 
 
             {
               articles?.map(ele =>(
-                <div className='p-2 rounded text-white bg-green-800 py-5 mb-1'>
+                <div key={ele.id} className='p-2 rounded text-white bg-green-500 py-5 mb-1  text-xs'>
                  <div className='flex justify-between'>
                     <h1 className='font-bold truncate'>{ele.title}</h1>
-                    <p>Edit</p>
+                   <Popover
+                     content={(
+                      <div>
+                        <div className='flex gap-2 mb-3'><EditFilled /> <EditPost id={ele.id} /></div>
+
+                        <Popconfirm
+                         title="Delete"
+                         description="Are you sure you want to delete this article"
+                         open={popOpen}
+                         onConfirm={() => handleOk(ele.id)}
+                         onCancel={handleCancel}
+                        >
+                          <p onClick={showPopconfirm}><DeleteOutlined className="text-red-600" /> Delete</p>
+
+                        </Popconfirm>
+                      </div>
+                     )}
+                   > <p>
+                      <MoreOutlined className='text-2xl font-bold'/>
+                    </p>
+
+                   </Popover>
                  </div>
                   <div className='flex justify-between py-1'>
-                    <p>By {ele.creator}</p>
                     <p>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true}).format(new Date(ele.created_at))}</p>
 
                   </div>
                 </div>
               ))
             }
-
           </div>
 
            
