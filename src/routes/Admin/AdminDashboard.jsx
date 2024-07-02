@@ -260,38 +260,39 @@ export default function AdminDashboard() {
               <PostArticles show={true} />
             </Draw>
 
+            <div>
+              {
+                articles?.map(ele =>(
+                  <div className="" key={ele.id}>
+                    <div  className='justify-between p-2 rounded text-white bg-green-500 mb-1 text-xs'>
+                    <div className='w-full flex justify-between'>
+                    
+                          <div className='flex flex-col w-[70%] justify-between py-1'>
+                            <h1 className='font-bold truncate'>{ele.title}</h1>
+                            <p>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true}).format(new Date(ele.created_at))}</p>
+                          </div>
 
-            {
-              articles?.map(ele =>(
-                <div key={ele.id}>
-                  <div  className='justify-between p-2 rounded text-white bg-green-500 mb-1 text-xs'>
-                  <div className='w-full flex justify-between'>
-                  
-                        <div className='flex flex-col w-[70%] justify-between py-1'>
-                          <h1 className='font-bold truncate'>{ele.title}</h1>
-                          <p>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true}).format(new Date(ele.created_at))}</p>
-                        </div>
+                        <div className='bg-green-400 rounded-md p-2 w-[15%] border flex flex-col items-center text-md h-full'>
+                            <div className='flex gap-2 mb-3'><EditPost show={true} id={ele.id} /></div>
+                              <Popconfirm
+                                title="Delete"
+                                description="Are you sure you want to delete this article"
+                                open={popOpen}
+                                
+                                onConfirm={() => handleOk(ele.id)}
+                                onCancel={handleCancel}
+                                >
+                                  <DeleteFilled className='text-red-600' onClick={showPopconfirm} />
 
-                      <div className='bg-green-400 rounded-md p-2 w-[15%] border flex flex-col items-center text-md h-full'>
-                          <div className='flex gap-2 mb-3'><EditPost show={true} id={ele.id} /></div>
-                            <Popconfirm
-                              title="Delete"
-                              description="Are you sure you want to delete this article"
-                              open={popOpen}
-                              
-                              onConfirm={() => handleOk(ele.id)}
-                              onCancel={handleCancel}
-                              >
-                                <DeleteFilled className='text-red-600' onClick={showPopconfirm} />
+                                </Popconfirm>                      
+                          </div>
+                    </div>
 
-                              </Popconfirm>                      
-                        </div>
+                    </div>
                   </div>
-
-                  </div>
-                </div>
-              ))
-            }
+                ))
+              }
+            </div>
           </div>
 
            

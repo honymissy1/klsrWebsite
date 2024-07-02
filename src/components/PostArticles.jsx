@@ -137,6 +137,8 @@ const PostArticles = ({show}) =>{
           [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
           [{ 'list': 'ordered'}, { 'list': 'bullet' }],
           ['bold', 'italic', 'underline'],
+          [{ 'color': [] }, { 'background': [] }],
+          ['blockquote', 'code-block'], 
           [{ 'align': [] }],
           ['link', 'image'],
           ['clean']
@@ -147,13 +149,15 @@ const PostArticles = ({show}) =>{
         'header', 'font',
         'bold', 'italic', 'underline',
         'list', 'bullet',
+        'color', 'background',
+        'blockquote', 'code-block', 
         'link', 'image',
         'align'
       ];
     
 
     return (
-        <div className={`flex-1 ${show? '': 'hidden'} md:block rounded-md border`}>
+        <div className={`flex-1 ${show? '': 'hidden'} md:block rounded-md px-3`}>
             <h1 className='font-extrabold text-xl my-5'>Post Articles</h1>
             <form className='flex gap-5 flex-wrap'>
             <Select
@@ -215,7 +219,7 @@ const PostArticles = ({show}) =>{
             onChange={handleChange}
             modules={modules}
             formats={formats}
-            className='w-full max-h-[200px]'
+            className='w-full min-h-[200px] max-h-[500px]'
             placeholder='Type your article...'
             />
 
