@@ -1,7 +1,7 @@
 import { Card, Input, Button } from 'antd';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {auth, firestore} from '../../firebaseConfig'; 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import supabase from '../../supabaseClient';
 import { stringify } from 'postcss';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,13 @@ const AdminLogin = () =>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loader, setLoader] = useState(false);
+    const [error, setError] = useState(false)
     const navigate = useNavigate();
+
+
+    useEffect(() =>{
+      setError(false)
+    }, [email, password])
     
     const handleLogin = () =>{
         setLoader(true)
@@ -38,6 +44,8 @@ const AdminLogin = () =>{
 
         })
         .catch((error) => {
+            setError(true)
+            setLoader(false)
             const errorCode = error.code;
             const errorMessage = error.message;
         });
@@ -56,7 +64,12 @@ const AdminLogin = () =>{
                 <Card
                     title="Login"
                     className="w-[100%] md:w-[500px] mt-[50px] shadow m-auto"
-                >
+                    >
+                        {
+                            error && (
+                                <p className='text-red-500'>Error: Username / Password not correct try again</p>
+                            )
+                        }
                 <Input placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
                 <Input.Password placeholder="Password" className='my-4' onChange={(e) => setPassword(e.target.value)}  />
                 <Button type="primary" onClick={handleLogin}>{!loader ? "Login" : "Loading..."}</Button>

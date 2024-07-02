@@ -13,7 +13,7 @@ import supabase from '../supabaseClient';
 
 
 
-const PostArticles = () =>{
+const PostArticles = ({show}) =>{
     const [author, setAuthor] = useState();
     const [articleType, setArticleType] = useState();
     const [title, setTitle] = useState();
@@ -130,11 +130,31 @@ const PostArticles = () =>{
           setUploading(false);
         }
       };
+
+
+      const modules = {
+        toolbar: [
+          [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          ['bold', 'italic', 'underline'],
+          [{ 'align': [] }],
+          ['link', 'image'],
+          ['clean']
+        ],
+      };
+
+      const formats = [
+        'header', 'font',
+        'bold', 'italic', 'underline',
+        'list', 'bullet',
+        'link', 'image',
+        'align'
+      ];
     
 
     return (
-        <div className='flex-1 hidden md:block border p-3'>
-            <h1 className='font-extrabold text-2xl my-5'>Post Articles</h1>
+        <div className={`flex-1 ${show? '': 'hidden'} md:block rounded-md border`}>
+            <h1 className='font-extrabold text-xl my-5'>Post Articles</h1>
             <form className='flex gap-5 flex-wrap'>
             <Select
             className="w-full"
@@ -147,7 +167,7 @@ const PostArticles = () =>{
 
                             ]} />
 
-            <Input onChange={(e) => setTitle(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Title"/>
+            <Input onChange={(e) => setTitle(e.target.value)} className='flex-1 w-full ' placeholder="Title"/>
         {
             articleType == "Review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
         }
@@ -193,6 +213,8 @@ const PostArticles = () =>{
             theme="snow" // 'snow' is the default theme
             value={editorHtml}
             onChange={handleChange}
+            modules={modules}
+            formats={formats}
             className='w-full max-h-[200px]'
             placeholder='Type your article...'
             />

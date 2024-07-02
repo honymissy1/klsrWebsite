@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Drawer, Select, Card, Input,  notification, Upload } from 'antd';
+import { EditFilled} from '@ant-design/icons';
 
 
 import ReactQuill from 'react-quill';
@@ -97,13 +98,13 @@ const EditPost = ({id}) => {
     <>
      {contextHolder}
       <div onClick={showDrawer}>
-        Edit
+        <EditFilled />
       </div>
       <Drawer title="Edit Article" onClose={onClose} open={open}>
  
         {
             article && (
-                <div className='flex-1 hidden md:block'>
+                <div className='flex-1 md:block'>
                 <form className='flex gap-5 flex-wrap'>
                 <Select
                 className="w-full"
