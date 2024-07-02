@@ -94,6 +94,29 @@ const EditPost = ({id}) => {
     
 
   }
+
+  const modules = {
+    toolbar: [
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['bold', 'italic', 'underline'],
+      [{ 'color': [] }, { 'background': [] }],
+      ['blockquote', 'code-block'], 
+      [{ 'align': [] }],
+      ['link', 'image'],
+      ['clean']
+    ],
+  };
+
+  const formats = [
+    'header', 'font',
+    'bold', 'italic', 'underline',
+    'list', 'bullet',
+    'color', 'background',
+    'blockquote', 'code-block', 
+    'link', 'image',
+    'align'
+  ];
   return (
     <>
      {contextHolder}
@@ -145,6 +168,8 @@ const EditPost = ({id}) => {
                 theme="snow" // 'snow' is the default theme
                 defaultValue={article[0]?.content}
                 onChange={handleChange}
+                modules={modules}
+                formats={formats}
                 className='w-full max-h-[200px]'
                 placeholder='Type your article...'
                 />

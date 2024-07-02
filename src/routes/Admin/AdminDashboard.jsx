@@ -246,11 +246,11 @@ export default function AdminDashboard() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-            {/* {contextHolder} */}
+            {contextHolder}
 
-        <div className='flex md:gap-5 flex-wrap'>
-            <PostArticles show={false} />
-          <div className='flex-1 max-h-[100vh]'>
+        <div className='w-[80%] m-auto flex md:gap-5 flex-wrap'>
+          <PostArticles show={false} />
+          <div className='w-full flex-1 max-h-[100vh]'>
            <h1 className='font-bold text-xl'>Posted Articles</h1>
             <div className='my-5 flex items-center justify-between'>
                 <button onClick={showDrawer} className='p-2 bg-teal-900 text-white text-xs rounded-md md:hidden'>+ Add Article</button>
@@ -260,10 +260,10 @@ export default function AdminDashboard() {
               <PostArticles show={true} />
             </Draw>
 
-            <div>
+            <div className="w-full flex-1">
               {
                 articles?.map(ele =>(
-                  <div className="" key={ele.id}>
+                  <div className="w-full" key={ele.id}>
                     <div  className='justify-between p-2 rounded text-white bg-green-500 mb-1 text-xs'>
                     <div className='w-full flex justify-between'>
                     
