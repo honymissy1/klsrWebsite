@@ -12,7 +12,6 @@ import 'react-quill/dist/quill.snow.css';
 import supabase from '../supabaseClient';
 
 
-
 const PostArticles = ({show}) =>{
     const [author, setAuthor] = useState();
     const [articleType, setArticleType] = useState();
@@ -29,9 +28,9 @@ const PostArticles = ({show}) =>{
 
     const [editorHtml, setEditorHtml] = useState('');
 
-    const handleChange = (html) => {
-        console.log(html)
-        setEditorHtml(html);
+    const handleChange = (content, delta, source, editor) => {
+      // console.log(editor.getContents());
+        setEditorHtml(editor.getContents());
     };
 
       const onChange = ({fileList}) => {
@@ -133,6 +132,7 @@ const PostArticles = ({show}) =>{
 
 
       const modules = {
+ 
         toolbar: [
           [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
           [{ 'list': 'ordered'}, { 'list': 'bullet' }],

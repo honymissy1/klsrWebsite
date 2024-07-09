@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Drawer, Select, Card, Input,  notification, Upload } from 'antd';
 import { EditFilled} from '@ant-design/icons';
-
-
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -36,14 +34,11 @@ const EditPost = ({id}) => {
           .eq('id', id)
     
           setArticle(articles);
-
-          console.log(articles);
         }
     
         articles()
                   
       }, [])
-
 
 
   const showDrawer = () => {
@@ -96,6 +91,10 @@ const EditPost = ({id}) => {
   }
 
   const modules = {
+    clipboard: {
+      matchVisual: true,
+    },
+
     toolbar: [
       [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -165,6 +164,7 @@ const EditPost = ({id}) => {
     
     
                 <ReactQuill
+
                 theme="snow" // 'snow' is the default theme
                 defaultValue={article[0]?.content}
                 onChange={handleChange}
