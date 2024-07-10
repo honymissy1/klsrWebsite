@@ -4,9 +4,15 @@
 }
 
 .ql-editor {
-    white-space: pre-line; /* CSS property to preserve white spaces */
+    white-space: pre-line !important; /* CSS property to preserve white spaces */
   }
   
   .ql-editor p {
     margin: 0;
   }
+
+  .pre {
+    white-space: pre-wrap !important;
+    margin-bottom: 5px
+ }
+ 

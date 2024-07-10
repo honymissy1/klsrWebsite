@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Drawer, Select, Card, Input,  notification, Upload } from 'antd';
 import { EditFilled} from '@ant-design/icons';
-import ReactQuill from 'react-quill';
+import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import '../assets/styles/custom-quill.css'
 
 import supabase from '../supabaseClient';
 
 
+
 const EditPost = ({id}) => {
+  
+  let Block = Quill.import('blots/block');
+  Block.tagName = 'DIV';
+  Block.className = 'pre';
+  Quill.register(Block, true);
   const [open, setOpen] = useState(false);
   const [author, setAuthor] = useState();
     const [articleType, setArticleType] = useState();
@@ -23,7 +30,7 @@ const EditPost = ({id}) => {
 
     const [fileList, setFileList] = useState([]);
 
-    const [editorHtml, setEditorHtml] = useState('');
+    const [editorHtml, setEditorHtml] = useState();
 
     useEffect(() =>{
 
@@ -85,9 +92,6 @@ const EditPost = ({id}) => {
           width: 600,
         },
       });
-
-    
-
   }
 
   const modules = {
@@ -164,13 +168,13 @@ const EditPost = ({id}) => {
     
     
                 <ReactQuill
-
-                theme="snow" // 'snow' is the default theme
+                preserveWhitespace={true}
+                theme="snow" 
                 defaultValue={article[0]?.content}
                 onChange={handleChange}
                 modules={modules}
                 formats={formats}
-                className='w-full max-h-[200px]'
+                className='w-full max-h-[200px] !whitespace-pre-line'
                 placeholder='Type your article...'
                 />
     

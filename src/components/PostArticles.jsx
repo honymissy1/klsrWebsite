@@ -4,12 +4,34 @@ import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 import ImgCrop from 'antd-img-crop';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-import ReactQuill from 'react-quill';
+import ReactQuill,{ Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import supabase from '../supabaseClient';
+
+
+const Clipboard = Quill.import('modules/clipboard');
+
+class CustomClipboard extends Clipboard {
+  onPaste(e) {
+    if (e.defaultPrevented || !this.quill.isEnabled()) return;
+    
+    const range = this.quill.getSelection();
+    const html = e.clipboardData.getData('text/html');
+    
+    if (html) {
+      const parsedHTML = new DOMParser().parseFromString(html, 'text/html');
+      this.quill.clipboard.dangerouslyPasteHTML(range.index, parsedHTML.body.innerHTML);
+      e.preventDefault();
+    } else {
+      super.onPaste(e);
+    }
+  }
+}
+
+
 
 
 const PostArticles = ({show}) =>{
@@ -21,15 +43,27 @@ const PostArticles = ({show}) =>{
     const [uploading, setUploading] = useState(false);
     const [selectedFile, setSelectedFile] = useState();
     const [url, setUrl] = useState();
-
+    const quillRef = useRef(null);
     const [fileList, setFileList] = useState([]);
 
     const admin = JSON.parse(sessionStorage.getItem('klsr'));
 
-    const [editorHtml, setEditorHtml] = useState('');
+    const [editorHtml, setEditorHtml] = useState();
+
+
+
+  useEffect(() => {
+    Quill.register('modules/clipboard', CustomClipboard);
+
+    if (editorHtml) {
+      const quill = quillRef.current.getEditor();
+      quill.setContents(editorHtml);
+    }
+  }, []);
+
 
     const handleChange = (content, delta, source, editor) => {
-      // console.log(editor.getContents());
+        console.log(editor.getContents());
         setEditorHtml(editor.getContents());
     };
 
@@ -143,6 +177,10 @@ const PostArticles = ({show}) =>{
           ['link', 'image'],
           ['clean']
         ],
+
+        clipboard: {
+          matchVisual: false
+        }
       };
 
       const formats = [
@@ -214,6 +252,7 @@ const PostArticles = ({show}) =>{
             </ImgCrop>
 
             <ReactQuill
+            ref={quillRef}
             theme="snow" // 'snow' is the default theme
             value={editorHtml}
             onChange={handleChange}
