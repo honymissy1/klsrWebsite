@@ -7,8 +7,6 @@ import '../assets/styles/custom-quill.css'
 
 import supabase from '../supabaseClient';
 
-
-
 const EditPost = ({id}) => {
   
   let Block = Quill.import('blots/block');

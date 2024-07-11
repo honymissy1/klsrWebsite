@@ -26,52 +26,6 @@ import moment from 'moment';
 import { Outlet } from "react-router-dom";
 import { Message } from '@mui/icons-material';
 
-const drawerWidth = 240;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
 
 export default function AdminSchedule() {
   const theme = useTheme();
@@ -84,15 +38,6 @@ export default function AdminSchedule() {
   const [time, setTime] = React.useState(null);
   const [loading, setLoading] = React.useState(false)
 
-
-  const links = ['', 'manage', 'schedule', 'Messages'];
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   const handleNav = () =>{
 
@@ -109,7 +54,7 @@ export default function AdminSchedule() {
     const { data, error } = await supabase
     .from('schedule')
     .insert([
-      { program: program, day: day, time: time, social: social, anchor: anchor },
+      { program: program, day: day, time: time, social: social},
     ])
 
     if(error){
@@ -127,65 +72,11 @@ export default function AdminSchedule() {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar className='!bg-teal-800' position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className='flex items-center gap-5' variant="h6" noWrap component="div">
-            <img className='w-[50px]' src="/images/logo.png" alt="" />KLSR Admin Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Messages'].map((text, index) => (
-            <Link to={`/admin/${links[index]}`} key={text} >
-              <ListItem onClick={handleNav}disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-        <Divider /> 
 
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
+      <div>
 
-        <h1 onClick={() => alert(time)} className="font-extrabold text-2xl my-5">Add a Scheduled Program</h1>
-
+        <h1 onClick={() => alert(time)} className="font-extrabold text-md my-5">Add a Scheduled Program</h1>
+        <hr />
         <form className='flex lg:w-[70%] lg:m-auto gap-5 flex-wrap'>
 
         <Select
@@ -202,9 +93,9 @@ export default function AdminSchedule() {
                    ]} />
 
 
-           <Input onChange={(e) => setProgram(e.target.value)}  className='flex-1 w-full min-w-[300px]' placeholder="Program"/>
+           <Input onChange={(e) => setProgram(e.target.value)}  className='flex-1 w-full' placeholder="Program"/>
          
-           <Input onChange={(e) => setAnchor(e.target.value)}  className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Anchor"/>
+           {/* <Input onChange={(e) => setAnchor(e.target.value)}  className='flex-1 max-w-[500px]' placeholder="Anchor"/> */}
            <TimePicker
             className="w-full"
             // value={time} // Bind to state
@@ -213,7 +104,7 @@ export default function AdminSchedule() {
             use12Hours={true} // Toggle 12-hour or 24-hour format
             // showSecond={true} // Control whether to show seconds
           />
-           <Input onChange={(e) => setSocial(e.target.value)}  className='flex-1 w-full min-w-[300px]' placeholder="Social Media Content"/>
+           <Input onChange={(e) => setSocial(e.target.value)}  className='flex-1 w-full' placeholder="Social Media Content"/>
            {
             loading ? (
               <Button  className='w-full' type='primary'>Submitting......</Button>
@@ -222,8 +113,8 @@ export default function AdminSchedule() {
             )
            }
       </form>
+      </div>
 
-       </Main>
-    </Box>
+
   );
 }
