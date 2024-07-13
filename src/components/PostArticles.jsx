@@ -10,31 +10,14 @@ import ReactQuill,{ Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import supabase from '../supabaseClient';
-
-
-const Clipboard = Quill.import('modules/clipboard');
-
-class CustomClipboard extends Clipboard {
-  onPaste(e) {
-    if (e.defaultPrevented || !this.quill.isEnabled()) return;
-    
-    const range = this.quill.getSelection();
-    const html = e.clipboardData.getData('text/html');
-    
-    if (html) {
-      const parsedHTML = new DOMParser().parseFromString(html, 'text/html');
-      this.quill.clipboard.dangerouslyPasteHTML(range.index, parsedHTML.body.innerHTML);
-      e.preventDefault();
-    } else {
-      super.onPaste(e);
-    }
-  }
-}
+import TextEditor from './TextEditor';
+// import TextEditor from './TextEditor';
 
 
 
 
 const PostArticles = ({show}) =>{
+
     const [author, setAuthor] = useState();
     const [articleType, setArticleType] = useState();
     const [title, setTitle] = useState();
@@ -43,7 +26,7 @@ const PostArticles = ({show}) =>{
     const [uploading, setUploading] = useState(false);
     const [selectedFile, setSelectedFile] = useState();
     const [url, setUrl] = useState();
-    const quillRef = useRef(null);
+    // const quillRef = useRef(null);
     const [fileList, setFileList] = useState([]);
 
     const admin = JSON.parse(sessionStorage.getItem('klsr'));
@@ -52,14 +35,14 @@ const PostArticles = ({show}) =>{
 
 
 
-  useEffect(() => {
-    Quill.register('modules/clipboard', CustomClipboard);
+  // useEffect(() => {
+  //   Quill.register('modules/clipboard', CustomClipboard);
 
-    if (editorHtml) {
-      const quill = quillRef.current.getEditor();
-      quill.setContents(editorHtml);
-    }
-  }, []);
+  //   if (editorHtml) {
+  //     const quill = quillRef.current.getEditor();
+  //     quill.setContents(editorHtml);
+  //   }
+  // }, []);
 
 
     const handleChange = (content, delta, source, editor) => {
@@ -195,9 +178,9 @@ const PostArticles = ({show}) =>{
     
 
     return (
-        <div className={`flex-1 ${show? '': 'hidden'} md:block rounded-md px-3`}>
+        <div className={`border flex-1 ${show? '': 'hidden'} md:block rounded-md px-3`}>
             <h1 className='font-extrabold text-xl my-5'>Post Articles</h1>
-            <form className='flex gap-5 flex-wrap'>
+            <div className='flex gap-5 flex-wrap'>
             <Select
             className="w-full"
             placeholder="Article Type"
@@ -250,7 +233,7 @@ const PostArticles = ({show}) =>{
                 {fileList.length < 1 && '+ Upload cover image'}
             </Upload>
             </ImgCrop>
-
+{/* 
             <ReactQuill
             ref={quillRef}
             theme="snow" // 'snow' is the default theme
@@ -260,12 +243,14 @@ const PostArticles = ({show}) =>{
             formats={formats}
             className='w-full min-h-[200px] max-h-[500px]'
             placeholder='Type your article...'
-            />
+            /> */}
+            {/* Tip Tap Starts here......................... */}
+            <TextEditor />
 
-            <Button className='mt-10 w-full' type="primary" onClick={handleSubmit} loading={uploading}>
+            <Button className='w-full' type="primary" onClick={handleSubmit} loading={uploading}>
             {uploading ? "Uploading..." : "Submit"}
             </Button>
-            </form>
+            </div>
 
             {/* Table that contain list of Articles */}
 
