@@ -101,7 +101,7 @@ const Article = () =>{
             }
             {
                 article?.map(ele =>(
-                <div key={ele.id} className='dark:text-white'>
+                <div key={ele.id}>
                     <div className="bg-[gold] p-2 flex-wrap flex justify-between">
                         <h1 className="ml-5 font-bold">{ele.type}</h1>
                         <h1 className="font-extrabold text-white">By {ele.creator}</h1>

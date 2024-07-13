@@ -17,7 +17,7 @@ import Partnership from './components/Partnership.jsx';
 import Programs from './routes/programs.jsx';
 import Messages from './routes/Admin/Messages.jsx';
 import CharityPage from './routes/Charity.jsx';
-
+import Layout from './routes/Admin/layout.jsx';
 
 let admin = sessionStorage.getItem('klsr')
 
@@ -47,24 +47,52 @@ const router = createBrowserRouter([
     element: <Article />
   },
 
-  {
-    path: "admin/manage",
-    element: admin ? (<AdminMember />): (<AdminLogin />)  
-  },
-  {
-     path: "admin/schedule",
-     element: admin ? (<AdminSchedule />): (<AdminLogin />) 
-   },
+  // {
+  //   path: "admin/manage",
+  //   element: admin ? (<AdminMember />): (<AdminLogin />)  
+  // },
+  // {
+  //    path: "admin/schedule",
+  //    element: admin ? (<AdminSchedule />): (<AdminLogin />) 
+  //  },
 
    {
-     path: "admin/messages",
-     element: admin ? (<Messages />): (<AdminLogin />)
-   },
+    path: 'admin/schedule',
+    element:  admin ?  (<Layout><AdminSchedule /></Layout>):(<AdminLogin />),
+  },
+
+   {
+    path: 'admin/manage',
+    element:  admin ?  (<Layout><AdminMember /></Layout>):(<AdminLogin />),
+  },
 
   {
-    path: "admin",
-    element: admin ? (<AdminDashboard />): (<AdminLogin />),
+    path: 'admin/messages',
+    element:  admin ?  (<Layout><Messages /></Layout>):(<AdminLogin />),
   },
+
+  {
+    path: 'admin',
+    element:  !admin ?  (<Layout><AdminDashboard /></Layout>):(<AdminLogin />),
+  },
+  {
+    path: '/about',
+    element: <Layout><About /></Layout>,
+  },
+  {
+    path: '/podcast',
+    element: <Layout><Podcast /></Layout>,
+  },
+
+  //  {
+  //    path: "admin/messages",
+  //    element: admin ? (<Messages />): (<AdminLogin />)
+  //  },
+
+  // {
+  //   path: "admin",
+  //   element: admin ? (<AdminDashboard />): (<AdminLogin />),
+  // },
 
 
   {

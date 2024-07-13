@@ -1,25 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Link } from 'react-router-dom';
-import { Card, Form, Select, Input, Button, Modal, Table, Space, Popconfirm, notification, Alert } from 'antd';
+import { Card, Form, Select, Input, Button, Modal, Table, Space, Popconfirm, notification, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 import supabase from '../../supabaseClient';
 
@@ -30,53 +10,6 @@ import {  createUserWithEmailAndPassword } from "firebase/auth";
 
 let admin = JSON.parse(sessionStorage.getItem('klsr'));
 
-
-const drawerWidth = 240;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
 
 const AdminMember = () =>{
     const [form] = Form.useForm();
@@ -90,22 +23,14 @@ const AdminMember = () =>{
     const emailValue = Form.useWatch('email', form);
     const phoneValue = Form.useWatch('phone', form);
 
-    const theme = useTheme();
+
     const [open, setOpen] = React.useState(false);
   
 
     useEffect(() =>{
      
     }, [])
-    const links = ['', 'manage', 'schedule', 'messages'];
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
-  
+
     const handleNav = () =>{
   
     }
@@ -239,12 +164,18 @@ const AdminMember = () =>{
           title: 'Email',
           dataIndex: 'email',
           key: 'email',
+          ellipsis: true,
+          render: (text) => (
+            <Tooltip title={text}>
+              <span>{text}</span>
+            </Tooltip>
+          ),      
         },
 
         {
-          title: "",
           dataIndex: "action",
           key: 'action',
+          width: 50,
           render: (text, record) => (
             <Space size="middle">
               <Popconfirm title={`Are you sure delete ${record.name} from admin?`}
@@ -259,80 +190,34 @@ const AdminMember = () =>{
 
       const dataSource =  adminList;
 
-     return(
-      <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar className='!bg-teal-800' position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className='flex items-center gap-5' variant="h6" noWrap component="div">
-            <img className='w-[50px]' src="/images/logo.png" alt="" />KLSR Admin Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {['Manage Post', 'Admin', 'Add Schedule', 'Messages'].map((text, index) => (
-            <Link to={`/admin/${links[index]}`} key={text} >
-              <ListItem onClick={handleNav}disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-        <Divider />
+      const tableFooter = () => {
+        if(admin.role === "Superadmin"){
+          return (
+          <Button type="primary"  className='!bg-[#115E59] text-xs' onClick={showModal}>
+            + Add Admin / Creator
+          </Button>
+          )
+        }else{
+          return(
+          <Button className='!bg-[#115E59] text-green-700'>
+             + Add Admin / Creator
+          </Button>
+          )
 
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
+      }
+    }
+
+
+     return(
         <div>
-          {
-            admin.role === 'Superadmin' ? (
-              <Button type="primary"  className='!bg-[#115E59] mb-5' onClick={showModal}>
-                + Add Admin / Creator
-              </Button>
-            ):(
-              <Button className='!bg-[#115E59] text-green-700'>
-                 + Add Admin / Creator
-              </Button>
-            )
-          }
 
            {
             admin.role == "Superadmin" ? (
               dataSource && (
-                <Table dataSource={dataSource} columns={columns} />
+                <div className='w-[100%] max-w-[100%]'>
+                  <Table pagination={false} bordered dataSource={dataSource} columns={columns} footer={tableFooter}/>
+
+                </div>
               )
             ):(
               <h1 className='p-5 text-red-400 font-extrabold'>Only Super Admin have access to this page</h1>
@@ -364,9 +249,9 @@ const AdminMember = () =>{
                 {/* <Input className='mb-4'  placeholder=""/> */}
 
             </Modal>
-            
-            <div className="w-[200px] bg-yellow-300 text-center p-2 rounded-md" onClick={() => setVisible(true)}>
-                <h1>Change Password</h1>
+            <div className='mt-10'>
+              <h1 onClick={() => setVisible(true)} className='text-xs py-2'><i class="fa-solid fa-lock mr-2"></i> Change Password</h1>
+              <hr />
             </div>
 
             <Modal
@@ -382,9 +267,6 @@ const AdminMember = () =>{
               />
             </Modal>
         </div>
-                
-      </Main>
-    </Box>
     )
 }
 
