@@ -23,7 +23,7 @@ const Articles = () => {
         setLoading(true)
         
         const datas = async () =>{
-            let { data, error } = await supabase.from('articles').select('*');
+            let { data, error } = await supabase.from('articles').select('*').order('created_at', { ascending: false });;
             setArticles(data);
             if(data){
                 setLoading(false)
