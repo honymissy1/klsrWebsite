@@ -3,9 +3,12 @@ import { Button, Drawer, Select, Card, Input,  notification, Upload } from 'antd
 import { EditFilled} from '@ant-design/icons';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
+import { EditorContent, FloatingMenu, BubbleMenu, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Blockquote from '@tiptap/extension-blockquote'
+import TextAlign from '@tiptap/extension-text-align'
 import supabase from '../supabaseClient';
-
+import TextEditor from './TextEditor';
 
 const EditPost = ({id}) => {
   const [open, setOpen] = useState(false);
@@ -25,6 +28,8 @@ const EditPost = ({id}) => {
 
     const [editorHtml, setEditorHtml] = useState('');
 
+ 
+  
     useEffect(() =>{
 
         const articles = async() =>{
@@ -51,7 +56,7 @@ const EditPost = ({id}) => {
   const handleChange = (html) => {
     console.log(html)
     setEditorHtml(html);
-};
+  };
 
   const handleSubmit = async() =>{    
         const { data, error } = await supabase
@@ -116,6 +121,35 @@ const EditPost = ({id}) => {
     'link', 'image',
     'align'
   ];
+
+  // const editor = useEditor({
+  //   extensions: [
+  //     StarterKit,
+  //     TextAlign.configure({
+  //       types: ['heading', 'paragraph'],
+  //     }),
+
+  //     Blockquote.configure({
+  //       HTMLAttributes: {
+  //         class: 'bg-green-100 p-2',
+  //       },
+  //     })
+      
+  //   ],
+  //   content: article[0]?.content,
+  //   onUpdate: ({editor}) => {
+  //     console.log(editor.getHTML());
+  //     // setEditorHtml(article[0]?.content);
+  //   }
+
+  // })
+
+
+  const handleDataFromChild = (childData) => {
+    // console.log(childData);
+    setEditorHtml(childData);
+  };
+
   return (
     <>
      {contextHolder}
@@ -127,16 +161,16 @@ const EditPost = ({id}) => {
         {
             article && (
                 <div className='flex-1 md:block'>
-                <form className='flex gap-5 flex-wrap'>
+                <div className='flex gap-5 flex-wrap'>
                 <Select
                 className="w-full"
                 placeholder="Article Type"
                 onChange={(e) => setArticleType(e)}
                 defaultValue={article[0]?.type}
                 options={[{ value: 'Devotion', label: <span>Devotion</span> },
-                                { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
-                                { value: 'Article', label: <span>Article</span> },
-                                { value: 'event', label: <span>Events / Programs</span> },
+                          { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
+                          { value: 'Article', label: <span>Article</span> },
+                          { value: 'event', label: <span>Events / Programs</span> },
     
                                 ]} />
     
@@ -162,22 +196,15 @@ const EditPost = ({id}) => {
                                 { value: 'Others', label: <span>Others</span> }
                                 ]} />
     
-    
-                <ReactQuill
 
-                theme="snow" // 'snow' is the default theme
-                defaultValue={article[0]?.content}
-                onChange={handleChange}
-                modules={modules}
-                formats={formats}
-                className='w-full max-h-[200px]'
-                placeholder='Type your article...'
-                />
+
+                <TextEditor  onData={handleDataFromChild} content={article[0].content} />
+
     
                 <Button className='mt-10 w-full' type="primary" onClick={handleSubmit} loading={uploading}>
                 {uploading ? "Uploading..." : "Submit"}
                 </Button>
-                </form>
+                </div>
     
                 {/* Table that contain list of Articles */}
     

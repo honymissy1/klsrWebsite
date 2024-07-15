@@ -123,7 +123,7 @@ export default function AdminDashboard() {
             {contextHolder}
           <PostArticles show={false} />
           <div className='w-full flex-1 max-h-[100vh]'>
-           <h1 className='font-bold text-xl'>Posted Articles</h1>
+           <h1 className='font-bold text-md'>Posted Articles</h1>
             <div className='my-5 flex items-center justify-between'>
                 <button onClick={showDrawer} className='p-2 bg-teal-900 text-white text-xs font-extrabold rounded-md md:hidden'>+ Add Article</button>
             </div>

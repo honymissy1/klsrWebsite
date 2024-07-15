@@ -22,6 +22,12 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
 import '../assets/styles/custom-quill.css'
 
+
+import { EditorContent, FloatingMenu, BubbleMenu, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Blockquote from '@tiptap/extension-blockquote'
+import TextAlign from '@tiptap/extension-text-align'
+
 const Article = () =>{
    const location = useLocation();
    const currentUrl = window.location.href
@@ -57,12 +63,14 @@ const Article = () =>{
     data()
    },[])
 
+   
    useEffect(() =>{
     const singleArticle = async () =>{
         let { data, error } = await supabase.from('articles').select('*')
         .eq('id', id)
-        setArticle(data);
+         setArticle(data);
         // await setContent(JSON.parse(data[0].content))
+
     }
 
     const comment = async () =>{
@@ -71,9 +79,33 @@ const Article = () =>{
     }
 
     singleArticle();
-
+    
     comment()
-   }, [])
+}, [])
+
+let editor = useEditor({
+    extensions: [
+      StarterKit,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+
+      Blockquote.configure({
+        HTMLAttributes: {
+          class: 'bg-green-100 p-2',
+        },
+      })
+      
+    ],
+    content: article ? article[0].content : 'Not working',
+    editable: false,
+  })
+
+  useEffect(() => {
+    if (editor && article) {
+        editor.commands.setContent(article[0]?.content);
+    }
+   }, [article, editor]);
 
    const handleComment = async () =>{
      if(user?.name !== null){
@@ -89,6 +121,7 @@ const Article = () =>{
         window.location.reload();
      }
     }
+    
    return(
     <div> 
         <Nav />
@@ -117,13 +150,10 @@ const Article = () =>{
                                 <h1 className="font-extrabold text-xl">{ele.title}</h1>
                                {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')} 
                             </div>
-                            <p className="mt-5 text-2xl text-[#1a1a1a]">
-                               <ReactQuill
-                                value={ele.content}
-                                readOnly={true}
-                                theme={"bubble"}
-                                />
-                            </p>
+
+                            <EditorContent editor={editor} />
+
+                          
                             <p className="mt-5 text-right">
                                 {Intl.DateTimeFormat('en',
                                  { year: 'numeric',

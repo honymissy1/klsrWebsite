@@ -210,7 +210,6 @@ const AdminMember = () =>{
 
      return(
         <div>
-
            {
             admin.role == "Superadmin" ? (
               dataSource && (
@@ -223,6 +222,7 @@ const AdminMember = () =>{
               <h1 className='p-5 text-red-400 font-extrabold'>Only Super Admin have access to this page</h1>
             )
            }
+
 
             <Modal title="Add Admin / Creator" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                <Form form={form}>

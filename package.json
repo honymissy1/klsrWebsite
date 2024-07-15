@@ -32,7 +32,7 @@
     "antd": "^5.16.2",
     "antd-img-crop": "^4.22.0",
     "aos": "^2.3.4",
-    "dompurify": "^3.1.5",
+    "dompurify": "^3.1.6",
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
     "fast-xml-parser": "^4.3.6",

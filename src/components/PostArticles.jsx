@@ -28,10 +28,10 @@ const PostArticles = ({show}) =>{
 
     const [editorHtml, setEditorHtml] = useState('');
 
-    const handleChange = (content, delta, source, editor) => {
-      // console.log(editor.getContents());
-        setEditorHtml(editor.getContents());
-    };
+    // const handleChange = (content, delta, source, editor) => {
+    //   // console.log(editor.getContents());
+    //     setEditorHtml(editor.getContents());
+    // };
 
       const onChange = ({fileList}) => {
         setFileList([...fileList]);
@@ -77,7 +77,7 @@ const PostArticles = ({show}) =>{
                 category: category,
                 author: author,
                 img_url: "",
-                creator: admin.name  
+                // creator: admin.name  
               },
             ])
             .select()
@@ -154,12 +154,25 @@ const PostArticles = ({show}) =>{
         'link', 'image',
         'align'
       ];
+
+
+      const handleDataFromChild = (childData) => {
+        console.log(childData);
+        setEditorHtml(childData);
+      };
     
 
     return (
-        <div className={`flex-1 ${show? '': 'hidden'} md:block rounded-md px-3`}>
-            <h1 className='font-extrabold text-xl my-5'>Post Articles</h1>
-            <form className='flex gap-5 flex-wrap'>
+        <div className={`flex-1 ${show? '': 'hidden'} border md:p-5 md:block rounded-md px-3`}>
+            <h1 className='font-extrabold text-md my-3'>Post Articles</h1>
+            <div className="mb-3 border-l-green-400 border-l-4 bg-green-200 p-2">
+             <p>If you're new to the editor here's a basic instruction on how to use</p>
+             <ul className='list-disc p-2 text-xs'>
+                <li className='mb-3'>When you click on the content textbox your text formatting tool will be displayed</li>
+                <li>Highlight Text to get more format</li>
+             </ul>
+            </div>
+            <div className='flex gap-5 flex-wrap'>
             <Select
             className="w-full"
             placeholder="Article Type"
@@ -223,12 +236,13 @@ const PostArticles = ({show}) =>{
             placeholder='Type your article...'
             /> */}
 
-            <TextEditor />
 
-            <Button className='mt-10 w-full' type="primary" onClick={handleSubmit} loading={uploading}>
+            <TextEditor onData={handleDataFromChild} />
+
+            <Button className='mt-1 w-full' type="primary" onClick={handleSubmit} loading={uploading}>
             {uploading ? "Uploading..." : "Submit"}
             </Button>
-            </form>
+            </div>
 
             {/* Table that contain list of Articles */}
 
