@@ -198,7 +198,7 @@ const EditPost = ({id}) => {
     
 
 
-                <TextEditor  onData={handleDataFromChild} content={article[0].content} />
+                <TextEditor onData={handleDataFromChild} content={article[0].content} />
 
     
                 <Button className='mt-10 w-full' type="primary" onClick={handleSubmit} loading={uploading}>

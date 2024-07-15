@@ -200,7 +200,9 @@ const TextEditor = ({onData, content}) => {
             <i class="fa-solid fa-quote-left"></i>
           </button>
 
-           <input
+          {
+            /**
+              <input
                 type="file"
                 accept="image/*"
                 ref={inputRef}
@@ -210,6 +212,8 @@ const TextEditor = ({onData, content}) => {
                   <button onClick={() => inputRef?.current?.click()}>
                 <i class="fa-regular fa-image"></i>
             </button>
+             */
+          }
         </div>
         <EditorContent  editor={editor} />
       </div>
