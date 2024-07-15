@@ -77,7 +77,7 @@ const PostArticles = ({show}) =>{
                 category: category,
                 author: author,
                 img_url: "",
-                // creator: admin.name  
+                creator: admin.name  
               },
             ])
             .select()
