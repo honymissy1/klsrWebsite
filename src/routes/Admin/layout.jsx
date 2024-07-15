@@ -23,7 +23,7 @@ const Layout = ({children}) =>{
               <div className="text-white mt-[50px] text-xs">
                 <ul className="admin-nav">
                   <Link to="/admin/"><li onClick={toggle} className={`${location.pathname === "/admin/" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-chart-line"></i> Posts</li></Link>
-                  <Link to="/admin/manage"><li onClick={toggle} className={`${location.pathname === "/admin/manage" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-folder-plus"></i> Users</li></Link> 
+                  <Link to="/admin/manage"><li onClick={toggle} className={`${location.pathname === "/admin/manage" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-folder-plus"></i> Admins</li></Link> 
                   <Link to="/admin/schedule"><li onClick={toggle} className={`${location.pathname === "/admin/schedule" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-calendar-days"></i> Schedule</li></Link> 
                   <Link to="/admin/messages"><li onClick={toggle} className={`${location.pathname === "/admin/messages" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-message"></i> Messages</li></Link> 
 

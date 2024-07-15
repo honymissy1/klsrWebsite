@@ -65,6 +65,10 @@ const PostArticles = ({show}) =>{
 
 
     const handleSubmit = async () => {
+      if(editorHtml === '' || title === ''){
+        alert('Fill up the content')
+        return;
+      }
         setUploading(true);
         if (fileList.length < 1) {
           const { data: poster  } = await supabase
@@ -129,32 +133,6 @@ const PostArticles = ({show}) =>{
           setUploading(false);
         }
       };
-
-
-      const modules = {
- 
-        toolbar: [
-          [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-          ['bold', 'italic', 'underline'],
-          [{ 'color': [] }, { 'background': [] }],
-          ['blockquote', 'code-block'], 
-          [{ 'align': [] }],
-          ['link', 'image'],
-          ['clean']
-        ],
-      };
-
-      const formats = [
-        'header', 'font',
-        'bold', 'italic', 'underline',
-        'list', 'bullet',
-        'color', 'background',
-        'blockquote', 'code-block', 
-        'link', 'image',
-        'align'
-      ];
-
 
       const handleDataFromChild = (childData) => {
         console.log(childData);
