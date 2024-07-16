@@ -116,6 +116,25 @@ export default function AdminDashboard() {
   };
 
 
+  function showConfirm(e) {
+    // Display the confirm dialog box
+    const userConfirmed = confirm("Are you sure you want to delete this article ?");
+  
+    // Check the user's response
+    if (userConfirmed) {
+     handleDelete(e)
+     alert('Article successfully removed')
+     window.location.reload();
+     
+    } else {
+      // User clicked "Cancel"
+      console.log("User clicked Cancel.");
+      // Perform an action for the Cancel response
+      document.getElementById('output').innerText = 'You clicked Cancel!';
+    }
+  }
+
+
   return (
 
 
@@ -146,17 +165,10 @@ export default function AdminDashboard() {
 
                         <div className='bg-green-400 rounded-md p-2 w-[15%] border flex flex-col items-center text-md h-full'>
                             <div className='flex gap-2 mb-3'><EditPost show={true} id={ele.id} /></div>
-                              <Popconfirm
-                                title="Delete"
-                                description="Are you sure you want to delete this article"
-                                open={popOpen}
-                                
-                                onConfirm={() => handleOk(ele.id)}
-                                onCancel={handleCancel}
-                                >
-                                  <DeleteFilled className='text-red-600' onClick={showPopconfirm} />
+                            
 
-                                </Popconfirm>                      
+                            <DeleteFilled className='text-red-600' onClick={(e) => showConfirm(ele.id)} /> 
+
                           </div>
                     </div>
 

@@ -6,6 +6,7 @@ import moment from 'moment';
 import Footer from "../components/Footer";
 import { Button, Modal } from 'antd';
 import DOMPurify from 'dompurify';
+import { Helmet } from 'react-helmet';
 
 import {
     EmailShareButton,
@@ -135,6 +136,14 @@ let editor = useEditor({
             {
                 article?.map(ele =>(
                 <div key={ele.id}>
+                    <Helmet>
+                        <title>{ele.title}</title>
+                        <meta name="description" content="This is my React application." />
+                        <link rel="icon" type="image" href={ele.img_url} />
+
+                        <meta name="keywords" content={ele.content} />
+                        <link rel="canonical" href={currentUrl} />
+                    </Helmet>
                     <div className="bg-[gold] p-2 flex-wrap flex justify-between">
                         <h1 className="ml-5 font-bold">{ele.type}</h1>
                         <h1 className="font-extrabold text-white">By {ele.creator}</h1>
