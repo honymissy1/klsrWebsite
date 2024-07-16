@@ -140,7 +140,7 @@ let editor = useEditor({
                         <title>{ele.title}</title>
                         <meta name="description" content="This is my React application." />
                         <link rel="icon" type="image" href={ele.img_url} />
-
+                        <meta property="og:image" content={ele.img_url} />
                         <meta name="keywords" content={ele.content} />
                         <link rel="canonical" href={currentUrl} />
                     </Helmet>
