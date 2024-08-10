@@ -5,68 +5,47 @@ const HeroSection = () => {
 
     const english = document.querySelector('#english');
     const yoruba = document.querySelector('#yoruba');
-  // const playEnglish = () => {
-  //   const english = document.querySelector('#english');
-  //   const yoruba = document.querySelector('#yoruba');
 
-  //   if (yoruba.play) {
-  //     yoruba.pause()
-  //   }
-  //   setEnglish(true)
-  //   english.play()
-  // }
+    let currentAudio;
+      
+    const playaudio =  (x) =>{
+        currentAudio = x === "english" ? english : yoruba
 
-  // const playYoruba = () => {
-  //   const english = document.querySelector('#english');
-  //   const yoruba = document.querySelector('#yoruba');
+        if(currentAudio.paused){
+          currentAudio.play()
+          pausePlay.innerHTML = `<i class="fa-solid fa-pause"></i>`
+        }else{
+          currentAudio.pause();
+          pausePlay.innerHTML = `<i class="fa-solid fa-play"></i>`
+        }
+      }
 
-  //   if (english.play) {
-  //     english.pause()
-  //   }
-  //   setEnglish(false)
-  //   yoruba.play()
-  // }
+      const switchChannel = () => {
+        const label = document.querySelector('#label1');
+        const label2 = document.querySelector('#label2');
+        const channel = document.querySelector('#channel');
 
-  let currentAudio;
-    
-  const playaudio =  (x) =>{
-      currentAudio = x === "english" ? english : yoruba
+        currentAudio.pause()
+        currentAudio = (currentAudio === english) ? yoruba : english;
 
-      if(currentAudio.paused){
         currentAudio.play()
-        pausePlay.innerHTML = `<i class="fa-solid fa-pause"></i>`
-      }else{
-        currentAudio.pause();
-        pausePlay.innerHTML = `<i class="fa-solid fa-play"></i>`
+      
+        if (currentAudio === english) {
+          channel.textContent = "Yoruba Channel"
+          label.classList.add("block")
+          label.classList.remove("hidden")
+          label2.classList.add("hidden")
+          label2.classList.remove("block")
+        } else {
+          channel.textContent = "English Channel"
+          label.classList.add("hidden")
+          label2.classList.remove("block")
+          label.classList.add("block")
+          label2.classList.remove("hidden")
+
+        }
+      
       }
-    }
-
-    const switchChannel = () => {
-      const label = document.querySelector('#label1');
-      const label2 = document.querySelector('#label2');
-      const channel = document.querySelector('#channel');
-
-      currentAudio.pause()
-      currentAudio = (currentAudio === english) ? yoruba : english;
-
-      currentAudio.play()
-     
-      if (currentAudio === english) {
-        channel.textContent = "Yoruba Channel"
-        label.classList.add("block")
-        label.classList.remove("hidden")
-        label2.classList.add("hidden")
-        label2.classList.remove("block")
-      } else {
-        channel.textContent = "English Channel"
-        label.classList.add("hidden")
-        label2.classList.remove("block")
-        label.classList.add("block")
-        label2.classList.remove("hidden")
-
-      }
-    
-    }
 
 
   return (
@@ -90,10 +69,6 @@ const HeroSection = () => {
       <div id="content" className='md:w-[50%] md:ml-[50px] lg:ml-0  w-[400px] md text-center md:text-left m-auto md:m-0'>
         <h1 className='text-5xl font-bold font-serif'>KINGDOM LIFESTYLE RADIO</h1>
         <p className='font-bold rounded-md !py-10'> 24/7 gospel, inspiration, edification and transformation, stay tuned and be blessed</p>
-        {/* <div className='flex lg:!mx-0 flex-wrap'>
-          <button className=' p-2 flex-1  !text-black !bg-[gold] text-sm  font-extrabold' onClick={() => playaudio('english')} style={{ outline: english ? '2px solid white' : '' }}>English Channel &nbsp;</button>
-          <button className=' p-2 flex-1  font-extrabold !bg-[gold] text-sm   !text-black' onClick={() => playaudio('yoruba')} style={{ outline: !english ? '2px solid white' : '' }}>Yoruba Channel &nbsp;</button>
-        </div> */}
       </div>
     </div>
   )

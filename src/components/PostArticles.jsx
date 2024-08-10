@@ -97,7 +97,7 @@ const PostArticles = ({show}) =>{
     
           const { error } = await supabase
             .storage
-            .from('klsr') // Replace with your bucket name
+            .from('klsr')
             .upload(filePath, selectedFile);
     
           if (error) {
@@ -106,10 +106,10 @@ const PostArticles = ({show}) =>{
     
           const { data:pics } = await supabase
             .storage
-            .from('klsr') // Same bucket name
+            .from('klsr')
             .getPublicUrl(filePath);
            
-               const { data: poster  } = await supabase
+           const { data: poster  } = await supabase
              .from('articles')
              .insert([
                { 
@@ -166,16 +166,6 @@ const PostArticles = ({show}) =>{
         {
             articleType == "Review" && (<Input onChange={(e) => setAuthor(e.target.value)} className='flex-1 max-w-[500px] min-w-[300px]' placeholder="Author"/>)
         }
-        {/* <Upload
-
-            beforeUpload={() => false}
-            onChange={handleFileChange}
-            onRemove={() => setSelectedFile(null)}
-            multiple={false} 
-            showUploadList={true} // Show the file list with progress
-        >
-            <Button className='!w-[]' icon={<UploadOutlined />}>Select cover Image</Button>
-        </Upload> */}
 
         <Select
             className="w-full"
@@ -204,25 +194,12 @@ const PostArticles = ({show}) =>{
             </Upload>
             </ImgCrop>
 
-            {/* <ReactQuill
-            theme="snow" // 'snow' is the default theme
-            value={editorHtml}
-            onChange={handleChange}
-            modules={modules}
-            formats={formats}
-            className='w-full min-h-[200px] max-h-[500px]'
-            placeholder='Type your article...'
-            /> */}
-
-
             <TextEditor onData={handleDataFromChild} />
 
-            <Button className='mt-1 w-full' type="primary" onClick={handleSubmit} loading={uploading}>
+            <Button className='mt-1 w-full bg-[#115E59] text-white font-extrabold' onClick={handleSubmit} loading={uploading}>
             {uploading ? "Uploading..." : "Submit"}
             </Button>
             </div>
-
-            {/* Table that contain list of Articles */}
 
         </div>
 

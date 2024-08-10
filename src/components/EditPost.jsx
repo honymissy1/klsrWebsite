@@ -58,10 +58,54 @@ const EditPost = ({id}) => {
     setEditorHtml(html);
   };
 
-  const handleSubmit = async() =>{    
+  const onChange = ({fileList}) => {
+    setFileList([...fileList]);
+    if (fileList.length > 0) {
+      fileList[0].status = 'done'
+      setSelectedFile(fileList[0].originFileObj);
+    } else {
+      setSelectedFile(null);
+    }
+  };
+
+
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+
+
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  }
+
+  const handleSubmit = async() =>{ 
+    const fileName = `${Date.now()}-${selectedFile.name}`;
+    const filePath = `article_images/${fileName}`; // Customize your folder path
+
+    const {file, error: fileError } = await supabase
+      .storage.from('klsr').upload(filePath, selectedFile);
+
+      console.log(file);
+        if (error) {
+          throw error;
+        }
+
+        const { data:pics } = await supabase
+        .storage
+        .from('klsr') // Same bucket name
+        .getPublicUrl(filePath);
+
         const { data, error } = await supabase
         .from('articles')
-        .update({ title: title, content: editorHtml, type: articleType, category: category })
+        .update({ title: title, content: editorHtml, type: articleType, img_url: fileList.length < 1 ? "Upload": "null", category: category })
         .eq('id', id)
         .select()
         
@@ -95,32 +139,8 @@ const EditPost = ({id}) => {
 
   }
 
-  const modules = {
-    clipboard: {
-      matchVisual: true,
-    },
 
-    toolbar: [
-      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['bold', 'italic', 'underline'],
-      [{ 'color': [] }, { 'background': [] }],
-      ['blockquote', 'code-block'], 
-      [{ 'align': [] }],
-      ['link', 'image'],
-      ['clean']
-    ],
-  };
 
-  const formats = [
-    'header', 'font',
-    'bold', 'italic', 'underline',
-    'list', 'bullet',
-    'color', 'background',
-    'blockquote', 'code-block', 
-    'link', 'image',
-    'align'
-  ];
 
   // const editor = useEditor({
   //   extensions: [
@@ -168,7 +188,7 @@ const EditPost = ({id}) => {
                 onChange={(e) => setArticleType(e)}
                 defaultValue={article[0]?.type}
                 options={[{ value: 'Devotion', label: <span>Devotion</span> },
-                          { value: 'Review', label: <span className='text-red-600'>Book Review</span> },
+                          { value: 'Review', label: <span>Book Review</span> },
                           { value: 'Article', label: <span>Article</span> },
                           { value: 'event', label: <span>Events / Programs</span> },
     
@@ -199,7 +219,17 @@ const EditPost = ({id}) => {
 
 
                 <TextEditor onData={handleDataFromChild} content={article[0].content} />
-
+                <ImgCrop rotationSlider>
+                  <Upload
+                      listType="picture-card"
+                      fileList={fileList}
+                      onChange={onChange}
+                      onPreview={onPreview}
+                      className='w-[300px]'
+                  >
+                      {fileList.length < 1 && '+ Upload cover image'}
+                  </Upload>
+                </ImgCrop>
     
                 <Button className='mt-10 w-full' type="primary" onClick={handleSubmit} loading={uploading}>
                 {uploading ? "Uploading..." : "Submit"}

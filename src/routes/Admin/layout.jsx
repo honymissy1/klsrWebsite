@@ -2,17 +2,13 @@ import { useEffect, useRef } from "react"
 import { Link, useLocation } from 'react-router-dom';
 
 
+
 const Layout = ({children}) =>{
 
     const navRef = useRef();
     const location = useLocation()
-    const toggle = () => {
-        navRef.current.classList.toggle('transit')
-    }
-
-    useEffect(() =>{
-        // alert(JSON.stringify(location.pathname))
-    })
+    
+    const toggle = () => {  navRef.current.classList.toggle('transit') }
     
     return(
         <div className="w-full">
@@ -26,7 +22,7 @@ const Layout = ({children}) =>{
                   <Link to="/admin/manage"><li onClick={toggle} className={`${location.pathname === "/admin/manage" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-folder-plus"></i> Admins</li></Link> 
                   <Link to="/admin/schedule"><li onClick={toggle} className={`${location.pathname === "/admin/schedule" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-calendar-days"></i> Schedule</li></Link> 
                   <Link to="/admin/messages"><li onClick={toggle} className={`${location.pathname === "/admin/messages" ? "bg-green-500 p-2 rounded-md font-extrabold" :""}`}><i class="fa-solid fa-message"></i> Messages</li></Link> 
-
+                  <li><a href="">Analytics</a></li>
                 </ul>
               </div>
             </div>

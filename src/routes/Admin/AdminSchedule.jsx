@@ -1,24 +1,4 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Link } from 'react-router-dom';
 import supabase from '../../supabaseClient';
 import { Card, Input, Select, Button, message, TimePicker  } from 'antd';
 import moment from 'moment';
@@ -28,7 +8,6 @@ import { Message } from '@mui/icons-material';
 
 
 export default function AdminSchedule() {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const [day, setDay] = React.useState('');
@@ -67,12 +46,11 @@ export default function AdminSchedule() {
 
     }
         
-    
         
   }
 
   return (
-
+    <IonPage>
       <div>
 
         <h1 onClick={() => alert(time)} className="font-extrabold text-md my-5">Add a Scheduled Program</h1>
@@ -95,14 +73,11 @@ export default function AdminSchedule() {
 
            <Input onChange={(e) => setProgram(e.target.value)}  className='flex-1 w-full' placeholder="Program"/>
          
-           {/* <Input onChange={(e) => setAnchor(e.target.value)}  className='flex-1 max-w-[500px]' placeholder="Anchor"/> */}
            <TimePicker
             className="w-full"
-            // value={time} // Bind to state
             onChange={handleTimeChange} // Handle time changes
             format="HH:mm a" // Desired format
             use12Hours={true} // Toggle 12-hour or 24-hour format
-            // showSecond={true} // Control whether to show seconds
           />
            <Input onChange={(e) => setSocial(e.target.value)}  className='flex-1 w-full' placeholder="Social Media Content"/>
            {
@@ -114,6 +89,12 @@ export default function AdminSchedule() {
            }
       </form>
       </div>
+
+      <div>
+         <h1>List of Programs</h1>
+      </div>
+
+    </IonPage>
 
 
   );
