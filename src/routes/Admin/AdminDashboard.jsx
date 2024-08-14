@@ -158,7 +158,7 @@ export default function AdminDashboard() {
                     <div  className='justify-between p-4 relative rounded text-white bg-green-800 mb-1 text-xs'>
                     <div className='w-full gap-5 flex justify-between'>
                        {
-                        img_url ? (
+                        ele.img_url ? (
                           <div className='w-[100px]'>
                            <img src={ele.img_url} className='w-full' alt="" /> 
                           </div>
