@@ -7,6 +7,8 @@ import { EditorContent, FloatingMenu, BubbleMenu, useEditor } from '@tiptap/reac
 import StarterKit from '@tiptap/starter-kit'
 import Blockquote from '@tiptap/extension-blockquote'
 import TextAlign from '@tiptap/extension-text-align'
+import ImgCrop from 'antd-img-crop';
+
 import supabase from '../supabaseClient';
 import TextEditor from './TextEditor';
 
@@ -142,29 +144,6 @@ const EditPost = ({id}) => {
 
 
 
-  // const editor = useEditor({
-  //   extensions: [
-  //     StarterKit,
-  //     TextAlign.configure({
-  //       types: ['heading', 'paragraph'],
-  //     }),
-
-  //     Blockquote.configure({
-  //       HTMLAttributes: {
-  //         class: 'bg-green-100 p-2',
-  //       },
-  //     })
-      
-  //   ],
-  //   content: article[0]?.content,
-  //   onUpdate: ({editor}) => {
-  //     console.log(editor.getHTML());
-  //     // setEditorHtml(article[0]?.content);
-  //   }
-
-  // })
-
-
   const handleDataFromChild = (childData) => {
     // console.log(childData);
     setEditorHtml(childData);
@@ -217,8 +196,6 @@ const EditPost = ({id}) => {
                                 ]} />
     
 
-
-                <TextEditor onData={handleDataFromChild} content={article[0].content} />
                 <ImgCrop rotationSlider>
                   <Upload
                       listType="picture-card"
@@ -227,10 +204,12 @@ const EditPost = ({id}) => {
                       onPreview={onPreview}
                       className='w-[300px]'
                   >
-                      {fileList.length < 1 && '+ Upload cover image'}
+                      {fileList.length < 1 && '+ Replace cover image'}
                   </Upload>
                 </ImgCrop>
     
+
+                <TextEditor onData={handleDataFromChild} content={article[0].content} />
                 <Button className='mt-10 w-full' type="primary" onClick={handleSubmit} loading={uploading}>
                 {uploading ? "Uploading..." : "Submit"}
                 </Button>

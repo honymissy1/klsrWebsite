@@ -28,10 +28,6 @@ const PostArticles = ({show}) =>{
 
     const [editorHtml, setEditorHtml] = useState('');
 
-    // const handleChange = (content, delta, source, editor) => {
-    //   // console.log(editor.getContents());
-    //     setEditorHtml(editor.getContents());
-    // };
 
       const onChange = ({fileList}) => {
         setFileList([...fileList]);

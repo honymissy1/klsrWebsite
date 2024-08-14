@@ -156,9 +156,19 @@ export default function AdminDashboard() {
                 articles?.map(ele =>(
                   <div className="w-full shadow" key={ele.id}>
                     <div  className='justify-between p-4 relative rounded text-white bg-green-800 mb-1 text-xs'>
-                    <div className='w-full flex justify-between'>
-                    
-                          <div className='flex flex-col w-[70%] justify-between py-1'>
+                    <div className='w-full gap-5 flex justify-between'>
+                       {
+                        img_url ? (
+                          <div className='w-[100px]'>
+                           <img src={ele.img_url} className='w-full' alt="" /> 
+                          </div>
+
+                        ):(
+                          <div className="border w-[100px] h-full"></div>
+                        )
+                       }
+                          <div className='flex flex-1 flex-col w-[70%] justify-between py-1'>
+                            
                             <h1 className='font-bold truncate'>{ele.title}</h1>
                             <p className='my-1'>{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true}).format(new Date(ele.created_at))}</p>
                             <p className='text-green-300 mt-3'><i class="fa-solid fa-user"></i> {ele.creator}</p>
