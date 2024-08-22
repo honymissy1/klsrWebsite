@@ -159,12 +159,14 @@ export default function AdminDashboard() {
                     <div className='w-full gap-5 flex justify-between'>
                        {
                         ele.img_url ? (
-                          <div className='w-[100px]'>
+                          <div className='w-[100px] h-full'>
                            <img src={ele.img_url} className='w-full' alt="" /> 
                           </div>
 
                         ):(
-                          <div className="border w-[100px] h-full"></div>
+                          <div className="w-[100px] bg-white p-1 h-full">
+                            <img src="/logo.png" alt="" />
+                          </div>
                         )
                        }
                           <div className='flex flex-1 flex-col w-[70%] justify-between py-1'>
