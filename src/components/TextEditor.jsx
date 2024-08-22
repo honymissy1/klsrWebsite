@@ -55,6 +55,89 @@ const TextEditor = ({onData, content}) => {
       </div>
       {editor && <FloatingMenu className='rounded w-full bg-blue-300' editor={editor} tippyOptions={{ duration: 100 }}>
         <div className="floating-menu">
+                <div className="flex flex-wrap p-3 gap-2">
+          <button
+                onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                className={editor?.isActive('heading', { level: 1 }) ? 'is-active active font-extrabold text-green-600' : ''}
+            >
+                H1
+            </button>
+
+                      <button
+                          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                          className={editor?.isActive('heading', { level: 2 }) ? 'is-active active font-extrabold text-green-600' : ''}
+                      >
+                          H2
+                      </button>
+          
+                      <button
+                          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                          className={editor?.isActive('heading', { level: 3 }) ? 'is-active active font-extrabold text-green-600' : ''}
+                      >
+                          H3
+                      </button>
+
+            <div className="flex gap-5">
+          <button
+            onClick={() => editor.chain().focus().setTextAlign('left').run()}
+            className={editor?.isActive({ textAlign: 'left' }) ? 'is-active active font-extrabold text-green-600' : ''}
+          >
+            <i class="fa-solid fa-align-left"></i>
+          </button>
+          <button
+            onClick={() => editor.chain().focus().setTextAlign('center').run()}
+            className={editor?.isActive({ textAlign: 'center' }) ? 'is-active active font-extrabold text-green-600' : ''}
+          >
+            <i class="fa-solid fa-align-center"></i>
+          </button>
+          <button
+            onClick={() => editor.chain().focus().setTextAlign('right').run()}
+            className={editor?.isActive({ textAlign: 'right' }) ? 'is-active active font-extrabold text-green-600' : ''}
+          >
+            <i class="fa-solid fa-align-right"></i>
+          </button>
+         
+        </div>
+
+        <button
+                          onClick={() => editor.chain().focus().toggleBold().run()}
+                          className={editor?.isActive('bold') ? 'active font-extrabold text-green-600' : ''}
+                      >
+                         <b>B</b>
+                      </button>
+                      <button
+                      onClick={() => editor.chain().focus().toggleItalic().run()}
+                      className={editor?.isActive('italic') ? 'is-active active font-extrabold text-green-600' : ''}
+                    >
+                      <i class="fa-solid fa-italic"></i>
+                    </button>
+                    <button
+                      onClick={() => editor.chain().focus().toggleStrike().run()}
+                      className={editor?.isActive('strike') ? 'is-active active font-extrabold text-green-600' : ''}
+                    >
+                      <i class="fa-solid fa-strikethrough"></i>
+                    </button>
+
+            <button
+                onClick={() => editor.chain().focus().toggleBulletList().run()}
+                className={editor?.isActive('bulletList') ? 'is-active active font-extrabold text-green-600' : ''}
+            >
+                <i class="fa-solid fa-list"></i>
+            </button>
+
+            <div className="button-group bg-blue-400">
+        
+         
+        </div>
+
+        <button
+            onClick={() => editor.chain().focus().toggleBlockquote().run()}
+            className={editor?.isActive('blockquote') ? 'is-active active font-extrabold text-green-600' : ''}
+          >
+            <i class="fa-solid fa-quote-left"></i>
+          </button>
+
+        </div>
 
 {/* 
            <input
@@ -70,8 +153,8 @@ const TextEditor = ({onData, content}) => {
         </div>
       </FloatingMenu>}
 
-      <div className='border rounded-md flex-wrap w-full'>
-      <div className="flex bg-[#ddd] flex-wrap p-3 gap-5">
+      <div className='rounded-md flex-wrap w-full'>
+      <div className="flex bg-[#ddd] flex-wrap p-3 gap-4">
           <button
                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
                 className={editor?.isActive('heading', { level: 1 }) ? 'is-active active font-extrabold text-green-600' : ''}
@@ -156,7 +239,7 @@ const TextEditor = ({onData, content}) => {
           </button>
 
         </div>
-        <EditorContent  editor={editor} />
+        <EditorContent editor={editor} />
       </div>
 
     </>
