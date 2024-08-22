@@ -69,15 +69,7 @@ const TextEditor = ({onData, content}) => {
             </button> */}
         </div>
       </FloatingMenu>}
-      {editor && (
-        <BubbleMenu className='rounded w-full bg-blue-300' editor={editor} tippyOptions={{ duration: 100 }}>
-             <div className="floating-menu">
 
-
-
-             </div>
-        </BubbleMenu>
-      )}
       <div className='border rounded-md flex-wrap w-full'>
       <div className="flex bg-[#ddd] flex-wrap p-3 gap-5">
           <button
