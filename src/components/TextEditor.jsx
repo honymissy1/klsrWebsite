@@ -78,8 +78,8 @@ const TextEditor = ({onData, content}) => {
              </div>
         </BubbleMenu>
       )}
-      <div className='border rounded-md w-full'>
-      <div className="flex bg-[#ddd] p-3 gap-5">
+      <div className='border rounded-md flex-wrap w-full'>
+      <div className="flex bg-[#ddd] flex-wrap p-3 gap-5">
           <button
                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
                 className={editor?.isActive('heading', { level: 1 }) ? 'is-active active font-extrabold text-green-600' : ''}
