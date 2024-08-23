@@ -89,25 +89,10 @@ const EditPost = ({id}) => {
   }
 
   const handleSubmit = async() =>{ 
-    const fileName = `${Date.now()}-${selectedFile.name}`;
-    const filePath = `article_images/${fileName}`; // Customize your folder path
-
-    const {file, error: fileError } = await supabase
-      .storage.from('klsr').upload(filePath, selectedFile);
-
-      console.log(file);
-        if (error) {
-          throw error;
-        }
-
-        const { data:pics } = await supabase
-        .storage
-        .from('klsr') // Same bucket name
-        .getPublicUrl(filePath);
 
         const { data, error } = await supabase
         .from('articles')
-        .update({ title: title, content: editorHtml, type: articleType, img_url: fileList.length < 1 ? "Upload": "null", category: category })
+        .update({ title: title, content: editorHtml, type: articleType, category: category })
         .eq('id', id)
         .select()
         
@@ -194,19 +179,7 @@ const EditPost = ({id}) => {
                                 { value: 'Business', label: <span>Business</span> },
                                 { value: 'Others', label: <span>Others</span> }
                                 ]} />
-    
 
-                <ImgCrop rotationSlider>
-                  <Upload
-                      listType="picture-card"
-                      fileList={fileList}
-                      onChange={onChange}
-                      onPreview={onPreview}
-                      className='w-[300px]'
-                  >
-                      {fileList.length < 1 && '+ Replace cover image'}
-                  </Upload>
-                </ImgCrop>
     
 
                 <TextEditor onData={handleDataFromChild} content={article[0].content} />
