@@ -4,6 +4,7 @@ import supabase from '../supabaseClient';
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import moment from 'moment';
+import axios from 'axios';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -18,6 +19,7 @@ const Articles = () => {
     const [loading, setLoading] = useState(false)
     const [articleState, setArticleState] = useState();
     const [articles, setArticles] = useState();
+    const [authors, setAuthors] = useState(); 
 
 
     const [data, setData] = useState([]);
@@ -32,12 +34,43 @@ const Articles = () => {
         const end = start + pageSize - 1;
 
         const datas = async () => {
-            let { data, error, count } = await supabase.from('articles').select('*', { count: 'exact' }).order('created_at', { ascending: false }).range(start, end);
-            setArticles(data);
-            if (data) {
-                setLoading(false);
-                setTotalPages(Math.ceil(count / pageSize));
-            }
+            // let { data, error, count } = await supabase.from('articles').select('*', { count: 'exact' }).order('created_at', { ascending: false }).range(start, end);
+            // setArticles(data);
+            // if (data) {
+            //     setLoading(false);
+            //     setTotalPages(Math.ceil(count / pageSize));
+            // }
+
+            const wordpressData = await axios.get(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/posts`);
+
+            const result = await wordpressData.data;
+
+            console.log(result);
+
+            const postsWithAuthors = await Promise.all(result.map(async (post) => {
+                // if (post.author) {
+                //   const authorResponse = await fetch(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/users/${post.author}`);
+                //   const authorData = await authorResponse.json();
+                //   post.author_name = authorData.name;  
+                // } else {
+                //   post.author_name = 'Unknown Author';
+                // }
+      
+                if (post.featured_media) {
+                  const mediaResponse = await axios.get(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/media/${post.featured_media}`);
+                  const mediaData = await mediaResponse.data;
+                  post.featured_image_url = mediaData.source_url;
+                } else {
+                  post.featured_image_url = null;
+                }
+                
+                return post;
+            }));
+
+            
+            setArticles(postsWithAuthors);
+            console.log(postsWithAuthors);
+            setLoading(false);
         }
         datas()
     }, [page, pageSize])
@@ -53,6 +86,7 @@ const Articles = () => {
             setPage(page - 1);
         }
     };
+
 
     return (
         <div>
@@ -75,23 +109,26 @@ const Articles = () => {
                                         articles && articles?.slice(0, 5).map(ele => (
                                             <SwiperSlide className='text-black relative border border-solid border-black'>
                                                 <div className='p-3 right-0 absolute z-20'>
-                                                    <h1 className='p-1 text-sm text-white bg-[#d4af37] rounded'>{ele.type}</h1>
+                                                    <h1 className='p-1 text-sm text-white bg-[#d4af37] rounded'>{}</h1>
                                                 </div>
                                                 <div className='absolute flex h-full w-full bg-[#072a1ae5] items-center justify-center'>
                                                     <div className=' z-10 text-white'>
                                                         {ele.type == 'Review' ? (<p className='text-orange-300'>{ele.author}</p>) : ''}
-                                                        <h1 className='text-2xl w-[300px] md:text-4xl font-bold'>{ele.title}</h1>
+                                                        <h1 dangerouslySetInnerHTML={{ __html: ele.title.rendered}} className='text-2xl w-[300px] md:text-4xl font-bold'></h1>
 
                                                         <div className='bg-[white] text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
-                                                            <p className='w-2/3 truncate'>{ele.type === 'Review' ? (<>Book review</>) : ''} By {ele.creator}</p>
-                                                            <p><RelativeTime date={ele.created_at} /></p>
+                                                            <p><RelativeTime date={ele.date} /></p>
                                                         </div>
 
                                                         <Link to={`/articles/${ele.id}`}><h1 className='text-left m-auto mt-10 px-3 text-black font-extrabold text-sm bg-[gold] w-max p-1 rounded-md'>Read More</h1></Link>
 
+
                                                     </div>
                                                 </div>
-                                                <img src={ele.img_url} className='z-0' alt="" />
+                                                {
+                                                    ele.featured_image_url ? ( <img src={ele.featured_image_url} className='z-0' alt="" />): ( <img src="/logo.png" className='z-0' alt="" />)
+                                                }
+                                               
                                             </SwiperSlide>
 
                                         ))
@@ -100,7 +137,7 @@ const Articles = () => {
                             </div>
 
 
-                            <div className='flex '>
+                             <div className='flex '>
                                 <div className='hidden lg:block lg:!static lg:!top-0 w-[300px] h-[auto] bg-blue-400'>
                                     <h1 className='text-2xl font-extrabold'></h1>
 
@@ -110,13 +147,17 @@ const Articles = () => {
                                         loading == false && articles && articles.map((ele, index) => (
                                             <Link to={`/articles/${ele.id}`}>
                                                 <div key={ele.id} className=' p-4 lg:p-5 gap-3 flex flex-col md:flex-row'>
-                                                    <div className='border w-full h-[200px] md:w-[100px] md:h-max m-auto overflow-hidden'>
-                                                        <img className='w-full h-full object-cover' src={ele.img_url} alt="" />
+                                                    <div className='w-full h-[200px] md:w-[100px] md:h-max m-auto overflow-hidden'>
+                                                        {/* <img className='w-full h-full object-cover' src={ele.img_url} alt="" /> */}
+                                                      {
+                                                       ele.featured_image_url ? (<img className='w-full h-full object-cover' src={ele.img_url} alt="" />): ( <img src="/logo.png" className='w-full h-full object-cover' alt="" />)
+                                                      }
                                                     </div>
                                                     <div className='flex-1'>
                                                         <div>
                                                             <div className='flex justify-between flex-wrap-reverse'>
-                                                                <h1 className='font-extrabold text-lg'>{ele.title} {ele.type == 'Review' ? '- ' + ele.author : ('')}</h1>
+                                                                 <p dangerouslySetInnerHTML={{ __html: ele.excerpt.rendered}} className='text-sm mt-1'></p>
+                                                                 <h1 dangerouslySetInnerHTML={{ __html: ele.title.rendered}} className='text-md w-[300px] md:text-md font-bold'></h1>
                                                                 <div className='flex w-full justify-between items-center'>
                                                                     <h1 className={`${ele.type == 'Devotion' ? "text-green-600" : ele.type == 'Book Review' ? "text-purple-600" : "text-green-600"} font-bold text-xs`}>{ele.type}</h1>
                                                                     <p> <span className='bg-green-800 text-xs font-normal text-white p-1 rounded-lg'>{ele.category}</span></p>
@@ -124,9 +165,9 @@ const Articles = () => {
                                                             </div>
                                                         </div>
                                                         <div className='flex text-sm justify-between py-2'>
-                                                            <p className='truncate w-2/3 font-bold text-[#777]'>By {ele.creator}</p>
+                                                            {/* <p className='truncate w-2/3 font-bold text-[#777]'>By {ele.creator}</p> */}
                                                             <p className='font-bold'>
-                                                                <RelativeTime date={ele.created_at} />
+                                                                <RelativeTime date={ele.date} />
                                                             </p>
                                                         </div>
                                                         <hr />
@@ -147,8 +188,7 @@ const Articles = () => {
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-
+                            </div> 
                         </div>
                     </>
                 ) : (
@@ -170,3 +210,7 @@ const Articles = () => {
 
 
 export default Articles;
+
+
+
+
