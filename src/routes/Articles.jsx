@@ -124,7 +124,7 @@ const Articles = () => {
                                                             </div>
                                                         </div>
                                                         <div className='flex text-sm justify-between py-2'>
-                                                            <p className='truncate w-2/3 font-bold text-[#777]'>By {ele.creator}</p>
+                                                            <p className='truncate w-2/3 font-bold text-[#777]'>By { ele.creator }</p>
                                                             <p className='font-bold'>
                                                                 <RelativeTime date={ele.created_at} />
                                                             </p>
