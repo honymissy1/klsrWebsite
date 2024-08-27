@@ -20,12 +20,8 @@ import {
     WhatsappShareButton,
 } from "react-share";
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'
-import '../assets/styles/custom-quill.css'
 
-
-import { EditorContent, FloatingMenu, BubbleMenu, useEditor } from '@tiptap/react'
+import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Blockquote from '@tiptap/extension-blockquote'
 import TextAlign from '@tiptap/extension-text-align'
@@ -100,23 +96,19 @@ const Article = () =>{
     // comment()
 }, [])
 
-// let editor = useEditor({
-//     extensions: [
-//       StarterKit,
-//       TextAlign.configure({
-//         types: ['heading', 'paragraph'],
-//       }),
-
-//       Blockquote.configure({
-//         HTMLAttributes: {
-//           class: 'bg-green-100 p-2',
-//         },
-//       })
+let editor = useEditor({
+    extensions: [
+      StarterKit,
+      Blockquote.configure({
+        HTMLAttributes: {
+          class: '',
+        },
+      })
       
-//     ],
-//     content: article ? article[0].content : 'Not working',
-//     editable: false,
-//   })
+    ],
+    content: article ? article?.content.rendered : 'Not working',
+    editable: false,
+  })
 
 //   useEffect(() => {
 //     if (editor && article) {
@@ -175,7 +167,9 @@ const Article = () =>{
                                {/* {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')}  */}
                             {/* </div>  */}
 
-                            <p dangerouslySetInnerHTML={{ __html: article?.content.rendered}}></p>
+                            <EditorContent editor={editor} />
+
+                            {/* <p dangerouslySetInnerHTML={{ __html: article?.content.rendered}}></p> */}
 
                           
                             {/* <p className="mt-5 text-right">
