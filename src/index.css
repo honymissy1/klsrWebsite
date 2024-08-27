@@ -38,3 +38,13 @@
     min-height: 300px;
  
   }
+
+
+  .tiptap-content br {
+    margin-bottom: 10px;
+    display: block; /* Ensure line breaks are respected */
+  }
+
+  .tiptap-content p{
+    color: red
+  }

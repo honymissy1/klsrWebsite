@@ -21,10 +21,10 @@ import {
 } from "react-share";
 
 
-import { EditorContent, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Blockquote from '@tiptap/extension-blockquote'
-import TextAlign from '@tiptap/extension-text-align'
+// import { EditorContent, useEditor } from '@tiptap/react'
+// import StarterKit from '@tiptap/starter-kit'
+// import Blockquote from '@tiptap/extension-blockquote'
+// import TextAlign from '@tiptap/extension-text-align'
 
 const Article = () =>{
    const location = useLocation();
@@ -96,19 +96,19 @@ const Article = () =>{
     // comment()
 }, [])
 
-let editor = useEditor({
-    extensions: [
-      StarterKit,
-      Blockquote.configure({
-        HTMLAttributes: {
-          class: '',
-        },
-      })
+// let editor = useEditor({
+//     extensions: [
+//       StarterKit,
+//       Blockquote.configure({
+//         HTMLAttributes: {
+//           class: 'p-4 text-3xl',
+//         },
+//       })
       
-    ],
-    content: article ? article?.content.rendered : 'Not working',
-    editable: false,
-  })
+//     ],
+//     content: article ? article?.content?.rendered : (<img className='m-auto' src="/loaders" />),
+//     editable: false,
+//   })
 
 //   useEffect(() => {
 //     if (editor && article) {
@@ -167,9 +167,9 @@ let editor = useEditor({
                                {/* {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')}  */}
                             {/* </div>  */}
 
-                            <EditorContent editor={editor} />
+                            {/* <EditorContent editor={editor} /> */}
 
-                            {/* <p dangerouslySetInnerHTML={{ __html: article?.content.rendered}}></p> */}
+                            <p dangerouslySetInnerHTML={{ __html: article?.content.rendered}}></p>
 
                           
                             {/* <p className="mt-5 text-right">
