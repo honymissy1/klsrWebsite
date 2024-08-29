@@ -135,8 +135,9 @@ const Articles = () => {
                                                     <div className=' z-10 text-white'>
                                                         <h1 dangerouslySetInnerHTML={{ __html: ele.title.rendered}} className='text-md w-[300px] md:text-md font-bold'></h1>
 
-                                                        <div className='bg-[white] text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
-                                                            <p><RelativeTime date={ele.date} /></p>
+                                                        <div className='bg-[white] rounded text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
+                                                            <p>By Admin </p>
+                                                            <p className='flex items-center gap-2 flex-wrap'><i class="fa-regular fa-calendar-plus inline"></i> <RelativeTime date={ele.date} /></p>
                                                         </div>
 
                                                         <Link to={`/articles/${ele.id}`}><h1 className='text-left m-auto mt-10 px-3 text-black font-extrabold text-sm bg-[gold] w-max p-1 rounded-md'>Read More</h1></Link>

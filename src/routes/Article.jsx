@@ -68,12 +68,12 @@ const Article = () =>{
    const mapping = {
     "p": "leading-relaxed text-md mb-5",
     "blockquote": "p-10 m-auto w-[fit-content] my-5 rounded-xl text-center text-[1.5em] bg-white italic",
-    "h2": "title-font text-white font-semibold mb-6 text-3xl",
-    "h3": "title-font text-white font-semibold mb-6 text-2xl",
-    "h4": "title-font text-white font-semibold mb-6 text-2xl",
-    "h5": "title-font text-white font-semibold mb-6 text-xl",
+    "h2": "title-font font-semibold mb-6 text-3xl",
+    "h3": "title-font font-semibold mb-6 text-2xl",
+    "h4": "title-font font-semibold mb-6 text-2xl",
+    "h5": "title-font font-semibold mb-6 text-xl",
     "a": "text-white",
-    "em": "font-thin text-white text-lg leading-relaxed",
+    "em": "font-thin text-lg leading-relaxed italic",
     "ul": "mb-6",
     "li": "mb-6 ml-5 text-lg"
   };
