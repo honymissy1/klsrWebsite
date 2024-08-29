@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import Nav from '../components/Nav';
 import supabase from '../supabaseClient';
 import { useParams, useLocation } from 'react-router-dom';
-import moment from 'moment';
 import Footer from "../components/Footer";
-import { Button, Modal } from 'antd';
-import DOMPurify from 'dompurify';
 import { Helmet } from 'react-helmet';
-import axios from 'axios'
-
+import axios from 'axios';
+import parse from 'html-react-parser';
+import styled from 'styled-components';
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -21,12 +19,15 @@ import {
 } from "react-share";
 
 
-// import { EditorContent, useEditor } from '@tiptap/react'
-// import StarterKit from '@tiptap/starter-kit'
-// import Blockquote from '@tiptap/extension-blockquote'
-// import TextAlign from '@tiptap/extension-text-align'
+import { EditorContent, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Blockquote from '@tiptap/extension-blockquote'
+import TextAlign from '@tiptap/extension-text-align'
+import '../assets/styles/wordpress.css'
+
 
 const Article = () =>{
+
    const location = useLocation();
    const currentUrl = window.location.href
    let {id} = useParams();
@@ -63,8 +64,35 @@ const Article = () =>{
     data()
    },[])
 
+
+   const mapping = {
+    "p": "leading-relaxed text-md mb-5",
+    "blockquote": "p-10 m-auto w-[fit-content] my-5 rounded-xl text-center text-[1.5em] bg-white italic",
+    "h2": "title-font text-white font-semibold mb-6 text-3xl",
+    "h3": "title-font text-white font-semibold mb-6 text-2xl",
+    "h4": "title-font text-white font-semibold mb-6 text-2xl",
+    "h5": "title-font text-white font-semibold mb-6 text-xl",
+    "a": "text-white",
+    "em": "font-thin text-white text-lg leading-relaxed",
+    "ul": "mb-6",
+    "li": "mb-6 ml-5 text-lg"
+  };
+
+
+  const options = {
+    replace: (node) => {
+      const className = mapping[node.name]
+      if (className) {
+        node.attribs.className = className;
+        return node
+      }
+    },
+  };
+
    
    useEffect(() =>{
+    const poster = document.querySelector('.poster');
+
     const singleArticle = async () =>{
         const wordpressData = await axios.get(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/posts/${id}`);
         const result = await wordpressData.data;
@@ -99,6 +127,7 @@ const Article = () =>{
 // let editor = useEditor({
 //     extensions: [
 //       StarterKit,
+      
 //       Blockquote.configure({
 //         HTMLAttributes: {
 //           class: 'p-4 text-3xl',
@@ -106,7 +135,9 @@ const Article = () =>{
 //       })
       
 //     ],
-//     content: article ? article?.content?.rendered : (<img className='m-auto' src="/loaders" />),
+//     // content: article ? article?.content?.rendered : (<img className='m-auto' src="/loaders" />),
+    
+//     content: '<p style="padding: 4px; font-size: 1.875rem; color: #b91c1c;">We love this</p>',
 //     editable: false,
 //   })
 
@@ -131,6 +162,8 @@ const Article = () =>{
 //      }
 //     }
 
+   const cont = article?.content.rendered
+
    return(
     <div> 
         <Nav />
@@ -142,7 +175,7 @@ const Article = () =>{
              )
             }  */}
             {
-                <div>
+                <div className='bg-[#F9F9F9]'>
                     <Helmet>
                         <title>{article?.slug}</title>
                         <meta name="description" content="This is my React application." />
@@ -156,7 +189,7 @@ const Article = () =>{
                         {/* <h1 className="font-extrabold text-white">By {ele.creator}</h1> */}
                     </div>
 
-                    <div id="container" className="lg:p-10 p-5 flex min-h-[400px] flex-col md:flex-row">
+                    <div id="container" className="lg:p-10 max-w-[800px] p-5 flex min-h-[400px] flex-col md:flex-row">
                         <div className="flex-1 p-2 lg:p-10">
                             <div className={`object-cover w-full pb-10 lg:w-1/2 lg:m-auto`}>
                                 <img className="w-full" src={featuredImage} alt={article?.slug} />
@@ -169,7 +202,19 @@ const Article = () =>{
 
                             {/* <EditorContent editor={editor} /> */}
 
-                            <p dangerouslySetInnerHTML={{ __html: article?.content.rendered}}></p>
+                            {/* <div dangerouslySetInnerHTML={{ __html: article?.content?.rendered}}></div> */}
+{/* 
+                            <div dangerouslySetInnerHTML={{ __html: contenter}} />
+                           <div>{
+                                  article?.content?.rendered
+                            }</div> */}
+
+                                <div className='p-4 text-black'>
+                                   {parse(article?.content ? article?.content?.rendered: "KLSR Blogs", options)}
+                                </div> 
+
+                                
+
 
                           
                             {/* <p className="mt-5 text-right">

@@ -172,7 +172,7 @@ const Articles = () => {
                                                         ele.featured_image_url ? (<img className='w-full h-full object-cover' src={ele.img_url} alt="" />): ( <img src="/logo.png" className='w-full h-full object-cover' alt="" />)
                                                       }
                                                     </div> */}
-                                                    <div className='flex-1'>
+                                                    <div className='flex-1 max-w-[900px] m-auto'>
                                                         <div className='flex gap-10 flex-wrap-reverse justify-between'>
                                                             <div className='flex flex-1 flex-col flex-wrap'>
                                                                 <div className='flex w-full justify-between items-center'>
