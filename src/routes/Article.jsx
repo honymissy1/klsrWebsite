@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import parse from 'html-react-parser';
-import styled from 'styled-components';
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -18,11 +17,6 @@ import {
     WhatsappShareButton,
 } from "react-share";
 
-
-import { EditorContent, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Blockquote from '@tiptap/extension-blockquote'
-import TextAlign from '@tiptap/extension-text-align'
 import '../assets/styles/wordpress.css'
 
 
@@ -149,8 +143,16 @@ const Article = () =>{
                       <meta property="og:title" content={article?.title?.rendered} />
                       <meta property="og:description" content={article?.excerpt?.rendered} />
                       <meta property="og:image" content={featuredImage} />
+                      <meta property="og:image:width" content="1200" />
+                      <meta property="og:image:height" content="630" />
                       <meta property="og:url" content={currentUrl} />
                       <meta property="og:type" content="article" />
+                      <meta property="og:site_name" content="Kingdom Lifestyle Radio" />
+
+                      <meta name="twitter:card" content="summary_large_image" />
+                        <meta name="twitter:title" content={article?.title?.rendered} />
+                        <meta name="twitter:description" content={article?.excerpt?.rendered} />
+                        <meta name="twitter:image" content={featuredImage} />
                       
                       <meta name="keywords" content={article?.slug} />
                       <link rel="canonical" href={currentUrl} />
