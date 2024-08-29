@@ -141,12 +141,19 @@ const Article = () =>{
             {
                 <div className='bg-[#F9F9F9]'>
                     <Helmet>
-                        <title>{article?.slug}</title>
-                        <meta name="description" content="This is my React application." />
-                        <link rel="icon" type="image" href={featuredImage} />
-                        <meta property="og:image" content={featuredImage} />
-                        <meta name="keywords" content={article?.slug} />
-                        <link rel="canonical" href={currentUrl} />
+                      <title>{article?.title?.rendered}</title>
+                      <meta name="description" content={article?.excerpt?.rendered} />
+                      <link rel="icon" type="image" href={featuredImage} />
+                      
+                      {/* Open Graph tags */}
+                      <meta property="og:title" content={article?.title?.rendered} />
+                      <meta property="og:description" content={article?.excerpt?.rendered} />
+                      <meta property="og:image" content={featuredImage} />
+                      <meta property="og:url" content={currentUrl} />
+                      <meta property="og:type" content="article" />
+                      
+                      <meta name="keywords" content={article?.slug} />
+                      <link rel="canonical" href={currentUrl} />
                     </Helmet>
                     <div className="bg-[gold] p-2 flex-wrap flex justify-between">
                     <p className='font-extrabold text-xl' dangerouslySetInnerHTML={{ __html: article?.title.rendered}}></p>
@@ -156,22 +163,8 @@ const Article = () =>{
                     <div id="container" className="lg:p-10 max-w-[800px] p-5 flex min-h-[400px] flex-col md:flex-row">
                         <div className="flex-1 p-2 lg:p-10">
                             <div className={`object-cover w-full pb-10 lg:w-1/2 lg:m-auto`}>
-                                <img className="w-full" src={featuredImage} alt={article?.slug} />
+                                <img className="w-full rounded" src={featuredImage} alt={article?.slug} />
                             </div>
-
-                            {/* <div> */}
-                                {/* <h1 dangerouslySetInnerHTML={{__html: article?.title.rendered}} className="font-extrabold mb-5 text-xl"></h1> */}
-                               {/* {ele.type == "Review"? (<p>Author: <span className="font-bold text-green-500">{ele.author}</span></p>): ('')}  */}
-                            {/* </div>  */}
-
-                            {/* <EditorContent editor={editor} /> */}
-
-                            {/* <div dangerouslySetInnerHTML={{ __html: article?.content?.rendered}}></div> */}
-{/* 
-                            <div dangerouslySetInnerHTML={{ __html: contenter}} />
-                           <div>{
-                                  article?.content?.rendered
-                            }</div> */}
 
                                 <div className='p-4 text-black'>
                                    {parse(article?.content ? article?.content?.rendered: "KLSR Blogs", options)}
