@@ -1,56 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.admin-nav{
-    width: 100%;
-}
-
-.admin-nav li{
-  width: 100%;
-  margin-bottom: 20px;
-
-}
-
-.admin-nav li i {
-    margin-right: 10px;
-}
-
-.transit {
-    transform: translateX(0%);
-    transition: .3s;
-}
-
-
-
-/* ............................................................. */
-.editor-container{
-    width: 100%;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.ProseMirror {
-    padding: 16px;
-    box-sizing: border-box;
-    text-wrap: wrap;
-    min-height: 300px;
- 
-  }
-
-
-  .tiptap-content br {
-    margin-bottom: 10px;
-    display: block; /* Ensure line breaks are respected */
-  }
-
-  .tiptap-content p{
-    color: red
-  }
-
-  /* ................................................................................ */
-
 
 .wp-block-archives{
   box-sizing:border-box;
@@ -3632,3 +3579,5 @@ html :where(.is-position-sticky){
     --wp-admin--admin-bar--position-offset:0px;
   }
 }
+
+
