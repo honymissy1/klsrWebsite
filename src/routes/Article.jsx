@@ -73,7 +73,7 @@ const Article = () =>{
     "h4": "title-font font-semibold mb-6 text-2xl",
     "h5": "title-font font-semibold mb-6 text-xl",
     "a": "text-white",
-    "em": "font-thin text-lg leading-relaxed italic",
+    "em": "font-extrabold text-lg leading-relaxed italic",
     "ul": "mb-6",
     "li": "mb-6 ml-5 text-lg"
   };
@@ -91,7 +91,7 @@ const Article = () =>{
 
    
    useEffect(() =>{
-    const poster = document.querySelector('.poster');
+    window.scrollTo(0, 0);
 
     const singleArticle = async () =>{
         const wordpressData = await axios.get(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/posts/${id}`);
@@ -124,56 +124,20 @@ const Article = () =>{
     // comment()
 }, [])
 
-// let editor = useEditor({
-//     extensions: [
-//       StarterKit,
-      
-//       Blockquote.configure({
-//         HTMLAttributes: {
-//           class: 'p-4 text-3xl',
-//         },
-//       })
-      
-//     ],
-//     // content: article ? article?.content?.rendered : (<img className='m-auto' src="/loaders" />),
-    
-//     content: '<p style="padding: 4px; font-size: 1.875rem; color: #b91c1c;">We love this</p>',
-//     editable: false,
-//   })
-
-//   useEffect(() => {
-//     if (editor && article) {
-//         editor.commands.setContent(article[0]?.content);
-//     }
-//    }, [article, editor]);
-
-//    const handleComment = async () =>{
-//      if(user?.name !== null){
-//         const { data, error } = await supabase
-//         .from('comment')
-//         .insert([
-//         { name: userCredentials?.name, article_id: id, content: commentText, email: userCredentials?.email },
-//         ])
-//         .select()
-
-//         setLoading(true);
-        
-//         window.location.reload();
-//      }
-//     }
-
-   const cont = article?.content.rendered
-
    return(
     <div> 
         <Nav />
-            {/* {
-             article == null || article == undefined && (
+            {
+             !article && (
                 <div className='w-full min-h-[400] flex justify-center items-center'>
-                    <h1>Loading...</h1>
+                    <div className='m-auto'>
+                      <img src="/loadings.svg" alt="" />
+                      <h1>Loading...</h1>
+
+                    </div>
                 </div>
              )
-            }  */}
+            } 
             {
                 <div className='bg-[#F9F9F9]'>
                     <Helmet>
