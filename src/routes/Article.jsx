@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import parse from 'html-react-parser';
+
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -17,7 +18,8 @@ import {
     WhatsappShareButton,
 } from "react-share";
 
-import '../assets/styles/wordpress.css'
+import '../assets/styles/wordpress.css';
+import {Modal} from "antd"
 
 
 const Article = () =>{
@@ -66,10 +68,10 @@ const Article = () =>{
     "h3": "title-font font-semibold mb-6 text-2xl",
     "h4": "title-font font-semibold mb-6 text-2xl",
     "h5": "title-font font-semibold mb-6 text-xl",
-    "a": "text-white",
     "em": "font-extrabold text-lg leading-relaxed italic",
     "ul": "mb-6",
-    "li": "mb-6 ml-5 text-lg"
+    "li": "mb-6 ml-5 text-lg",
+    "a": "underline text-[grey]"
   };
 
 
@@ -108,15 +110,36 @@ const Article = () =>{
 
     }
 
-    // const comment = async () =>{
-    //     let { data, error } = await supabase.from('comment').select('*').eq('article_id', id)
-    //     setComments(data)
-    // }
+    const comment = async () =>{
+        // let { data, error } = await supabase.from('comment').select('*').eq('article_id', id)
+     
+        setComments(data)
+    }
 
     singleArticle();
     
-    // comment()
+    comment()
 }, [])
+
+    const handleComment = async () =>{
+        let response = await axios.post(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/comments`, {
+            post: id,
+            author_name: "Anonymous", 
+            author_email: "anonymous@gmail.com",
+            content: commentText
+        },
+
+        {
+            auth: {
+                name: "admin",
+                password: "KF5x iVxQ cUwY 9UVn JQZS HCC8"
+            }
+        }
+        
+        )
+
+        console.log(response);
+    }
 
    return(
     <div> 
@@ -162,7 +185,7 @@ const Article = () =>{
                         {/* <h1 className="font-extrabold text-white">By {ele.creator}</h1> */}
                     </div>
 
-                    <div id="container" className="lg:p-10 max-w-[800px] p-5 flex min-h-[400px] flex-col md:flex-row">
+                    <div id="container" className="lg:p-10 p-5 flex min-h-[400px] flex-col md:flex-row">
                         <div className="flex-1 p-2 lg:p-10">
                             <div className={`object-cover w-full pb-10 lg:w-1/2 lg:m-auto`}>
                                 <img className="w-full rounded" src={featuredImage} alt={article?.slug} />
@@ -218,7 +241,7 @@ const Article = () =>{
                                 </div>
                             </div>
                         </div>
-                        {/* <div id="comment" className="md:max-w-[300px] border flex-1 ">
+                        <div id="comment" className="md:max-w-[300px] border flex-1 ">
                             <h1 className="bg-teal-900 text-white p-2">Comments</h1>
 
                             <div className="border rounded w-full p-2">
@@ -237,6 +260,7 @@ const Article = () =>{
 
                                 </form>
                              </Modal>
+
 
                             {
                                 comments?.length < 1 && (
@@ -259,7 +283,7 @@ const Article = () =>{
 
                                ))
                             }
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             }
