@@ -6,6 +6,9 @@ import Footer from "../components/Footer";
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import parse from 'html-react-parser';
+import RelativeTime from '../components/RelativeTime';
+
+import moment from 'moment';
 
 import {
     EmailShareButton,
@@ -19,7 +22,7 @@ import {
 } from "react-share";
 
 import '../assets/styles/wordpress.css';
-import {Modal} from "antd"
+import {Modal, Result} from "antd"
 
 
 const Article = () =>{
@@ -111,9 +114,11 @@ const Article = () =>{
     }
 
     const comment = async () =>{
-        // let { data, error } = await supabase.from('comment').select('*').eq('article_id', id)
-     
-        setComments(data)
+       let result = await axios.get(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/comments?post=${id}`)
+       const data =  await result.data;
+       setComments(data);
+
+       console.log(data);
     }
 
     singleArticle();
@@ -122,21 +127,31 @@ const Article = () =>{
 }, [])
 
     const handleComment = async () =>{
+        setLoading(true);
         let response = await axios.post(`https://kingdomlifestyleadmin.com.ng/wp-json/wp/v2/comments`, {
             post: id,
-            author_name: "Anonymous", 
-            author_email: "anonymous@gmail.com",
+            author_name: userCredentials?.name, 
+            author_email: userCredentials?.email,
             content: commentText
         },
 
         {
-            auth: {
-                name: "admin",
-                password: "KF5x iVxQ cUwY 9UVn JQZS HCC8"
+            headers: {
+              'Authorization': 'Basic ' + btoa("admin" + ':' + "KF5x iVxQ cUwY 9UVn JQZS HCC8"),
+              'Content-Type': 'application/json'
             }
-        }
+          }
         
         )
+
+        if(response.status === 201){
+            alert("Comment Posted Successfully");
+
+        }else{
+            alert("Error: Try again")
+        }
+
+        setLoading(false)
 
         console.log(response);
     }
@@ -145,8 +160,8 @@ const Article = () =>{
     <div> 
         <Nav />
             {
-             !article && (
-                <div className='w-full min-h-[400] flex justify-center items-center'>
+                !article && (
+                    <div className='w-full min-h-[400] flex justify-center items-center'>
                     <div className='m-auto'>
                       <img src="/loadings.svg" alt="" />
                       <h1>Loading...</h1>
@@ -196,7 +211,7 @@ const Article = () =>{
                                 </div> 
 
                                 
-
+                                {/* <RelativeTime date={article?.date} /> */}
 
                           
                             {/* <p className="mt-5 text-right">
@@ -242,7 +257,7 @@ const Article = () =>{
                             </div>
                         </div>
                         <div id="comment" className="md:max-w-[300px] border flex-1 ">
-                            <h1 className="bg-teal-900 text-white p-2">Comments</h1>
+                            <h1 className="bg-teal-900 text-white p-2">Comments <sup className='bg-blue-600 p-1'>{comments?.length}</sup></h1>
 
                             <div className="border rounded w-full p-2">
                                 <textarea onChange={(e) => setCommentText(e.target.value) } className="outline p-2 rounded w-full" placeholder="Leave a comment" name="Area" id="" cols="10" rows="5"></textarea>
@@ -269,15 +284,18 @@ const Article = () =>{
                             } 
 
                             {
-                               comments && comments.map(ele =>(
+                             comments && comments?.map(ele =>(
                                 <div className="p-2 flex">
-                                    <div className="w-[50px] h-[50px] bg-black rounded-full"></div>
+                                    <div className="w-[50px] h-[50px] flex justify-center items-center bg-black rounded-full">
+                                     <i class="fa-solid fa-user text-white text-4xl"></i>
+                                    </div>
                                     <div className="flex-1 ml-3">
                                         <div className="flex flex-wrap justify-between mb-2">
-                                            <h1 className="font-bold">{ele.name}</h1>
-                                            <p className="text-sm text-orange-700">{moment(ele.created_at, "YYYYMMDD").fromNow() }</p>
+                                            <h1 className="font-bold">{ele.author_name}</h1>
+                                            <p className="text-sm text-orange-700"><RelativeTime date={ele?.date} /></p>
                                         </div>
-                                        <p className="text-sm">{ele.content}</p>
+                                        <p dangerouslySetInnerHTML={{ __html: ele?.content?.rendered}} className="text-md"></p>
+                                        <hr />
                                     </div>
                                 </div>
 
