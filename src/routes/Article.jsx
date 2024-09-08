@@ -7,9 +7,9 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import parse from 'html-react-parser';
 import RelativeTime from '../components/RelativeTime';
+import ReactGA from "react-ga4";
 
-import moment from 'moment';
-
+ReactGA.initialize("G-4TK58VJWX6"); 
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -53,15 +53,7 @@ const Article = () =>{
     setIsModalOpen(false);
   };
 
-   useEffect(() =>{
-    const data = () =>{
-        const userCredentials = JSON.parse(localStorage.getItem('user'));
-        
-        if(user){ setUser(userCredentials) }
-    }
 
-    data()
-   },[])
 
 
    const mapping = {
@@ -155,6 +147,24 @@ const Article = () =>{
 
         console.log(response);
     }
+
+    useEffect(() =>{
+
+        ReactGA.send({
+            hitType: "pageview",
+            page: `/article/${id}`,
+            title: article?.title?.rendered
+          });
+    
+    
+        const data = () =>{
+            const userCredentials = JSON.parse(localStorage.getItem('user'));
+            
+            if(user){ setUser(userCredentials) }
+        }
+    
+        data()
+       },[])
 
    return(
     <div> 
