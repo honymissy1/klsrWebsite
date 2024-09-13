@@ -28,7 +28,7 @@ import {Modal, Result} from "antd"
 const Article = () =>{
 
    const location = useLocation();
-   const currentUrl = window.location.href
+   const currentUrl = 'https://kingdomlifestyleadmin.com.ng'
    let {id} = useParams();
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [article, setArticle] = useState();
@@ -235,31 +235,31 @@ const Article = () =>{
 
                             <div id="share" className="my-10">
                                 <div>
-                                    <h1>Share <span className='text-green-500'>{article?.title.rendered}</span> on</h1>
+                                    <h1>Share <span dangerouslySetInnerHTML={{ __html: article?.title.rendered}} className='text-green-500'></span> on</h1>
                                     <div className="flex gap-3">
                                         <div className="w-7 h-7">
-                                            <FacebookShareButton url={currentUrl} title={article?.title.rendered} hashtag="klsr" quote={article?.slug}>
+                                            <FacebookShareButton url={currentUrl+"/"+article?.id} title={article?.title.rendered} hashtag="klsr" quote={article?.slug}>
                                               <i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i>
                                             </FacebookShareButton>
                                         </div>
                                         <div className="w-7 h-7 ">
-                                            <WhatsappShareButton url={currentUrl} title={article?.slug}>
+                                            <WhatsappShareButton url={currentUrl+"/"+article?.id} title={article?.slug}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-whatsapp mx-1"></i>
 
                                             </WhatsappShareButton>
                                         </div>
                                         <div className="w-7 h-7">
-                                           <TwitterShareButton url={currentUrl} title={article?.slug}>
+                                           <TwitterShareButton url={currentUrl+"/"+article?.id} title={article?.slug}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-x-twitter mx-1"></i>
                                             </TwitterShareButton>
                                         </div>
                                         <div className="w-7 h-7">
-                                          <TelegramShareButton url={currentUrl} title={article?.slug}>
+                                          <TelegramShareButton url={currentUrl+"/"+article?.id} title={article?.slug}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-telegram mx-1"></i>
                                             </TelegramShareButton>
                                         </div>
 
-                                        <LinkedinShareButton url={currentUrl} title={article?.slug}>
+                                        <LinkedinShareButton url={currentUrl+"/"+article?.id} title={article?.slug}>
                                             <i className="fa-brands text-[#050601] text-2xl fa-linkedin mx-1"></i>
                                             </LinkedinShareButton>
                                     </div>
