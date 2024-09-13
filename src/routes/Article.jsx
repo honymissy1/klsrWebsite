@@ -238,7 +238,7 @@ const Article = () =>{
                                     <h1>Share <span dangerouslySetInnerHTML={{ __html: article?.title.rendered}} className='text-green-500'></span> on</h1>
                                     <div className="flex gap-3">
                                         <div className="w-7 h-7">
-                                            <FacebookShareButton url={currentUrl+"/"+article?.id} title={article?.title.rendered} hashtag="klsr" quote={article?.slug}>
+                                            <FacebookShareButton url={currentUrl+"/"+article?.id} title={article?.title.rendered +"\n"} hashtag="klsr" quote={<p dangerouslySetInnerHTML={{ __html: article?.excerpt.rendered}}></p>}>
                                               <i className="fa-brands text-[#050601] text-2xl fa-facebook mx-1"></i>
                                             </FacebookShareButton>
                                         </div>
