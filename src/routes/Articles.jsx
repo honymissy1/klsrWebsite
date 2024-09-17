@@ -1,11 +1,11 @@
 import Nav from '../components/Nav';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import supabase from '../supabaseClient';
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import moment from 'moment';
 import axios from 'axios';
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import 'swiper/css';
 import 'swiper/css/pagination';
 import '../App.css'
@@ -104,6 +104,33 @@ const Articles = () => {
         <div>
             <Nav />
             {
+                    loading && (
+                        
+
+                        
+                        <div className='p-10'>
+
+                            <div>  
+                            <Skeleton height={100} />
+                            <Skeleton />
+                            <Skeleton count={5} /> 
+                            </div>
+
+                            <div className='my-10'>  
+                            <Skeleton height={100} />
+                            <Skeleton />
+                            <Skeleton count={5} /> 
+                            </div>
+
+                            <div>  
+                            <Skeleton height={100} />
+                            <Skeleton />
+                            <Skeleton count={5} /> 
+                            </div>
+                        </div>
+                        )
+                }
+            {
                 articles ? (
                     <>
                         <div>
@@ -124,11 +151,11 @@ const Articles = () => {
                                                     <h1 className='p-1 text-sm text-white flex gap-2 rounded'>
                                                     {
                                                                     
-                                                                    getCategoryNames(ele.categories).map(ele =>(
-                                                                        <div className='bg-green-100 text-green-900 rounded-md p-1 text-xs'>{ele}</div>
-                                                                    ))
-                                                                    
-                                                                }
+                                                        getCategoryNames(ele.categories).map(ele =>(
+                                                            <div className='bg-green-100 text-green-900 rounded-md p-1 text-xs'>{ele}</div>
+                                                        ))
+                                                        
+                                                    }
                                                     </h1>
                                                 </div>
                                                 <div className='absolute flex h-full w-full bg-[#072a1ae5] items-center justify-center'>
@@ -189,7 +216,7 @@ const Articles = () => {
                                                                  <h1 dangerouslySetInnerHTML={{ __html: ele.title.rendered}} className='text-md w-[300px] md:text-md font-bold'></h1>
                                                                  <p dangerouslySetInnerHTML={{ __html: ele.excerpt.rendered}} className='text-sm mt-1'></p>
                                                             </div>
-                                                            <div className='overflow-hidden h-[100%] md:visible md:w-[200px] md:border'>
+                                                            <div className='overflow-hidden w-full h-[100%] md:visible md:w-[200px] md:border'>
                                                                 {
                                                                     ele.featured_image_url ? (<img src={ele.featured_image_url} className='w-full' alt="" />):(<img src="/logo.png" className='w-full h-full object-cover' alt="" />)
                                                                 }
@@ -210,14 +237,7 @@ const Articles = () => {
                                         ))
                                     }
 
-                                    {
-                                        loading && (
-                                          <div>
-                                              <img className='m-auto' src="/loadings.svg" />
-                                              <h1 className="text-center">Loading</h1>
-                                          </div>
-                                          )
-                                    }
+                                 
                                     <div className='p-10 flex justify-between items-center'>
                                         <button className={`${page === 1 ? 'bg-purple-100 text-white':"bg-purple-400"} p-2  rounded-md`} onClick={handlePreviousPage} disabled={page === 1}>
                                             <i className='fa fa-arrow-left'></i> Previous
@@ -232,10 +252,27 @@ const Articles = () => {
                         </div>
                     </>
                 ) : (
-                    <div className='min-h-[500px] dark:bg-white'>
+                    <div className='min-h-[500px]'>
                         <div className='w-full h-[300px] flex justify-center flex-col items-center'>
-                            <img src="/images/loading.svg" alt="" />
-                            <h1 className='font-bold text-xl'>Loading Articles...</h1>
+                        <div className='p-10'>
+                          <div>  
+                            <Skeleton height={100} />
+                            <Skeleton />
+                            <Skeleton count={5} /> 
+                            </div>
+
+                            <div>  
+                            <Skeleton height={100} />
+                            <Skeleton />
+                            <Skeleton count={5} /> 
+                            </div>
+
+                            <div>  
+                            <Skeleton height={100} />
+                            <Skeleton />
+                            <Skeleton count={5} /> 
+                            </div>
+                        </div>
                         </div>
                     </div>
                 )
