@@ -81,7 +81,9 @@ const Footer = ({page}) => {
                 <h1 className="text-xl font-extrabold text-white">KLSR</h1>
                 <p className="mb-2 text-sm text-[gold]">Download Kindom Lifestyle Radio App</p>
 
-                <img className="w-full max-w-[200px]" src="/images/app.png" alt="" />
+                <a href="https://play.google.com/store/apps/details?id=com.kingdomlifestyle&pli=1">
+                  <img className="w-full max-w-[200px]" src="/images/app.png" alt="" /> 
+                </a>
             </div>
 
         </div>
