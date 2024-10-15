@@ -20,7 +20,7 @@ const Nav = ({page}) =>{
               <img className="" src="/images/logo.png" style={{width: '70px', padding: '0px 10px'}} alt="" />
             </div>
           </div>
-          <ul className="lg:flex gap-10 transform translate-x-[-100%] lg:translate-x-0">
+          <ul className="lg:flex gap-10 transform translate-x-[-100%] lg:translate-x-0 dark:color-[#ddd]">
             <div className="block text-right lg:hidden">
                <p onClick={remove}><i class="fa-solid fa-xmark"></i></p>
             </div>

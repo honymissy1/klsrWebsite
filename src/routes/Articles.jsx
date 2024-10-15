@@ -134,54 +134,7 @@ const Articles = () => {
                 articles ? (
                     <>
                         <div>
-                            <div className="w-full relative justify-center text-white flex items-center h-[400px] bg-black">
-                                <Swiper
-                                    direction={'vertical'}
-                                    pagination={{
-                                        clickable: true,
-                                    }}
-                                    modules={[Pagination]}
-                                    className="mySwiper"
-                                >
 
-                                    {
-                                        articles && articles?.slice(0, 5).map(ele => (
-                                            <SwiperSlide className='text-black relative border border-solid border-black'>
-                                                <div className='p-3 right-0 absolute z-20'>
-                                                    <h1 className='p-1 text-sm text-white flex gap-2 rounded'>
-                                                    {
-                                                                    
-                                                        getCategoryNames(ele.categories).map(ele =>(
-                                                            <div className='bg-green-100 text-green-900 rounded-md p-1 text-xs'>{ele}</div>
-                                                        ))
-                                                        
-                                                    }
-                                                    </h1>
-                                                </div>
-                                                <div className='absolute flex h-full w-full bg-[#072a1ae5] items-center justify-center'>
-                                                    <div className=' z-10 text-white'>
-                                                        <h1 dangerouslySetInnerHTML={{ __html: ele.title.rendered}} className='text-md w-[300px] md:text-md font-bold'></h1>
-
-                                                        <div className='bg-[white] rounded text-black font-extrabold p-2 text-sm mt-4 flex-wrap gap-2 flex justify-between'>
-                                                            <p>By Admin </p>
-                                                            <p className='flex items-center gap-2 flex-wrap'><i class="fa-regular fa-calendar-plus inline"></i> <RelativeTime date={ele.date} /></p>
-                                                        </div>
-
-                                                        <Link to={`/articles/${ele.id}`}><h1 className='text-left m-auto mt-10 px-3 text-black font-extrabold text-sm bg-[gold] w-max p-1 rounded-md'>Read More</h1></Link>
-
-
-                                                    </div>
-                                                </div>
-                                                {
-                                                    ele.featured_image_url ? ( <img src={ele.featured_image_url} className='z-0' alt="" />): ( <img src="/logo.png" className='z-0' alt="" />)
-                                                }
-                                               
-                                            </SwiperSlide>
-
-                                        ))
-                                    }
-                                </Swiper>
-                            </div>
 
 
                              <div className='flex '>

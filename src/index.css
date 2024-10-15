@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.panel-btn{
+ background: #5473e3;
+}
+
 .admin-nav{
     width: 100%;
 }
@@ -16,6 +20,7 @@
 
 .admin-nav li i {
     margin-right: 10px;
+    
 }
 
 .transit {
