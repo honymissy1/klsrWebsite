@@ -145,7 +145,7 @@ const Articles = () => {
                                 <div className='flex-1 min-h-[700px]'>
                                     {
                                         loading == false && articles && articles.map((ele, index) => (
-                                            <Link to={`/articles/${ele.id}`}>
+                                            <Link to={`https://kingdomlifestyleadmin.com.ng/${ele.id}`}>
                                                 <div key={ele.id} className='p-4 lg:p-5 gap-3 w-[100%] flex flex-col md:flex-row'>
                                                     {/* <div className='w-full h-[200px] md:w-[100px] md:h-max m-auto overflow-hidden'>
         
