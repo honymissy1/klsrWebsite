@@ -182,29 +182,6 @@ const Article = () =>{
             } 
             {
                 <div className='bg-[#F9F9F9]'>
-                    <Helmet>
-                      <title>{article?.title?.rendered}</title>
-                      <meta name="description" content={article?.excerpt?.rendered} />
-                      <link rel="icon" type="image" href={featuredImage} />
-                      
-                      {/* Open Graph tags */}
-                      <meta property="og:title" content={article?.title?.rendered} />
-                      <meta property="og:description" content={article?.excerpt?.rendered} />
-                      <meta property="og:image" content={featuredImage} />
-                      <meta property="og:image:width" content="1200" />
-                      <meta property="og:image:height" content="630" />
-                      <meta property="og:url" content={currentUrl} />
-                      <meta property="og:type" content="article" />
-                      <meta property="og:site_name" content="Kingdom Lifestyle Radio" />
-
-                      <meta name="twitter:card" content="summary_large_image" />
-                        <meta name="twitter:title" content={article?.title?.rendered} />
-                        <meta name="twitter:description" content={article?.excerpt?.rendered} />
-                        <meta name="twitter:image" content={featuredImage} />
-                      
-                      <meta name="keywords" content={article?.slug} />
-                      <link rel="canonical" href={currentUrl} />
-                    </Helmet>
                     <div className="bg-[gold] p-2 flex-wrap flex justify-between">
                     <p className='font-extrabold text-xl' dangerouslySetInnerHTML={{ __html: article?.title.rendered}}></p>
                         {/* <h1 className="font-extrabold text-white">By {ele.creator}</h1> */}
